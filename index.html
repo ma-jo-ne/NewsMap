@@ -88,8 +88,18 @@
 
 <script src="js/vendor/jquery.js"></script>
 <script src="js/foundation.min.js"></script>
+
+<script type="text/javascript" src="src/index/NewsMap.js"></script>
+<script type="text/javascript" src="src/index/MainController.js"></script>
+<script type="text/javascript" src="src/index/NewsMapModal.js"></script>
+<script type="text/javascript" src="src/index/NewsMapView.js"></script>
+
+
 <script>
     $(document).foundation();
+    $(function () {
+        NewsMap.init();
+    });
 </script>
 </body>
 </html>
