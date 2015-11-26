@@ -1,0 +1,2 @@
+openstreetmap:
+http://wiki.openstreetmap.org/wiki/DE:Karte_in_Webseite_einbinden
