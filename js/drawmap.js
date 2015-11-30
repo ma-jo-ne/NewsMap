@@ -46,3 +46,4 @@ function addMyMarkers() {
     addMarker(layer_markers, 12.5801538, 48.8777333, popupmopat);
 
 }
+
