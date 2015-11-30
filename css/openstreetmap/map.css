@@ -2,7 +2,7 @@ html, body {
     background-color: #000000;
     height: 100%;
     width: 100%;
-    margin: 1%;
+    margin: 0;
     padding: 0;
     font-family: Verdana, Arial;
     font-size: 1em;
@@ -40,8 +40,8 @@ a:hover {
 /*eigenes css*/
 
 #map {
-    height: 86%;
-    width: 90%;
+    height: 100%;
+    width: 91%;
     padding: 0;
     margin: 0;
     float: left;
@@ -55,7 +55,7 @@ a:hover {
 
 #menu-right {
     float: right !important;
-    height: 86%;
+    height: 100%;
     width: 9%;
 }
 
@@ -64,6 +64,7 @@ a:hover {
     height: 100%;
     width: 100%;
     margin-left: 0;
+    border-left: 1px solid #6f6f6f;
 }
 
 #menu-list li {
@@ -72,6 +73,9 @@ a:hover {
     cursor: pointer;
     border-bottom: 1px solid #6f6f6f;
     background-color: #ffc200;
+    line-height: 4rem;
+    text-align: center;
+    padding-top: 3rem;
 }
 
 #menu-list li:last-child {
@@ -82,20 +86,56 @@ a:hover {
     background: darkorange;
 }
 
-#menu-list li img {
+#menu-list li i {
+    font-size: 4rem;
+    height: 100%;
+    line-height: 4rem;
+}
 
+@media (max-width: 40em) {
+    #menu-list li i {
+        font-size: 2rem;
+        height: 100%;
+    }
+}
+
+@media (min-width: 40em) and (max-height: 64em) {
+    #menu-list li i {
+        font-size: 3rem;
+        height: 100%;
+    }
+}
+
+@media (min-width: 64em) {
+    #menu-list li i {
+        font-size: 4rem;
+        height: 100%;
+
+    }
 }
 
 #menu-items {
     width: 200px;
-    height: 86%;
+    height: 20%;
     position: absolute;
     background: red;
-    margin-left: -201px;
-    z-index: 1000;
+    margin-left: -200px;
+    z-index: 1005;
     display: none;
 }
 
-.menu-item {
-    width: 20%;
+#menu-items .menu-item {
+    display: none;
+}
+
+#close-menu {
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    float: right;
+    clear: both;
+}
+
+#close-menu i {
+    font-size: 2rem;
 }

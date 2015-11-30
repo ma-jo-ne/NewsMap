@@ -20,6 +20,7 @@
     <script type="text/javascript" src="js/openstreetmap/tom.js"></script>
 
     <link rel="stylesheet" href="css/foundation.css"/>
+    <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css"/>
     <script src="js/vendor/modernizr.js"></script>
 
 
@@ -27,11 +28,7 @@
 <body>
 
 <div id="header">
-    <div id="content">Karte (Testversion)</div>
-    <div id="osm">© <a href="http://www.openstreetmap.org">OpenStreetMap</a>
-        und <a href="http://www.openstreetmap.org/copyright">Mitwirkende</a>,
-        <a href="http://creativecommons.org/licenses/by-sa/2.0/deed.de">CC-BY-SA</a>
-    </div>
+
 </div>
 
 
@@ -39,17 +36,34 @@
 </div>
 <div id="menu-right">
     <div id="menu-items">
-        <div class="menu-item">
-
+        <div id="close-menu"><i class="fi-x"></i> </div>
+        <div class="menu-item" id="search-wrapper">
+            <input type="text">
+            <button>Suchen</button>
+        </div>
+        <div class="menu-item" id="location-wrapper">
+            <button>Standort ermitteln</button>
+        </div>
+        <div class="menu-item" id="video-wrapper">
+            <button>nach texte suchen</button>
+        </div>
+        <div class="menu-item" id="text-wrapper">
+            <button>nach video suchen</button>
+        </div>
+        <div class="menu-item" id="image-wrapper">
+            <button>kaa</button>
+        </div>
+        <div class="menu-item" id="share-wrapper">
+            <button>teilen</button>
         </div>
     </div>
     <ul id="menu-list">
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
-        <li>a</li>
+        <li data-show="search"><i class="fi-magnifying-glass"></i></li>
+        <li data-show="location"><i class="fi-marker"></i></li>
+        <li data-show="video"><i class="fi-video"></i></li>
+        <li data-show="text"><i class="fi-clipboard-notes"></i></li>
+        <li data-show="image"><i class="fi-puzzle"></i></li>
+        <li data-show="share"><i class="fi-share"></i></li>
     </ul>
 </div>
 
@@ -71,14 +85,8 @@
     $(document).ready(function () {
         drawmap();
         addMyMarkers();
-        $("#menu-list li").on("click", function(){
-            if($("#menu-items").is(":visible")){
-                $("#menu-items").hide();
-            }
-            else{
-                $("#menu-items").show();
-            }
-        });
+        menuItemClick();
+        closeMenuClick();
     });
 </script>
 </body>
