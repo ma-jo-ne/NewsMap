@@ -47,3 +47,24 @@ function addMyMarkers() {
 
 }
 
+function menuItemClick() {
+    $("#menu-list li").on("click", function () {
+        var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+        if ($toShow.is(":visible")) {
+            $(".menu-item").hide();
+            $("#menu-items").hide();
+        }
+        else {
+            $(".menu-item").hide();
+            $toShow.show();
+            $("#menu-items").show(50);
+        }
+    });
+}
+
+function closeMenuClick() {
+    $("#close-menu").on("click", function () {
+        $(".menu-item").hide();
+        $("#menu-items").hide();
+    });
+}
