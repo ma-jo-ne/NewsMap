@@ -3,10 +3,15 @@
  */
 NewsMap.NewsMapView = (function () {
     var that = {},
+        buttonFindLocation,
 
         init = function () {
 
             console.log("NewsMapView");
+
+            buttonFindLocation = $('.button-find-location');
+
+
             return this;
         };
 
