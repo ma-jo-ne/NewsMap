@@ -8,9 +8,8 @@ NewsMap.NewsMapView = (function () {
         init = function () {
 
             console.log("NewsMapView");
-
+            
             buttonFindLocation = $('.button-find-location');
-
 
             return this;
         };
