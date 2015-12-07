@@ -48,9 +48,12 @@ a:hover {
 }
 
 .olPopup, .olFramedCloudPopupContent {
-    max-height: 200px !important;
+    width: 100px;
+    height: 200px;
+    max-height: 100px !important;
     max-width: 200px !important;
-    background: white;
+    background: #3b9cd8;;
+    cursor: pointer;
 }
 
 #menu-right {
@@ -230,4 +233,12 @@ a:hover {
     background-color: white;
     z-index: 1030;
     border: 1px solid black;
+}
+
+.marker-popup {
+}
+
+.marker-title {
+    font-size: 1rem;
+    color: white;
 }

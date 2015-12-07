@@ -40,9 +40,9 @@ function drawmap() {
 function addMyMarkers() {
 
     // Popup und Popuptext mit evtl. Grafik
-    var popupbarttacke = "<font color=\"black\"><b>Barttacke</b><p><img class='popupPic' src=\"img/barttacke.jpg\" width=\"50\" height=\"50\"></p></font>";
+    var popupbarttacke = "<div class='marker-popup'><b class='marker-title'>Barttacke</b><p><img class='popupPic' src=\"img/barttacke.jpg\" width=\"50\" height=\"20\"></p></div>";
 
-    var popupmopat = "<font color=\"red\"><b>Mopat</b><p><img class='popupPic' src=\"img/mopat.jpg\" width=\"50\" height=\"50\"></p></font>";
+    var popupmopat = "<div class='marker-popup'><h3 class='marker-title'>Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplan</h3></div>";
     // Position des Markers
     addMarker(layer_markers, 12.101631, 49.0134074, popupbarttacke);
     addMarker(layer_markers, 12.5801538, 48.8777333, popupmopat);
@@ -50,7 +50,7 @@ function addMyMarkers() {
 }
 
 function popupClick() {
-    $(".popupPic").on("click", function() {
+    $(".marker-title").on("click", function() {
         $("#menu-left").show();
     });
 }
