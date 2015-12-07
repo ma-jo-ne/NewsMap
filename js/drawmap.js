@@ -65,6 +65,18 @@ function closeLocationFinder(){
     $("#identify-location").on("click", function() {
         $("#location-start").hide();
     });
+    $("#location-input").bind("enterKey",function(e){
+        $("#location-start").hide();
+    });
+    $("#location-input").keyup(function(e){
+        if(e.keyCode == 13)
+        {
+            $(this).trigger("enterKey");
+        }
+    });
+    $("#location-start-search").on("click", function () {
+        $("#location-start").hide();
+    });
 }
 
 function menuItemClick() {
