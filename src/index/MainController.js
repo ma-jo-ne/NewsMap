@@ -23,7 +23,6 @@ NewsMap.MainController = (function () {
         },
 
         closeLocationFinder = function () {
-            console.log("")
             newsMapView._closeLocationFinder();
         };
 

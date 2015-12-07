@@ -56,6 +56,8 @@ NewsMap.DrawMap = (function () {
                             $("#autocomplete").append($li);
                         });
                         $("#autocomplete li").on("click", function () {
+                            $('input#loc-start-inp').val("");
+                            $("#autocomplete").empty();
                             var index = $(this).attr("index"),
                                 lat = searchResults[index]["lat"],
                                 lon = searchResults[index]["lon"];

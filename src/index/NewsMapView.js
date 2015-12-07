@@ -99,7 +99,6 @@ NewsMap.NewsMapView = (function () {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             });
-
         };
 
     that._closeLocationFinder = _closeLocationFinder;
