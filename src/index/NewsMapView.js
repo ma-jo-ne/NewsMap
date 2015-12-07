@@ -39,7 +39,11 @@ NewsMap.NewsMapView = (function () {
                 function success(position) {
                     lat = position.coords.latitude;
                     long = position.coords.longitude;
-                    alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
+
+                    $(that).trigger("locationFound", [lat, long]);
+
+
+                    //alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
                 }
 
                 function error(msg) {
