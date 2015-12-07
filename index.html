@@ -3,25 +3,20 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
     <title>NewsMap</title>
 
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="content-script-type" content="text/javascript"/>
     <meta http-equiv="content-style-type" content="text/css"/>
     <meta http-equiv="content-language" content="de"/>
-    <meta name="author" content="Thomas Heiles"/>
-    <link rel="stylesheet" type="text/css" href="css/openstreetmap/map.css"/>
 
-    <!--[if IE]>
-    <link rel="stylesheet" type="text/css" href="css/openstreetmap/ie_map.css"/>
-    <link rel="stylesheet" type="text/css" href="css/style.css"/>
-    <![endif]-->
-    <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
-    <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
-    <script type="text/javascript" src="js/openstreetmap/tom.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/newsmapstyle.css"/>
+
 
     <link rel="stylesheet" href="css/foundation.css"/>
     <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css"/>
+
     <script src="js/vendor/modernizr.js"></script>
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
@@ -123,7 +118,9 @@
 <script src="js/vendor/jquery.js"></script>
 <script src="js/foundation.min.js"></script>
 
-<script src="js/drawmap.js"></script>
+>
+
+<script type="text/javascript" src="src/index/drawmap.js"></script>
 
 <script type="text/javascript" src="src/index/Location.js"></script>
 
@@ -140,7 +137,6 @@
     });
     $(document).ready(function () {
         drawmap();
-        //addMyMarkers();
         menuItemClick();
         closeMenuClick();
         popupClick();
