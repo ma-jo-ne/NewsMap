@@ -62,7 +62,9 @@ function previewClose() {
 }
 
 function closeLocationFinder(){
-    
+    $("#identify-location").on("click", function() {
+        $("#location-start").hide();
+    });
 }
 
 function menuItemClick() {
