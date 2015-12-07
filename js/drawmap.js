@@ -4,7 +4,25 @@ var layer_tah;
 var layer_markers;
 
 function drawmap() {
-    OpenLayers.Lang.setCode('de');
+
+
+    //wegen leafletjs hier neuer kartenaufruf... hab aber alles andere mit drin lassen
+    var map;
+
+    function load_map() {
+        map = new L.Map('map', {zoomControl: false});
+
+        var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+            osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+            osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
+
+        map.setView(new L.LatLng(51.538594, -0.198075), 12).addLayer(osm);
+    }
+
+    window.onload = load_map;
+
+
+    /*OpenLayers.Lang.setCode('de');
 
     // Position und Zoomstufe der Karte
     var lon = 12.101631;
@@ -19,12 +37,12 @@ function drawmap() {
         controls: [
             new OpenLayers.Control.Navigation(),
             new OpenLayers.Control.LayerSwitcher()]
-            /*new OpenLayers.Control.PanZoomBar()],
-        maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34,
-            20037508.34, 20037508.34),
-        numZoomLevels: 18,
-        maxResolution: 156543,
-        units: 'meters'*/
+     /!*new OpenLayers.Control.PanZoomBar()],
+     maxExtent: new OpenLayers.Bounds(-20037508.34, -20037508.34,
+     20037508.34, 20037508.34),
+     numZoomLevels: 18,
+     maxResolution: 156543,
+     units: 'meters'*!/
     });
 
     layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
@@ -34,7 +52,7 @@ function drawmap() {
     });
 
     map.addLayers([layer_mapnik, layer_markers]);
-    jumpTo(lon, lat, zoom);
+     jumpTo(lon, lat, zoom);*/
 }
 
 function addMyMarkers() {

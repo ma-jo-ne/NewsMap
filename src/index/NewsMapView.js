@@ -11,6 +11,7 @@ NewsMap.NewsMapView = (function () {
             
             buttonFindLocation = $('.button-find-location');
 
+
             return this;
         };
 

@@ -4,12 +4,13 @@
 NewsMap.MainController = (function () {
     var that = {},
         newsMapModal = null,
-        newsMapView,
+        newsMapView = null,
 
         init = function () {
             console.log("MainController");
             newsMapModal = NewsMap.NewsMapModal.init();
             newsMapView = NewsMap.NewsMapView.init();
+
 
             return this;
         };
