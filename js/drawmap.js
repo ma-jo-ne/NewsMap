@@ -16,8 +16,16 @@ function drawmap() {
             osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
             osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
-        map.setView(new L.LatLng(51.538594, -0.198075), 12).addLayer(osm);
+        map.setView(new L.LatLng(49.0134074, 12.101631), 12).addLayer(osm);
+
+        //hier wird ein beispielmarker gesetzt
+        var marker = L.marker([49.0134074, 12.101631]).addTo(map);
+
+        //und hier ein popup zu diesem marker hinzugefügt
+        marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+
     }
+
 
     window.onload = load_map;
 
