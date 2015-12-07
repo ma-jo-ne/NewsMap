@@ -61,6 +61,10 @@ function previewClose() {
     });
 }
 
+function closeLocationFinder(){
+    
+}
+
 function menuItemClick() {
     $("#menu-list li").on("click", function () {
         var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
