@@ -59,6 +59,7 @@ NewsMap.DrawMap = (function () {
                             var index = $(this).attr("index"),
                                 lat = searchResults[index]["lat"],
                                 lon = searchResults[index]["lon"];
+                            $(that).trigger("locationClicked");
                             map.setView(new L.LatLng(lat, lon));
                             console.log(searchResults[index]);
                         });
