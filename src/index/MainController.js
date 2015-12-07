@@ -14,7 +14,8 @@ NewsMap.MainController = (function () {
             drawMap = NewsMap.DrawMap.init();
 
             $(newsMapView).on("locationFound", setLocation);
-            $(drawMap).on("locationClicked", closeLocationFinder);
+            $(drawMap).on("locationClicked", closeMenu);
+
             return this;
         },
 
@@ -22,8 +23,8 @@ NewsMap.MainController = (function () {
             drawMap._setLocation(lat, long);
         },
 
-        closeLocationFinder = function () {
-            newsMapView._closeLocationFinder();
+        closeMenu = function () {
+            newsMapView._closeMenu();
         };
 
     that.init = init;

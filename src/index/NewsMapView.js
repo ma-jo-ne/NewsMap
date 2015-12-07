@@ -12,7 +12,9 @@ NewsMap.NewsMapView = (function () {
             previewClose();
             identifyLocation();
             menuItemClick();
-            closeMenuClick();
+            $("#identify-location").on("click", identifyLocation);
+            $("#close-menu").on("click", _closeMenu);
+            $("#menu-list li").on("click", menuItemClick);
 
             return this;
         },
@@ -31,29 +33,27 @@ NewsMap.NewsMapView = (function () {
 
 
         identifyLocation = function () {
-            $("#identify-location").on("click", function () {
-                function success(position) {
-                    lat = position.coords.latitude;
+            function success(position) {
+                var lat = position.coords.latitude,
                     long = position.coords.longitude;
 
-                    $(that).trigger("locationFound", [lat, long]);
-                    _closeLocationFinder();
+                $(that).trigger("locationFound", [lat, long]);
+                _closeMenu();
 
-                    //alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
-                }
+                //alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
+            }
 
-                function error(msg) {
-                    alert(typeof msg == 'string' ? msg : "error");
-                }
+            function error(msg) {
+                alert(typeof msg == 'string' ? msg : "error");
+            }
 
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(success, error);
-                } else {
-                    alert("GeoLocation API ist NICHT verfügbar!");
-                }
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                alert("GeoLocation API ist NICHT verfügbar!");
+            }
 
-                var zoom = 10;
-            });
+            var zoom = 10;
 
 
             /*            $("#location-input").bind("enterKey", function (e) {
@@ -69,39 +69,26 @@ NewsMap.NewsMapView = (function () {
              });*/
         },
 
-        _closeLocationFinder = function () {
-            $("#location-start").hide();
-        },
-
         menuItemClick = function () {
-            $("#menu-list li").on("click", function () {
-                if (!$(this).attr("data-show") == "location") {
-                    var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
-                    if ($toShow.is(":visible")) {
-                        $(".menu-item").hide();
-                        $("#menu-items").hide();
-                    }
-                    else {
-                        $(".menu-item").hide();
-                        $toShow.show();
-                        $("#menu-items").show(50);
-                    }
-                }
-                else {
-                    $("#location-start").show();
-                }
 
-            });
-        },
-
-        closeMenuClick = function () {
-            $("#close-menu").on("click", function () {
+            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+            if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-            });
+            }
+            else {
+                $(".menu-item").hide();
+                $toShow.show();
+                $("#menu-items").show(50);
+            }
+        },
+
+        _closeMenu = function () {
+            $(".menu-item").hide();
+            $("#menu-items").hide();
         };
 
-    that._closeLocationFinder = _closeLocationFinder;
+    that._closeMenu = _closeMenu;
     that.init = init;
 
     return that;

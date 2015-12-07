@@ -12,8 +12,6 @@
     <meta http-equiv="content-language" content="de"/>
 
     <link rel="stylesheet" type="text/css" href="css/newsmapstyle.css"/>
-
-
     <link rel="stylesheet" href="css/foundation.css"/>
     <link rel="stylesheet" href="css/foundation-icons/foundation-icons.css"/>
 
@@ -25,39 +23,14 @@
 <body>
 
 <div id="header">
-
+    <div id="selected-location">
+    </div>
 </div>
 
 <div id="map">
 </div>
 
 
-<div id="location-start" class="text-center">
-    <div class="row">
-        <div class="small-12 columns">
-            <button id="identify-location">Eigenen Standort ermitteln</button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="small-12 columns">
-            <span class="text-center">oder</span>
-        </div>
-    </div>
-    <br>
-    <div id="location-start-wrapper">
-        <div class="postfix-round row collapse" id="loc-start-margin">
-            <div id="location-input" class="small-12 columns">
-                <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
-            </div>
-        </div>
-        <div class="row collapse">
-            <div class="small-12 columns">
-                <ul id="autocomplete">
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
 <div id="menu-right">
     <div id="menu-items">
         <div id="close-menu"><i class="fi-x"></i></div>
@@ -66,7 +39,31 @@
             <button>Suchen</button>
         </div>
         <div class="menu-item" id="location-wrapper">
-            <button>Standort ermitteln</button>
+            <div id="location-start" class="text-center">
+                <div class="row">
+                    <div class="small-12 large-4 columns">
+                        <button id="identify-location">Eigenen Standort ermitteln</button>
+                    </div>
+                    <div class="small-12 large-4 columns">
+                        <span class="text-center"><b>oder</b></span>
+                    </div>
+                    <div id="location-input" class="small-12 large-4 columns">
+                        <div id="location-start-wrapper">
+                            <div class="postfix-round row collapse" id="loc-start-margin">
+
+                                <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
+                            </div>
+                            <ul id="autocomplete">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+
+                </div>
+                <br>
+
+            </div>
         </div>
         <div class="menu-item" id="video-wrapper">
             <button>Nach Video suchen</button>

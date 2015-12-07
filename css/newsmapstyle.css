@@ -10,6 +10,15 @@ html, body {
     color: #ffffff;
 }
 
+#selected-location {
+    position: absolute;
+    padding: 15px;
+    background: rgba(0, 0, 0, .50);
+    z-index: 100;
+    width: 91%;
+    text-align: center;
+    min-height: 54px;
+}
 a {
     color: #ffff00;
     text-decoration: none;
@@ -185,11 +194,11 @@ a:hover {
 }
 
 #menu-items {
-    width: 200px;
-    height: 20%;
+    width: 91%;
+    max-height: 54px;
     position: absolute;
     background: #2d61b5;
-    margin-left: -200px;
+    margin-left: -91%;
     z-index: 1005;
     display: none;
 }
@@ -225,32 +234,42 @@ a:hover {
 }
 
 #identify-location {
-    margin-top: 10px;
+    margin: 0;
 }
 
 #location-start-wrapper {
     /*padding: 0 10px 0 10px;*/
+    padding: 10px;
 }
 
-#location-start {
-    max-width: 400px;
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 50px;
-    background-color: white;
-    z-index: 1030;
-    border: 1px solid black;
+@media (min-width: 64em) {
+    #location-start {
+        background-color: white;
+        border: 1px solid black;
+        max-height: 64px;
+        line-height: 64px;
+    }
+}
+
+@media (max-width: 64em) {
+    #location-start {
+        background-color: white;
+        border: 1px solid black;
+        min-height: 64px;
+        line-height: 64px;
+    }
 }
 
 #loc-start-margin {
     padding: 0 10px 0 10px;
 }
 
+#loc-start-inp {
+    height: 45px;
+}
 #autocomplete {
     margin: 0;
+    background-color: white;
 }
 
 #autocomplete li {
