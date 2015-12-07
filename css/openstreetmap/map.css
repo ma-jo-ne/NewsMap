@@ -219,3 +219,15 @@ a:hover {
 .fi-x {
     color: white;
 }
+
+#location-start {
+    max-width: 400px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    z-index: 1030;
+    border: 1px solid black;
+}
