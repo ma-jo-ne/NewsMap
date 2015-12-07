@@ -29,10 +29,33 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
+        menuMarkerClick = function () {
+
+        },
+
         closeLocationFinder = function () {
             $("#identify-location").on("click", function () {
                 $("#location-start").hide();
+                function success(position) {
+                    lat = position.coords.latitude;
+                    long = position.coords.longitude;
+                    alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
+                }
+
+                function error(msg) {
+                    console.log(typeof msg == 'string' ? msg : "error");
+                }
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(success, error);
+                } else {
+                    alert("GeoLocation API ist NICHT verfügbar!");
+                }
+
+                var zoom = 10;
             });
+
+
             /*            $("#location-input").bind("enterKey", function (e) {
                 $("#location-start").hide();
             });
@@ -48,16 +71,22 @@ NewsMap.NewsMapView = (function () {
 
         menuItemClick = function () {
             $("#menu-list li").on("click", function () {
-                var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
-                if ($toShow.is(":visible")) {
-                    $(".menu-item").hide();
-                    $("#menu-items").hide();
+                if (!$(this).attr("data-show") == "location") {
+                    var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+                    if ($toShow.is(":visible")) {
+                        $(".menu-item").hide();
+                        $("#menu-items").hide();
+                    }
+                    else {
+                        $(".menu-item").hide();
+                        $toShow.show();
+                        $("#menu-items").show(50);
+                    }
                 }
                 else {
-                    $(".menu-item").hide();
-                    $toShow.show();
-                    $("#menu-items").show(50);
+                    $("#location-start").show();
                 }
+
             });
         },
 

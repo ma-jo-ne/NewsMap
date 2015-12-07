@@ -1,6 +1,7 @@
 /**
  * Created by majone on 30.11.15.
  */
+/*
 
 function success(position) {
     lat = position.coords.latitude;
@@ -19,3 +20,4 @@ if (navigator.geolocation) {
 }
 
 var zoom = 10;
+ */
