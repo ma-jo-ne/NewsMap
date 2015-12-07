@@ -31,9 +31,9 @@
 
 </div>
 
-
 <div id="map">
 </div>
+
 <div id="menu-right">
     <div id="menu-items">
         <div id="close-menu"><i class="fi-x"></i></div>
@@ -45,16 +45,16 @@
             <button>Standort ermitteln</button>
         </div>
         <div class="menu-item" id="video-wrapper">
-            <button>nach texte suchen</button>
+            <button>Nach Video suchen</button>
         </div>
         <div class="menu-item" id="text-wrapper">
-            <button>nach video suchen</button>
+            <button>Nach Texten suchen</button>
         </div>
         <div class="menu-item" id="image-wrapper">
             <button>kaa</button>
         </div>
         <div class="menu-item" id="share-wrapper">
-            <button>teilen</button>
+            <button>Teilen</button>
         </div>
     </div>
     <ul id="menu-list">
@@ -66,6 +66,25 @@
         <li data-show="share"><i class="fi-share"></i></li>
     </ul>
 </div>
+
+<article id="menu-left">
+    <div id="close-preview"><i class="fi-x"></i></div>
+    <img src="http://lokalreporter.idvl.de/storage/thumbs/485x209c/r:1449483253/41255.jpg" width="485" height="209"
+         alt="">
+
+    <h2 class="entry-title"><a class="preview-link"
+                               href="http://lokalreporter.idvl.de/digitales-gruenderzentrum-zwei-standorte-in-oberfranken-geplant-41309/"
+                               rel="bookmark">Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplant</a></h2>
+
+    <div class="entry-summary">
+        Dies betrifft auch die Kraftfahrzeugzulassungsstelle, die Infothek, den Fachbereich Gesundheitswesen und die
+        Volkshochschule Bamberg-Land. (…)
+    </div>
+
+    <button id="read-more-button"><a class="more-link"
+               href="http://lokalreporter.idvl.de/wegen-einer-personalversammlung-ist-das-landratsamt-bamberg-am-mittwoch-16-dezember-2015-ab-1300-uhr-geschlossen-41413/"
+               rel="bookmark">Weiterlesen</a></button>
+</article>
 
 <script src="js/vendor/jquery.js"></script>
 <script src="js/foundation.min.js"></script>
@@ -89,6 +108,8 @@
         addMyMarkers();
         menuItemClick();
         closeMenuClick();
+        popupClick();
+        previewClose();
     });
 </script>
 </body>
