@@ -4,8 +4,6 @@ var map;
 function drawmap() {
 
     //wegen leafletjs hier neuer kartenaufruf...
-    var map;
-
     function load_map() {
         map = new L.Map('map', {zoomControl: false});
 
@@ -23,9 +21,37 @@ function drawmap() {
         barttacke.bindPopup("<div class='marker-popup'><b class='marker-title'>Barttacke</b><p><img class='popupPic' src=\"img/barttacke.jpg\" width=\"50\" height=\"20\"></p></div>").openPopup();
         mopat.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplan</h3></div>").openPopup();
     }
-
-
     window.onload = load_map;
+}
 
+function autocomplete() {
+    $('input#loc-start-inp').on('input', function (e) {
+        if ($(this).val().length >= 0) {
+            var searchResults = [];
+
+            $.ajax({
+                url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#loc-start-inp").val(),
+
+            }).done(function (data) {
+                searchResults = data;
+                console.log(data)
+                $("#autocomplete").empty();
+                $.each(data, function (key) {
+
+                    var display_name = data[key]["display_name"],
+                        $li = $("<li>");
+                    $li.attr("index", key).html(display_name);
+                    $("#autocomplete").append($li);
+                });
+                $("#autocomplete li").on("click", function () {
+                    var index = $(this).attr("index"),
+                        lat = searchResults[index]["lat"],
+                        lon = searchResults[index]["lon"];
+                    map.setView(new L.LatLng(lat, lon));
+                    console.log(searchResults[index]);
+                });
+            });
+        }
+    });
 }
 

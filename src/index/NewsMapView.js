@@ -33,7 +33,7 @@ NewsMap.NewsMapView = (function () {
             $("#identify-location").on("click", function () {
                 $("#location-start").hide();
             });
-            $("#location-input").bind("enterKey", function (e) {
+            /*            $("#location-input").bind("enterKey", function (e) {
                 $("#location-start").hide();
             });
             $("#location-input").keyup(function (e) {
@@ -43,7 +43,7 @@ NewsMap.NewsMapView = (function () {
             });
             $("#location-start-search").on("click", function () {
                 $("#location-start").hide();
-            });
+             });*/
         },
 
         menuItemClick = function () {
