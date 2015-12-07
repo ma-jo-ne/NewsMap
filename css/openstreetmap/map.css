@@ -229,7 +229,7 @@ a:hover {
 }
 
 #location-start-wrapper {
-    padding: 0 10px 0 10px;
+    /*padding: 0 10px 0 10px;*/
 }
 
 #location-start {
@@ -245,6 +245,26 @@ a:hover {
     border: 1px solid black;
 }
 
+#loc-start-margin {
+    padding: 0 10px 0 10px;
+}
+
+#autocomplete {
+    margin: 0;
+}
+
+#autocomplete li {
+    list-style-type: none;
+    text-align: left;
+    border-bottom: 1px solid black;
+    cursor: pointer;
+    padding: 8px;
+}
+
+#autocomplete li:hover {
+    background-color: #2d61b5;
+    color: white;
+}
 .marker-popup {
 }
 
