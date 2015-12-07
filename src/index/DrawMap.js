@@ -59,8 +59,9 @@ NewsMap.DrawMap = (function () {
                             var index = $(this).attr("index"),
                                 lat = searchResults[index]["lat"],
                                 lon = searchResults[index]["lon"];
-                            map.setView(new L.LatLng(lat, lon));
-                            console.log(searchResults[index]);
+
+                            _setLocation(lat, lon);
+                            //console.log(searchResults[index]);
                         });
                     });
                 }
@@ -68,7 +69,18 @@ NewsMap.DrawMap = (function () {
         },
 
         _setLocation = function (lat, long) {
+            
             map.setView(new L.LatLng(lat, long));
+
+
+            var myLocationIcon = L.icon({
+                iconUrl: 'img/mylocationicon.png',
+                iconSize: [50, 50], // size of the icon
+                iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+            });
+
+            L.marker([lat, long], {icon: myLocationIcon}).addTo(map);
+
         };
 
     that._setLocation = _setLocation;
