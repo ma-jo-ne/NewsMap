@@ -128,7 +128,7 @@ a:hover {
     background-color: #ffffff;
     line-height: 4rem;
     text-align: center;
-
+    padding-top: 3rem;
 }
 
 #menu-list li:last-child {
