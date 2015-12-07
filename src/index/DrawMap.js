@@ -56,12 +56,15 @@ NewsMap.DrawMap = (function () {
                             $("#autocomplete").append($li);
                         });
                         $("#autocomplete li").on("click", function () {
+                            $('input#loc-start-inp').val("");
+                            $("#autocomplete").empty();
                             var index = $(this).attr("index"),
                                 lat = searchResults[index]["lat"],
                                 lon = searchResults[index]["lon"];
 
                             _setLocation(lat, lon);
                             //console.log(searchResults[index]);
+                            $(that).trigger("locationClicked");
                         });
                     });
                 }
@@ -69,7 +72,7 @@ NewsMap.DrawMap = (function () {
         },
 
         _setLocation = function (lat, long) {
-            
+
             map.setView(new L.LatLng(lat, long));
 
 

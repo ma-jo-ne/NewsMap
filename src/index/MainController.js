@@ -14,12 +14,16 @@ NewsMap.MainController = (function () {
             drawMap = NewsMap.DrawMap.init();
 
             $(newsMapView).on("locationFound", setLocation);
-
+            $(drawMap).on("locationClicked", closeLocationFinder);
             return this;
         },
 
         setLocation = function (e, lat, long) {
             drawMap._setLocation(lat, long);
+        },
+
+        closeLocationFinder = function () {
+            newsMapView._closeLocationFinder();
         };
 
     that.init = init;

@@ -10,7 +10,7 @@ NewsMap.NewsMapView = (function () {
 
             popupClick();
             previewClose();
-            closeLocationFinder();
+            identifyLocation();
             menuItemClick();
             closeMenuClick();
 
@@ -29,25 +29,21 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-        menuMarkerClick = function () {
 
-        },
-
-        closeLocationFinder = function () {
+        identifyLocation = function () {
             $("#identify-location").on("click", function () {
-                $("#location-start").hide();
                 function success(position) {
                     lat = position.coords.latitude;
                     long = position.coords.longitude;
 
                     $(that).trigger("locationFound", [lat, long]);
-
+                    _closeLocationFinder();
 
                     //alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
                 }
 
                 function error(msg) {
-                    console.log(typeof msg == 'string' ? msg : "error");
+                    alert(typeof msg == 'string' ? msg : "error");
                 }
 
                 if (navigator.geolocation) {
@@ -61,16 +57,20 @@ NewsMap.NewsMapView = (function () {
 
 
             /*            $("#location-input").bind("enterKey", function (e) {
-                $("#location-start").hide();
-            });
-            $("#location-input").keyup(function (e) {
-                if (e.keyCode == 13) {
-                    $(this).trigger("enterKey");
-                }
-            });
-            $("#location-start-search").on("click", function () {
-                $("#location-start").hide();
+             $("#location-start").hide();
+             });
+             $("#location-input").keyup(function (e) {
+             if (e.keyCode == 13) {
+             $(this).trigger("enterKey");
+             }
+             });
+             $("#location-start-search").on("click", function () {
+             $("#location-start").hide();
              });*/
+        },
+
+        _closeLocationFinder = function () {
+            $("#location-start").hide();
         },
 
         menuItemClick = function () {
@@ -99,10 +99,9 @@ NewsMap.NewsMapView = (function () {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             });
-
         };
 
-
+    that._closeLocationFinder = _closeLocationFinder;
     that.init = init;
 
     return that;
