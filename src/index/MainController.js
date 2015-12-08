@@ -1,6 +1,3 @@
-/**
- * Created by majone on 26.11.15.
- */
 NewsMap.MainController = (function () {
     var that = {},
         newsMapModal = null,
@@ -8,7 +5,6 @@ NewsMap.MainController = (function () {
         drawMap = null,
 
         init = function () {
-            console.log("MainController");
             newsMapModal = NewsMap.NewsMapModal.init();
             newsMapView = NewsMap.NewsMapView.init();
             drawMap = NewsMap.DrawMap.init();

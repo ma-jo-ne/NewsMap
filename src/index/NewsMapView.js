@@ -1,18 +1,19 @@
 NewsMap.NewsMapView = (function () {
     var that = {},
         $buttonFindLocation = null,
+        $buttonIdentifyLocation = null,
 
         init = function () {
 
-            console.log("NewsMapView");
-
             $buttonFindLocation = $('.button-find-location');
+            $buttonIdentifyLocation = $('#identify-location');
 
             popupClick();
             previewClose();
             identifyLocation();
             menuItemClick();
-            $("#identify-location").on("click", identifyLocation);
+
+            $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
             $("#menu-list li").on("click", menuItemClick);
 
@@ -40,7 +41,6 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("locationFound", [lat, long]);
                 _closeMenu();
 
-                //alert('Dein Standort: latitude: ' + lat + 'longitude: ' + long);
             }
 
             function error(msg) {

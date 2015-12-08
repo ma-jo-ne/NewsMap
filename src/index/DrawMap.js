@@ -3,7 +3,6 @@ NewsMap.DrawMap = (function () {
         map = null,
 
         init = function () {
-            console.log("DrawMap");
 
             drawmap();
             autocomplete();
@@ -76,14 +75,17 @@ NewsMap.DrawMap = (function () {
 
             map.setView(new L.LatLng(lat, long));
 
-
             var myLocationIcon = L.icon({
                 iconUrl: 'img/mylocationicon.png',
                 iconSize: [50, 50], // size of the icon
                 iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+                popupAnchor: [0, -100] // point from which the popup should open relative to the iconAnchor
             });
 
-            L.marker([lat, long], {icon: myLocationIcon}).addTo(map);
+            var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon}).addTo(map);
+
+            myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
+
 
         };
 
