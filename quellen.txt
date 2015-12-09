@@ -4,6 +4,7 @@ http://wiki.openstreetmap.org/wiki/DE:Karte_in_Webseite_einbinden
 leafletjs
 http://leafletjs.com/
 http://leafletjs.com/examples/custom-icons.html
+http://derickrethans.nl/leaflet-and-nominatim.html
 
 Geolocation:
 https://wiki.selfhtml.org/wiki/JavaScript/API/Geolocation

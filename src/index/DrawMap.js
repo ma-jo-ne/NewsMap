@@ -19,6 +19,7 @@ NewsMap.DrawMap = (function () {
         load_map = function () {
             map = new L.Map('map', {zoomControl: false});
 
+
             var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
