@@ -1,4 +1,5 @@
 NewsMap.DrawMap = (function () {
+    var marker = new Array();
     var that = {},
         map = null,
 
@@ -74,6 +75,10 @@ NewsMap.DrawMap = (function () {
 
         _setLocation = function (lat, long) {
 
+            // Removing old markers
+            for(i=0;i<marker.length;i++) {
+                map.removeLayer(marker[i]);
+            }
             map.setView(new L.LatLng(lat, long));
 
             var myLocationIcon = L.icon({
@@ -83,11 +88,10 @@ NewsMap.DrawMap = (function () {
                 popupAnchor: [0, -100] // point from which the popup should open relative to the iconAnchor
             });
 
-            var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon}).addTo(map);
-
+            var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
+            marker.push(myLocationMarker);
+            map.addLayer(marker[marker.length - 1]);
             myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
-
-
         };
 
     that._setLocation = _setLocation;
