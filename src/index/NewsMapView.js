@@ -47,8 +47,9 @@ NewsMap.NewsMapView = (function () {
                 alert(typeof msg == 'string' ? msg : "error");
             }
 
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(success, error);
+            if (navigator && navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error,
+                    {enableHighAccuracy: true, timeout: 60000, maximumAge: 600000});
             } else {
                 alert("GeoLocation API ist NICHT verfügbar!");
             }
