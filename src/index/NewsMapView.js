@@ -21,7 +21,7 @@ NewsMap.NewsMapView = (function () {
         },
 
         popupClick = function () {
-            $(".marker-title").on("click", function () {
+            $('body').on('click', '.marker-popup', function () {
                 $("#menu-left").show();
             });
         },

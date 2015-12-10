@@ -13,7 +13,8 @@ html, body {
 #selected-location {
     position: absolute;
     padding: 15px;
-    background: rgba(0, 0, 0, .50);
+    /*background: rgba(0, 0, 0, .50);*/
+    background: transparent;
     z-index: 100;
     width: 91%;
     text-align: center;
@@ -58,10 +59,9 @@ a:hover {
 
 
 .olPopup, .olFramedCloudPopupContent {
-    width: 100px;
-    height: 200px;
+
     max-height: 100px !important;
-    max-width: 200px !important;
+    max-width: 300px !important;
     background: #3b9cd8;;
     cursor: pointer;
 }
@@ -152,6 +152,12 @@ a:hover {
 #menu-list li i {
     height: 100%;
     line-height: 4rem;
+}
+
+.leaflet-popup-content-wrapper {
+    z-index: 1000;
+    height: 10rem;
+    width: 10rem;
 }
 
 @media (max-width: 40em) {
@@ -285,11 +291,14 @@ a:hover {
     color: white;
 }
 .marker-popup {
+    position: absolute;
 }
 
 .marker-title {
     font-size: 1rem;
     color: black;
 }
+
+.
 
 
