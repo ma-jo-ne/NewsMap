@@ -21,7 +21,10 @@
 
 </head>
 <body>
+<script>
 
+
+</script>
 <div id="header">
     <div id="selected-location">
     </div>
@@ -116,11 +119,59 @@
 <script type="text/javascript" src="src/index/NewsMapModal.js"></script>
 <script type="text/javascript" src="src/index/NewsMapView.js"></script>
 <script type="text/javascript" src="src/index/DrawMap.js"></script>
+<script type="text/javascript" src="src/index/DataObjectFactory.js"></script>
 
 <script>
     $(document).foundation();
     $(function () {
         NewsMap.init();
+    });
+    $(document).ready(function () {
+        /*        if (window.XMLHttpRequest)
+         {// code for IE7+, Firefox, Chrome, Opera, Safari
+         xmlhttp=new XMLHttpRequest();
+         }
+         else
+         {// code for IE6, IE5
+         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+         }
+         xmlhttp.open("GET","http://"+location.host+"/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",false);
+         xmlhttp.send();
+         xmlDoc= $.parseXML(xmlhttp.responseXML);*/
+        var $xml;
+        var newsDataObjects = [];
+        $.ajax({
+            type: "GET",
+            url: "http://" + location.host + "/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",
+            dataType: "xml",
+            success: function (xml) {
+                $xml = $(xml);
+                var dataObject = new DataObjectFactory();
+                var $item = $xml.find("item");
+                $item.each(function (index) {
+                    var $title = $(this).find("title").text(),
+                            $link = $(this).find("link").text(),
+                            $pubDate = $(this).find("pubDate").text(),
+                            $content = $(this).find("encoded").text();
+                    var newsData = {
+                        title: $title,
+                        link: $link,
+                        pubData: $pubDate,
+                        content: $content
+                    };
+                    var newsDataObject = dataObject.createDataObject(newsData);
+                    newsDataObjects.push(newsDataObject);
+
+                });
+                $(newsDataObjects).each(function (i) {
+                    console.log(this);
+                });
+            },
+            error: function () {
+                alert("ERROR loading XML");
+            }
+        });
+
     });
 </script>
 </body>
