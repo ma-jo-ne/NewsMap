@@ -6,6 +6,8 @@ function DataObject(newsData) {
     this.link = newsData.link;
     this.pubDate = newsData.pubDate;
     this.content = newsData.content;
+    this.categories = newsData.categories;
+    this.city = newsData.city;
 }
 
 function DataObjectFactory() {
