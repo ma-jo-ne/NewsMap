@@ -23,6 +23,8 @@ NewsMap.NewsMapView = (function () {
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
                 $("#menu-left").show();
+                $(".menu-item").hide();
+                $("#menu-items").hide();
             });
         },
 
@@ -81,6 +83,7 @@ NewsMap.NewsMapView = (function () {
                 $(".menu-item").hide();
                 $toShow.show();
                 $("#menu-items").show(50);
+                $("#menu-left").hide();
             }
         },
 
