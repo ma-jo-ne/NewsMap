@@ -7,7 +7,7 @@ function DataObject(newsData) {
     this.pubDate = newsData.pubDate;
     this.content = newsData.content;
     this.categories = newsData.categories;
-    this.city = newsData.city;
+    this.postId = newsData.postId;
 }
 
 function DataObjectFactory() {

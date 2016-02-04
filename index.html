@@ -153,14 +153,12 @@
                             $link = $(this).find("link").text(),
                             $pubDate = $(this).find("pubDate").text(),
                             $content = $(this).find("encoded").text(),
+                            $postId = $(this).find("post_id").text(),
                             $categories = [];
                     $(this).find("category").each(function (i, el) {
                         $categories.push($(el).text());
                     });
-                    var $city;
-                    if ($categories.length > 1)
-                        $city = $categories[1];
-                    else $city = "none";
+
 
                     /*
                      Problem: Aufbau der Kategorien ist nicht immer gleich. haben verschieden Längen;
@@ -172,7 +170,7 @@
                         pubData: $pubDate,
                         content: $content,
                         categories: $categories,
-                        city: $city
+                        postId: $postId
                     };
                     var newsDataObject = dataObject.createDataObject(newsData);
                     newsDataObjects.push(newsDataObject);
