@@ -11,6 +11,7 @@ html, body {
 }
 
 #selected-location {
+    display: none;
     position: absolute;
     padding: 15px;
     background: rgba(0, 0, 0, .50);
