@@ -1,6 +1,8 @@
 NewsMap.DrawMap = (function () {
     var marker = new Array();
     var articles = new Array();
+    var markers = new Array();
+    var articlesLoaded = false;
     var that = {},
         map = null,
 
@@ -71,7 +73,8 @@ NewsMap.DrawMap = (function () {
                                     articles.push(this);
                                 }
                             });
-                            console.log(articles);
+                            articlesLoaded = true;
+                            addMarker();
                         },
                         error: function () {
                             alert("ERROR loading JSON");
@@ -83,7 +86,6 @@ NewsMap.DrawMap = (function () {
                 }
             });
             drawmap();
-
             return this;
         },
 
@@ -103,14 +105,21 @@ NewsMap.DrawMap = (function () {
 
             map.setView(new L.LatLng(49.0134074, 12.101631), 10).addLayer(osm);
 
+        },
+
+        addMarker = function() {
             //hier wird ein beispielmarker gesetzt
             var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
             var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
 
-            if (articles[0] != undefined) {
-                var marker1 = L.marker([articles[0][420].coords.lat, articles[0][420].coords.lon]).addTo(map);
-                var marker2 = L.marker([articles[0][423].coords.lat, articles[0][423].coords.lon]).addTo(map);
-                var marker3 = L.marker([articles[0][928].coords.lat, articles[0][928].coords.lon]).addTo(map);
+
+            console.log(articles);
+
+            if(articlesLoaded) {
+                for (i=0; i<articles.length; i++) {
+                    var marker = L.marker([articles[i].lat, articles[i].lon]).addTo(map);
+                    markers.push(marker);
+                }
             }
 
 
