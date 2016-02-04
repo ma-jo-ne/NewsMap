@@ -8,6 +8,8 @@ function DataObject(newsData) {
     this.content = newsData.content;
     this.categories = newsData.categories;
     this.postId = newsData.postId;
+    this.city = newsData.city;
+    this.exists = newsData.exists;
 }
 
 function DataObjectFactory() {

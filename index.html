@@ -170,7 +170,9 @@
                         pubData: $pubDate,
                         content: $content,
                         categories: $categories,
-                        postId: $postId
+                        postId: $postId,
+                        exists: false,
+                        city: "none"
                     };
                     var newsDataObject = dataObject.createDataObject(newsData);
                     newsDataObjects.push(newsDataObject);
@@ -179,26 +181,39 @@
                 $(newsDataObjects).each(function (i) {
                     //  console.log(this);
                 });
+                $.ajax({
+                    type: "GET",
+                    url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
+                    datatype: "JSON",
+                    success: function (json) {
+                        $(newsDataObjects).each(function (i) {
+                            if (json["articles"][this.postId]) {
+                                {
+                                    this.exists = true;
+                                    this.city = json["articles"][this.postId]["name"];
+                                    this.region = json["articles"][this.postId]["region"];
+                                    this.county = json["articles"][this.postId]["county"];
+                                    this.municipality = json["articles"][this.postId]["municipality"];
+                                    this.lat = json["articles"][this.postId]["coords"]["lat"];
+                                    this.lon = json["articles"][this.postId]["coords"]["lon"];
+                                    // console.log(this);
+                                }
+                                matchedObjects.push(this);
+                            }
+                        });
+                        console.log("MATCHEDOBJ", matchedObjects);
+                    },
+                    error: function () {
+                        alert("ERROR loading JSON");
+                    }
+                });
             },
             error: function () {
                 alert("ERROR loading XML");
             }
         });
         var matchedObjects = [];
-        $.ajax({
-            type: "GET",
-            url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
-            datatype: "JSON",
-            success: function (json) {
-                $(newsDataObjects).each(function (i) {
-                    //console.log(this);
-                });
-                console.log(json["articles"][420]);
-            },
-            error: function () {
 
-            }
-        });
     });
 </script>
 </body>
