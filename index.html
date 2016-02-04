@@ -177,14 +177,25 @@
 
                 });
                 $(newsDataObjects).each(function (i) {
-                    console.log(this);
+                    //  console.log(this);
                 });
             },
             error: function () {
                 alert("ERROR loading XML");
             }
         });
+        var matchedObjects = [];
+        $.ajax({
+            type: "GET",
+            url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
+            datatype: "JSON",
+            success: function (json) {
+                console.log(json["articles"][420]);
+            },
+            error: function () {
 
+            }
+        });
     });
 </script>
 </body>

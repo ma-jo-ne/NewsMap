@@ -1,0 +1,43 @@
+{
+  "database": "LokalreporterDB",
+  "retrieved": "Do, 21 Jan 2016 09:27:53 +0000",
+  "version": "1.0",
+  "articles": {
+    "420": {
+      "name": "Burgkunstadt",
+      "coords": {
+        "lat": 50.140833,
+        "lon": 11.251944
+      },
+      "state": "Bayern",
+      "region": "Oberfranken",
+      "county": "Landkreis Lichtenfels",
+      "municipality": "Burgkunstadt",
+      "feature-class": "populated place"
+    },
+    "423": {
+      "name": "Bayreuth",
+      "coords": {
+        "lat": 49.947778,
+        "lon": 11.578889
+      },
+      "state": "Bayern",
+      "region": "Oberfranken",
+      "county": "Kreisfreie Stadt Bayreuth",
+      "municipality": "Bayreuth",
+      "feature-class": "seat of a second-order administrative division"
+    },
+    "928": {
+      "name": "Nürnberg",
+      "coords": {
+        "lat": 49.454167,
+        "lon": 11.0775
+      },
+      "state": "Bayern",
+      "region": "Mittelfranken",
+      "county": "Nürnberg",
+      "municipality": "Nürnberg",
+      "feature-class": "populated place"
+    }
+  }
+}
