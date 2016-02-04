@@ -109,8 +109,8 @@ NewsMap.DrawMap = (function () {
 
         addMarker = function() {
             //hier wird ein beispielmarker gesetzt
-            var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
-            var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
+            // var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
+            // var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
 
 
             console.log(articles);
@@ -118,14 +118,18 @@ NewsMap.DrawMap = (function () {
             if(articlesLoaded) {
                 for (i=0; i<articles.length; i++) {
                     var marker = L.marker([articles[i].lat, articles[i].lon]).addTo(map);
+                    var markerPopup = "<div class='marker-popup' data-id='" + articles[i].postId + "' ><h3 class='marker-title'>" + articles[i]["title"] + "</h3></div>";
+
+                    marker.bindPopup(markerPopup);
+                    $(markerPopup).attr("id", articles[i].postId);
                     markers.push(marker);
                 }
             }
 
 
             //und hier ein popup zu diesem marker hinzugefügt
-            barttacke.bindPopup("<div class='marker-popup'><b class='marker-title'>Barttacke</b><p><img class='popupPic' src=\"img/barttacke.jpg\" width=\"50\" height=\"20\"></p></div>").openPopup();
-            mopat.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplan</h3></div>").openPopup();
+            //barttacke.bindPopup("<div class='marker-popup'><b class='marker-title'>Barttacke</b><p><img class='popupPic' src=\"img/barttacke.jpg\" width=\"50\" height=\"20\"></p></div>").openPopup();
+            //mopat.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Digitales Gründerzentrum: Zwei Standorte in Oberfranken geplan</h3></div>").openPopup();
 
         },
 
