@@ -190,6 +190,9 @@
             url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
             datatype: "JSON",
             success: function (json) {
+                $(newsDataObjects).each(function (i) {
+                    //console.log(this);
+                });
                 console.log(json["articles"][420]);
             },
             error: function () {
