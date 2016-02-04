@@ -66,6 +66,7 @@ NewsMap.DrawMap = (function () {
 
                             _setLocation(lat, lon);
                             //console.log(searchResults[index]);
+                            $("#selected-location").show();
                             $(that).trigger("locationClicked");
                         });
                     });
