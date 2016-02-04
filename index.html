@@ -140,6 +140,7 @@
          xmlDoc= $.parseXML(xmlhttp.responseXML);*/
         var $xml;
         var newsDataObjects = [];
+        var matchedObjects = [];
         $.ajax({
             type: "GET",
             url: "http://" + location.host + "/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",
@@ -212,8 +213,6 @@
                 alert("ERROR loading XML");
             }
         });
-        var matchedObjects = [];
-
     });
 </script>
 </body>
