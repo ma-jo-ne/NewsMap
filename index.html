@@ -138,7 +138,7 @@
          xmlhttp.open("GET","http://"+location.host+"/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",false);
          xmlhttp.send();
          xmlDoc= $.parseXML(xmlhttp.responseXML);*/
-        var $xml;
+        /*        var $xml;
         var newsDataObjects = [];
         var matchedObjects = [];
         $.ajax({
@@ -161,10 +161,10 @@
                     });
 
 
-                    /*
+         /!*
                      Problem: Aufbau der Kategorien ist nicht immer gleich. haben verschieden Längen;
                      indizes sind auch verschieden, also index 1 ist nicht immer ort, sondern auch kategorie etc.
-                     */
+         *!/
                     var newsData = {
                         title: $title,
                         link: $link,
@@ -212,7 +212,7 @@
             error: function () {
                 alert("ERROR loading XML");
             }
-        });
+         });*/
     });
 </script>
 </body>

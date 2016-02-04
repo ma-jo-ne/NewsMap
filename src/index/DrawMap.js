@@ -40,7 +40,9 @@ NewsMap.DrawMap = (function () {
                             pubData: $pubDate,
                             content: $content,
                             categories: $categories,
-                            postId: $postId
+                            postId: $postId,
+                            exists: false,
+                            city: "none"
                         };
                         var newsDataObject = dataObject.createDataObject(newsData);
                         newsDataObjects.push(newsDataObject);
@@ -49,28 +51,37 @@ NewsMap.DrawMap = (function () {
                     $(newsDataObjects).each(function (i) {
                         //  console.log(this);
                     });
+                    $.ajax({
+                        type: "GET",
+                        url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
+                        datatype: "JSON",
+                        success: function (json) {
+                            $(newsDataObjects).each(function (i) {
+                                if (json["articles"][this.postId]) {
+                                    {
+                                        this.exists = true;
+                                        this.city = json["articles"][this.postId]["name"];
+                                        this.region = json["articles"][this.postId]["region"];
+                                        this.county = json["articles"][this.postId]["county"];
+                                        this.municipality = json["articles"][this.postId]["municipality"];
+                                        this.lat = json["articles"][this.postId]["coords"]["lat"];
+                                        this.lon = json["articles"][this.postId]["coords"]["lon"];
+                                        // console.log(this);
+                                    }
+                                    articles.push(this);
+                                }
+                            });
+                            console.log(articles);
+                        },
+                        error: function () {
+                            alert("ERROR loading JSON");
+                        }
+                    });
                 },
                 error: function () {
                     alert("ERROR loading XML");
                 }
             });
-            var matchedObjects = [];
-            $.ajax({
-                type: "GET",
-                url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
-                datatype: "JSON",
-                success: function (json) {
-                    $(newsDataObjects).each(function (i) {
-                        //console.log(this);
-                    });
-                    console.log(json["articles"][420].coords.lat);
-                    articles.push(json["articles"]);
-                },
-                error: function () {
-
-                }
-            });
-
             drawmap();
 
             return this;
@@ -96,13 +107,11 @@ NewsMap.DrawMap = (function () {
             var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
             var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
 
-            if(articles[0] != undefined) {
+            if (articles[0] != undefined) {
                 var marker1 = L.marker([articles[0][420].coords.lat, articles[0][420].coords.lon]).addTo(map);
                 var marker2 = L.marker([articles[0][423].coords.lat, articles[0][423].coords.lon]).addTo(map);
                 var marker3 = L.marker([articles[0][928].coords.lat, articles[0][928].coords.lon]).addTo(map);
             }
-
-
 
 
             //und hier ein popup zu diesem marker hinzugefügt
@@ -151,7 +160,7 @@ NewsMap.DrawMap = (function () {
         _setLocation = function (lat, long) {
 
             // Removing old markers
-            for(i=0;i<marker.length;i++) {
+            for (i = 0; i < marker.length; i++) {
                 map.removeLayer(marker[i]);
             }
             map.setView(new L.LatLng(lat, long));
