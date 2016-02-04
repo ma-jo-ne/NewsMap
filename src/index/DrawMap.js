@@ -1,12 +1,77 @@
 NewsMap.DrawMap = (function () {
     var marker = new Array();
+    var articles = new Array();
     var that = {},
         map = null,
 
         init = function () {
 
-            drawmap();
             autocomplete();
+
+            var $xml;
+            var newsDataObjects = [];
+            $.ajax({
+                type: "GET",
+                url: "http://" + location.host + "/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",
+                dataType: "xml",
+                success: function (xml) {
+                    $xml = $(xml);
+                    var dataObject = new DataObjectFactory();
+                    var $item = $xml.find("item");
+                    $item.each(function (index) {
+                        var $title = $(this).find("title").text(),
+                            $link = $(this).find("link").text(),
+                            $pubDate = $(this).find("pubDate").text(),
+                            $content = $(this).find("encoded").text(),
+                            $postId = $(this).find("post_id").text(),
+                            $categories = [];
+                        $(this).find("category").each(function (i, el) {
+                            $categories.push($(el).text());
+                        });
+
+
+                        /*
+                         Problem: Aufbau der Kategorien ist nicht immer gleich. haben verschieden Längen;
+                         indizes sind auch verschieden, also index 1 ist nicht immer ort, sondern auch kategorie etc.
+                         */
+                        var newsData = {
+                            title: $title,
+                            link: $link,
+                            pubData: $pubDate,
+                            content: $content,
+                            categories: $categories,
+                            postId: $postId
+                        };
+                        var newsDataObject = dataObject.createDataObject(newsData);
+                        newsDataObjects.push(newsDataObject);
+
+                    });
+                    $(newsDataObjects).each(function (i) {
+                        //  console.log(this);
+                    });
+                },
+                error: function () {
+                    alert("ERROR loading XML");
+                }
+            });
+            var matchedObjects = [];
+            $.ajax({
+                type: "GET",
+                url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
+                datatype: "JSON",
+                success: function (json) {
+                    $(newsDataObjects).each(function (i) {
+                        //console.log(this);
+                    });
+                    console.log(json["articles"][420].coords.lat);
+                    articles.push(json["articles"]);
+                },
+                error: function () {
+
+                }
+            });
+
+            drawmap();
 
             return this;
         },
@@ -30,6 +95,15 @@ NewsMap.DrawMap = (function () {
             //hier wird ein beispielmarker gesetzt
             var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
             var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
+
+            if(articles[0] != undefined) {
+                var marker1 = L.marker([articles[0][420].coords.lat, articles[0][420].coords.lon]).addTo(map);
+                var marker2 = L.marker([articles[0][423].coords.lat, articles[0][423].coords.lon]).addTo(map);
+                var marker3 = L.marker([articles[0][928].coords.lat, articles[0][928].coords.lon]).addTo(map);
+            }
+
+
+
 
             //und hier ein popup zu diesem marker hinzugefügt
             barttacke.bindPopup("<div class='marker-popup'><b class='marker-title'>Barttacke</b><p><img class='popupPic' src=\"img/barttacke.jpg\" width=\"50\" height=\"20\"></p></div>").openPopup();
