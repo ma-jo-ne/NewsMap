@@ -137,7 +137,7 @@ a:hover {
     cursor: pointer;
     border-bottom: 1px solid #6f6f6f;
     background-color: #ffffff;
-    line-height: 4rem;
+    line-height: 7rem;
     text-align: center;
     padding: 1rem;
 }
@@ -152,7 +152,7 @@ a:hover {
 
 #menu-list li i {
     height: 100%;
-    line-height: 4rem;
+    line-height: 7rem;
 }
 
 .leaflet-popup-content-wrapper {
