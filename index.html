@@ -30,11 +30,60 @@
     </div>
 </div>
 
-<div id="map">
+
+<div>
+    <ul id="menu-list">
+        <li data-show="search"><i class="fi-magnifying-glass"></i></li>
+        <li data-show="location"><i class="fi-marker"></i></li>
+        <li data-show="video"><i class="fi-video"></i></li>
+        <li data-show="text"><i class="fi-clipboard-notes"></i></li>
+        <li data-show="image"><i class="fi-puzzle"></i></li>
+        <li data-show="share"><i class="fi-share"></i></li>
+    </ul>
+    <div class="menu-item" id="search-wrapper">
+        <input type="text">
+        <button>Suchen</button>
+    </div>
+    <div class="menu-item" id="location-wrapper">
+        <div id="location-start" class="text-center">
+            <div class="row">
+                <div class="small-12 large-4 columns">
+                    <button id="identify-location" class="tiny">Eigenen Standort ermitteln</button>
+                </div>
+                <div class="small-12 large-4 columns">
+                    <span class="text-center"><b>oder</b></span>
+                </div>
+                <div id="location-input" class="small-12 large-4 columns">
+                    <div id="location-start-wrapper">
+                        <div class="postfix-round row collapse" id="loc-start-margin">
+
+                            <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
+                        </div>
+                        <ul id="autocomplete">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+            </div>
+            <br>
+        </div>
+    </div>
+    <div class="menu-item" id="video-wrapper">
+        <button>Nach Video suchen</button>
+    </div>
+    <div class="menu-item" id="text-wrapper">
+        <button>Nach Texten suchen</button>
+    </div>
+    <div class="menu-item" id="image-wrapper">
+        <button>kaa</button>
+    </div>
+    <div class="menu-item" id="share-wrapper">
+        <button>Teilen</button>
+    </div>
 </div>
-
-
-<div id="menu-right">
+<script></script>
+<!--<div id="menu-right">
     <div id="menu-items">
         <div id="close-menu"><i class="fi-x"></i></div>
         <div class="menu-item" id="search-wrapper">
@@ -89,6 +138,8 @@
         <li data-show="image"><i class="fi-puzzle"></i></li>
         <li data-show="share"><i class="fi-share"></i></li>
     </ul>
+</div>-->
+<div id="map">
 </div>
 
 <article id="menu-left">
@@ -125,94 +176,6 @@
     $(document).foundation();
     $(function () {
         NewsMap.init();
-    });
-    $(document).ready(function () {
-        /*        if (window.XMLHttpRequest)
-         {// code for IE7+, Firefox, Chrome, Opera, Safari
-         xmlhttp=new XMLHttpRequest();
-         }
-         else
-         {// code for IE6, IE5
-         xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-         }
-         xmlhttp.open("GET","http://"+location.host+"/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",false);
-         xmlhttp.send();
-         xmlDoc= $.parseXML(xmlhttp.responseXML);*/
-        /*        var $xml;
-        var newsDataObjects = [];
-        var matchedObjects = [];
-        $.ajax({
-            type: "GET",
-            url: "http://" + location.host + "/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",
-            dataType: "xml",
-            success: function (xml) {
-                $xml = $(xml);
-                var dataObject = new DataObjectFactory();
-                var $item = $xml.find("item");
-                $item.each(function (index) {
-                    var $title = $(this).find("title").text(),
-                            $link = $(this).find("link").text(),
-                            $pubDate = $(this).find("pubDate").text(),
-                            $content = $(this).find("encoded").text(),
-                            $postId = $(this).find("post_id").text(),
-                            $categories = [];
-                    $(this).find("category").each(function (i, el) {
-                        $categories.push($(el).text());
-                    });
-
-
-         /!*
-                     Problem: Aufbau der Kategorien ist nicht immer gleich. haben verschieden Längen;
-                     indizes sind auch verschieden, also index 1 ist nicht immer ort, sondern auch kategorie etc.
-         *!/
-                    var newsData = {
-                        title: $title,
-                        link: $link,
-                        pubData: $pubDate,
-                        content: $content,
-                        categories: $categories,
-                        postId: $postId,
-                        exists: false,
-                        city: "none"
-                    };
-                    var newsDataObject = dataObject.createDataObject(newsData);
-                    newsDataObjects.push(newsDataObject);
-
-                });
-                $(newsDataObjects).each(function (i) {
-                    //  console.log(this);
-                });
-                $.ajax({
-                    type: "GET",
-                    url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
-                    datatype: "JSON",
-                    success: function (json) {
-                        $(newsDataObjects).each(function (i) {
-                            if (json["articles"][this.postId]) {
-                                {
-                                    this.exists = true;
-                                    this.city = json["articles"][this.postId]["name"];
-                                    this.region = json["articles"][this.postId]["region"];
-                                    this.county = json["articles"][this.postId]["county"];
-                                    this.municipality = json["articles"][this.postId]["municipality"];
-                                    this.lat = json["articles"][this.postId]["coords"]["lat"];
-                                    this.lon = json["articles"][this.postId]["coords"]["lon"];
-                                    // console.log(this);
-                                }
-                                matchedObjects.push(this);
-                            }
-                        });
-                        console.log("MATCHEDOBJ", matchedObjects);
-                    },
-                    error: function () {
-                        alert("ERROR loading JSON");
-                    }
-                });
-            },
-            error: function () {
-                alert("ERROR loading XML");
-            }
-         });*/
     });
 </script>
 </body>
