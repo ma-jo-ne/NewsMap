@@ -7,7 +7,9 @@ NewsMap.DrawMap = (function () {
         map = null,
 
         init = function () {
-
+            function isInArray(value, array) {
+                return array.indexOf(value) > -1;
+            }
             autocomplete();
 
             var $xml;
@@ -20,18 +22,26 @@ NewsMap.DrawMap = (function () {
                     $xml = $(xml);
                     var dataObject = new DataObjectFactory();
                     var $item = $xml.find("item");
+                    var $allTags = [];
                     $item.each(function (index) {
+
                         var $title = $(this).find("title").text(),
                             $link = $(this).find("link").text(),
                             $pubDate = $(this).find("pubDate").text(),
                             $content = $(this).find("encoded").text(),
                             $postId = $(this).find("post_id").text(),
-                            $categories = [];
+                            $categories = [],
+                            $tags = [];
                         $(this).find("category").each(function (i, el) {
-                            $categories.push($(el).text());
+                            var text = $(el).text().toLowerCase();
+                            $categories.push(text.trim());
+                            if ($(el).text() != "Allgemein" && !isInArray(text, $tags)) {
+                                $tags.push(text);
+                                if (isInArray(text, $tags)) {
+                                    $allTags.push(text);
+                                }
+                            }
                         });
-
-
                         /*
                          Problem: Aufbau der Kategorien ist nicht immer gleich. haben verschieden Längen;
                          indizes sind auch verschieden, also index 1 ist nicht immer ort, sondern auch kategorie etc.
@@ -42,6 +52,7 @@ NewsMap.DrawMap = (function () {
                             pubData: $pubDate,
                             content: $content,
                             categories: $categories,
+                            tags: $tags,
                             postId: $postId,
                             exists: false,
                             city: "none"
@@ -50,15 +61,23 @@ NewsMap.DrawMap = (function () {
                         newsDataObjects.push(newsDataObject);
 
                     });
-                    $(newsDataObjects).each(function (i) {
-                        //  console.log(this);
+                    //Remove Duplicates
+                    var uniqueTags = [];
+                    $.each($allTags, function (i, el) {
+                        if ($.inArray(el, uniqueTags) === -1) uniqueTags.push(el);
                     });
+                    uniqueTags.sort();
+                    console.log(uniqueTags);
+                    /*   $(newsDataObjects).each(function (i) {
+                     console.log(this);
+                     });*/
                     $.ajax({
                         type: "GET",
                         url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
                         datatype: "JSON",
                         success: function (json) {
                             $(newsDataObjects).each(function (i) {
+
                                 if (json["articles"][this.postId]) {
                                     {
                                         this.exists = true;
@@ -107,7 +126,7 @@ NewsMap.DrawMap = (function () {
 
         },
 
-        addMarker = function() {
+        addMarker = function () {
             //hier wird ein beispielmarker gesetzt
             // var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
             // var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
@@ -115,8 +134,8 @@ NewsMap.DrawMap = (function () {
 
             console.log(articles);
 
-            if(articlesLoaded) {
-                for (i=0; i<articles.length; i++) {
+            if (articlesLoaded) {
+                for (i = 0; i < articles.length; i++) {
                     var marker = L.marker([articles[i].lat, articles[i].lon]).addTo(map);
                     var markerPopup = "<div class='marker-popup' data-id='" + articles[i].postId + "' ><h3 class='marker-title'>" + articles[i]["title"] + "</h3></div>";
 

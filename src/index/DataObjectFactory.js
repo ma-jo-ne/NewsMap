@@ -7,6 +7,7 @@ function DataObject(newsData) {
     this.pubDate = newsData.pubDate;
     this.content = newsData.content;
     this.categories = newsData.categories;
+    this.tags = newsData.tags;
     this.postId = newsData.postId;
     this.city = newsData.city;
     this.exists = newsData.exists;
