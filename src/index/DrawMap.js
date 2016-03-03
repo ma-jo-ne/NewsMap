@@ -202,7 +202,7 @@ NewsMap.DrawMap = (function () {
                                 lat = searchResults[index]["lat"],
                                 lon = searchResults[index]["lon"];
 
-                            _setLocation(lat, lon);
+                            //_setLocation(lat, lon);
                             //console.log(searchResults[index]);
                             $("#selected-location").show();
                             $(that).trigger("locationClicked");
