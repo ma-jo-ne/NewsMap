@@ -1,19 +1,26 @@
 NewsMap.DrawMap = (function () {
-    var marker = new Array();
-    var articles = new Array();
-    var markers = new Array();
-    var articlesLoaded = false;
-    var that = {},
+    var marker = [],
+        articles = [],
+        markers = [],
+        articlesLoaded = false,
+        that = {},
         map = null,
+        newsDataObjects = [],
+        foundArticles = [],
+
+        wordInString = function (s, word) {
+            return new RegExp('\\b' + word.toLowerCase() + '\\b', 'i').test(s.toLowerCase());
+        },
 
         init = function () {
             function isInArray(value, array) {
                 return array.indexOf(value) > -1;
             }
+
             autocomplete();
+            enterListen();
 
             var $xml;
-            var newsDataObjects = [];
             $.ajax({
                 type: "GET",
                 url: "http://" + location.host + "/NewsMap/xml/lokalreporter.wordpress.2016-01-20.xml",
@@ -67,17 +74,21 @@ NewsMap.DrawMap = (function () {
                         if ($.inArray(el, uniqueTags) === -1) uniqueTags.push(el);
                     });
                     uniqueTags.sort();
-                    console.log(uniqueTags);
                     /*   $(newsDataObjects).each(function (i) {
                      console.log(this);
                      });*/
+                    /*
+                     check if geodata for article exists, if true -> build objects
+                     */
                     $.ajax({
                         type: "GET",
                         url: "http://" + location.host + "/NewsMap/json/lokalreporter_geonames.json",
                         datatype: "JSON",
                         success: function (json) {
                             $(newsDataObjects).each(function (i) {
-
+                                /*
+                                 add additional info to object
+                                 */
                                 if (json["articles"][this.postId]) {
                                     {
                                         this.exists = true;
@@ -92,6 +103,7 @@ NewsMap.DrawMap = (function () {
                                     articles.push(this);
                                 }
                             });
+                            foundArticles = articles;
                             articlesLoaded = true;
                             addMarker();
                         },
@@ -130,17 +142,18 @@ NewsMap.DrawMap = (function () {
             //hier wird ein beispielmarker gesetzt
             // var barttacke = L.marker([49.0134074, 12.101631]).addTo(map);
             // var mopat = L.marker([48.8777333, 12.5801538]).addTo(map);
-
-
-            console.log(articles);
+            for (i = 0; i < markers.length; i++) {
+                map.removeLayer(markers[i]);
+            }
+            map.setView(new L.LatLng(foundArticles[foundArticles.length - 1]["lat"], foundArticles[foundArticles.length - 1]["lon"]));
 
             if (articlesLoaded) {
-                for (i = 0; i < articles.length; i++) {
-                    var marker = L.marker([articles[i].lat, articles[i].lon]).addTo(map);
-                    var markerPopup = "<div class='marker-popup' data-id='" + articles[i].postId + "' ><h3 class='marker-title'>" + articles[i]["title"] + "</h3></div>";
+                for (i = 0; i < foundArticles.length; i++) {
+                    var marker = L.marker([foundArticles[i].lat, foundArticles[i].lon]).addTo(map);
+                    var markerPopup = "<div class='marker-popup' data-id='" + foundArticles[i].postId + "' ><h3 class='marker-title'>" + foundArticles[i]["title"] + "</h3></div>";
 
                     marker.bindPopup(markerPopup);
-                    $(markerPopup).attr("id", articles[i].postId);
+                    $(markerPopup).attr("id", foundArticles[i].postId);
                     markers.push(marker);
                 }
             }
@@ -152,17 +165,26 @@ NewsMap.DrawMap = (function () {
 
         },
 
+        enterListen = function () {
+            $('input#loc-start-inp').keypress(function (e) {
+                if (e.which == 13) {
+                    findArticlesByLocation($('input#loc-start-inp').val());
+                    $("#autocomplete").empty();
+                    return false;    //<---- Add this line
+                }
+            });
+        },
+
         autocomplete = function () {
             $('input#loc-start-inp').on('input', function (e) {
                 if ($(this).val().length >= 0) {
                     var searchResults = [];
 
                     $.ajax({
-                        url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#loc-start-inp").val(),
+                        url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#loc-start-inp").val()
 
                     }).done(function (data) {
                         searchResults = data;
-                        console.log(data)
                         $("#autocomplete").empty();
                         $.each(data, function (key) {
 
@@ -173,7 +195,8 @@ NewsMap.DrawMap = (function () {
                         });
                         $("#autocomplete li").on("click", function () {
                             $("#selected-location").html($(this).html());
-                            $('input#loc-start-inp').val("");
+                            findArticlesByLocation($('input#loc-start-inp').val());
+                            // $('input#loc-start-inp').val("");
                             $("#autocomplete").empty();
                             var index = $(this).attr("index"),
                                 lat = searchResults[index]["lat"],
@@ -189,8 +212,45 @@ NewsMap.DrawMap = (function () {
             });
         },
 
-        _setLocation = function (lat, long) {
+    /*
+     foundArticles by Locationsearch / inputfield
+     */
+        findArticlesByLocation = function (selectedLocation) {
+            foundArticles = [];
+            for (var i = 0; i < articles.length; i++) {
+                var currentArticle = articles[i],
+                    city = currentArticle["city"],
+                    county = currentArticle["county"],
+                    region = currentArticle["region"],
+                    municipality = currentArticle["municipality"];
+                if (wordInString(selectedLocation, city) || wordInString(selectedLocation, county) || wordInString(selectedLocation, region) || wordInString(selectedLocation, municipality)) {
+                    foundArticles.push(currentArticle);
+                }
+            }
+            console.log(foundArticles);
+            if (foundArticles.length == 0)
+                alert("Keine Ergebnisse für " + selectedLocation + " gefunden");
+            else {
+                addMarker();
+            }
+        },
 
+    /*
+     compare string similarity
+     UNUSED
+     */
+        stringSimilarity = function (a, b) {
+            for (var result = 0, i = a.length; i--;) {
+                if (typeof b[i] == 'undefined' || a[i] == b[i]);
+                else if (a[i].toLowerCase() == b[i].toLowerCase())
+                    result++;
+                else
+                    result += 4;
+            }
+            return 1 - (result + 4 * Math.abs(a.length - b.length)) / (2 * (a.length + b.length));
+        },
+
+        _setLocation = function (lat, long) {
             // Removing old markers
             for (i = 0; i < marker.length; i++) {
                 map.removeLayer(marker[i]);
