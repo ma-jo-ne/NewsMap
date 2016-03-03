@@ -10,6 +10,7 @@ NewsMap.MainController = (function () {
             drawMap = NewsMap.DrawMap.init();
 
             $(newsMapView).on("locationFound", setLocation);
+            $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
             $(drawMap).on("locationClicked", closeMenu);
 
             return this;
@@ -21,6 +22,11 @@ NewsMap.MainController = (function () {
 
         closeMenu = function () {
             newsMapView._closeMenu();
+        },
+
+        getClickedArticlePopup = function (e, articleID) {
+            var clickedArticle = drawMap._getArticle(articleID);
+            newsMapView._setArticleContent(clickedArticle);
         };
 
     that.init = init;

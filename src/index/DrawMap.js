@@ -104,6 +104,7 @@ NewsMap.DrawMap = (function () {
                                 }
                             });
                             foundArticles = articles;
+                            console.log(foundArticles);
                             articlesLoaded = true;
                             addMarker();
                         },
@@ -268,9 +269,23 @@ NewsMap.DrawMap = (function () {
             marker.push(myLocationMarker);
             map.addLayer(marker[marker.length - 1]);
             myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
+        },
+
+
+    /*
+     return article by goiven articleID
+     */
+        _getArticle = function (articleID) {
+            for (var i = 0; i < foundArticles.length; i++) {
+                if (articleID == foundArticles[i].postId) {
+                    return foundArticles[i];
+                }
+            }
+            return "0";
         };
 
     that._setLocation = _setLocation;
+    that._getArticle = _getArticle;
     that.init = init;
 
     return that;

@@ -21,6 +21,7 @@ html, body {
     text-align: center;
     min-height: 54px;
 }
+
 a {
     color: #ffff00;
     text-decoration: none;
@@ -51,13 +52,12 @@ a:hover {
 /*eigenes css*/
 
 #map {
-    height: 92%;
+    height: 93%;
     width: 100%;
     padding: 0;
     margin: 0;
     float: left;
 }
-
 
 .olPopup, .olFramedCloudPopupContent {
 
@@ -76,13 +76,14 @@ a:hover {
 #menu-left {
     float: left;
     display: none;
-    height: 100%;
+    height: 93%;
     width: 30%;
     position: absolute;
     z-index: 1000;
     background: #2c60b5;
     color: #f5f5f5;
     padding: 1rem;
+    overflow-y: auto;
 }
 
 .entry-title {
@@ -149,13 +150,34 @@ a:hover {
     background: #3b9cd8;
 }
 
-
 #menu-list li i {
     height: 100%;
     width: 100%;
     line-height: 3rem;
     font-size: 3rem;
     text-align: center;
+}
+
+.leaflet-popup-content-wrapper {
+    background: white;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
+    min-height: 100px;
+    min-width: 220px;
+    text-align: center;
+}
+
+.leaflet-popup-content {
+    width: 170px;
+    margin: 13px 19px;
+    line-height: 1.4;
+}
+
+.leaflet-popup-tip {
+    display: none;
+}
+
+.entry-summary {
+    overflow-y: auto;
 }
 
 /*
@@ -278,6 +300,7 @@ a:hover {
 #loc-start-inp {
     height: 45px;
 }
+
 #autocomplete {
     margin: 0;
     background-color: white;
@@ -295,8 +318,10 @@ a:hover {
     background-color: #2d61b5;
     color: white;
 }
+
 .marker-popup {
     position: absolute;
+    cursor: pointer;
 }
 
 .marker-title {

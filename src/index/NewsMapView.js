@@ -22,7 +22,7 @@ NewsMap.NewsMapView = (function () {
 
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
-                $("#menu-left").show();
+                $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             });
@@ -32,6 +32,16 @@ NewsMap.NewsMapView = (function () {
             $("#close-preview").on("click", function () {
                 $("#menu-left").hide();
             });
+        },
+
+        _setArticleContent = function (clickedArticle) {
+            $(".title").html(clickedArticle["title"]);
+            $(".preview-link").attr("href", clickedArticle["link"]);
+            $(".entry-summary").html(clickedArticle["content"]);
+            $(".pub-date").html(clickedArticle["pubData"]);
+            $("#menu-left").show();
+
+            console.log(clickedArticle);
         },
 
 
@@ -93,6 +103,7 @@ NewsMap.NewsMapView = (function () {
         };
 
     that._closeMenu = _closeMenu;
+    that._setArticleContent = _setArticleContent;
     that.init = init;
 
     return that;
