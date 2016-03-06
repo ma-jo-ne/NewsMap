@@ -12,6 +12,7 @@ NewsMap.NewsMapView = (function () {
             previewClose();
             identifyLocation();
             menuItemClick();
+            searchButtonClick();
 
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
@@ -25,6 +26,12 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
+            });
+        },
+
+        searchButtonClick = function() {
+            $('body').on('click', '#search-button', function () {
+                $(that).trigger("searchButtonClick");
             });
         },
 

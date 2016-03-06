@@ -11,6 +11,7 @@ NewsMap.MainController = (function () {
 
             $(newsMapView).on("locationFound", setLocation);
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
+            $(newsMapView).on("searchButtonClick", getTagsFromArticles);
             $(drawMap).on("locationClicked", closeMenu);
 
             return this;
@@ -22,6 +23,10 @@ NewsMap.MainController = (function () {
 
         closeMenu = function () {
             newsMapView._closeMenu();
+        },
+
+        getTagsFromArticles = function(e) {
+            drawMap.tagSearchClicked();
         },
 
         getClickedArticlePopup = function (e, articleID) {

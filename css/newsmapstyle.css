@@ -259,11 +259,18 @@ a:hover {
 }
 
 #close-preview i {
-
+    float: right;
+    font-size: 1.5rem;
+    cursor: pointer;
 }
 
 .fi-x {
     color: white;
+}
+
+.pub-date {
+    font-style: italic;
+    font-size: 70%;
 }
 
 #identify-location {

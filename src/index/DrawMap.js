@@ -174,6 +174,20 @@ NewsMap.DrawMap = (function () {
                     return false;    //<---- Add this line
                 }
             });
+
+            $('#tag-search-input').keypress(function (e) {
+                if (e.which == 13) {
+                    findArticlesByTag($('#tag-search-input').val());
+                    //$("#autocomplete").empty();
+                    return false;    //<---- Add this line
+                }
+            });
+
+
+        },
+
+        tagSearchClicked = function() {
+            findArticlesByTag($('#tag-search-input').val());
         },
 
         autocomplete = function () {
@@ -236,6 +250,28 @@ NewsMap.DrawMap = (function () {
             }
         },
 
+        findArticlesByTag = function (selectedTag) {
+            console.log(selectedTag);
+            foundArticles = [];
+            for (var i = 0; i < articles.length; i++) {
+                var currentArticle = articles[i];
+                var tag;
+                for (var k = 0; k < articles[i].tags.length; k++) {
+                    tag = articles[i].tags[k];
+                    console.log(tag);
+                    if (wordInString(selectedTag, tag) ) {
+                        foundArticles.push(currentArticle);
+                    }
+                }
+            }
+            console.log(foundArticles);
+            if (foundArticles.length == 0)
+                alert("Keine Ergebnisse für " + selectedTag + " gefunden");
+            else {
+                addMarker();
+            }
+        },
+
     /*
      compare string similarity
      UNUSED
@@ -286,6 +322,7 @@ NewsMap.DrawMap = (function () {
 
     that._setLocation = _setLocation;
     that._getArticle = _getArticle;
+    that.tagSearchClicked = tagSearchClicked;
     that.init = init;
 
     return that;
