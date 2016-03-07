@@ -16,7 +16,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 //storeArticles($conn);
-//storeRelations($conn);
+storeRelations($conn);
 //storeTags($conn);
 
 function storeArticles($conn) {

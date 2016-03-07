@@ -1,0 +1,12 @@
+Suchevon Artikel nach einem Tag:
+SELECT *
+FROM articles
+INNER JOIN articles_tags
+ON articles.post_id=articles_tags.article_id WHERE articles_tags.name LIKE "%person%";
+
+
+
+Suche nach Artikel:
+SELECT *
+FROM articles
+where title like "%burgkunstadt%"

@@ -103,7 +103,7 @@ if ($_GET["store"] == true):
                             var tagname = newsData[i]["tags"][j];
                             var obj = {
                                 tag_id: tag_id,
-                                article_id: article_id,
+                                article_id: newsData[i]["postId"],
                                 name: tagname
                             };
                             articleTagsRealted.push(obj);
