@@ -23,8 +23,22 @@
 </head>
 <body>
 <script>
-    //getArticleByTitle();
+    getArticleByTitle();
     getArticleByLocation();
+    getArticleByLocation();
+
+    /*
+     fur parameter tag, title oder location den wert des input felds mitgeben;
+     das auslesen der xml-datei ist jetzt nicht mehr nötig (kann auskommentiert werden),
+     man bekommt alle notwendigen daten in der jeweiligen success funktion.
+     Man könnte input felder für location (gibt es schon), tag bzw. kategorie suche machen (gibt es auch)
+     und zusätzlich noch ein input feld für die Suche nach dem Titel eines Artikels
+     (Oder ein input-feld wo man zwischen tag/kategorie und Titel, bspw. mit nem radio-button auswählen kann).
+     Tags und Titel könnte man in den jeweiligen input feldern mit Autocomplete machen.
+     Also die jeweiligen Funktionen werden bei .change-event auf dem jeweiligen input feld-aufgerufen
+     und die ergebnisse aus der success-funktion dann in einem autocomplete angezeigt und auswählbar gemacht.
+     die Funktionen müssen noch in da entsprechende Modul , glaub drawmap oder noch ein modul erstellen für das Abrufen der Daten.
+     */
     function getArticleByTag() {
         $.ajax({
             type: "GET",
@@ -35,8 +49,7 @@
                     console.log("Keine Ergebnisse");
                 }
                 else
-                    console.log("SQL-AJAX-Ergebnisse", JSON.parse(data));
-                ;
+                    console.log("TAG-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
             },
             error: function () {
                 alert("error");
@@ -54,7 +67,7 @@
                     console.log("Keine Ergebnisse");
                 }
                 else
-                    console.log("SQL-AJAX-Ergebnisse", JSON.parse(data));
+                    console.log("TITLE-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
             },
             error: function () {
                 alert("error");
@@ -72,7 +85,7 @@
                     console.log("Keine Ergebnisse");
                 }
                 else
-                    console.log("SQL-AJAX-Ergebnisse", JSON.parse(data));
+                    console.log("LOCATION-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
             },
             error: function () {
                 alert("error");
