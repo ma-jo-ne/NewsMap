@@ -2,16 +2,20 @@ Suchevon Artikel nach einem Tag:
 SELECT *
 FROM articles
 INNER JOIN articles_tags
-ON articles.post_id=articles_tags.article_id WHERE articles_tags.name LIKE "%person%";
+ON articles.post_id=articles_tags.article_id
+WHERE articles_tags.name LIKE "%person%";
 
 
 
 Suche nach Artikel:
 SELECT *
 FROM articles
-where title like "%burgkunstadt%"
+where title like "%burgkunstadt%";
 
+
+Suche nach Ort
 SELECT *
 FROM articles
 INNER JOIN locations
 ON articles.post_id=article_id
+WHERE locations.city LIKE "%burgkunstadt%";
