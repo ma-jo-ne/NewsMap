@@ -10,3 +10,8 @@ Suche nach Artikel:
 SELECT *
 FROM articles
 where title like "%burgkunstadt%"
+
+SELECT *
+FROM articles
+INNER JOIN locations
+ON articles.post_id=article_id

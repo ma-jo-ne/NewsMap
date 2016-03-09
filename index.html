@@ -23,7 +23,8 @@
 </head>
 <body>
 <script>
-    getArticleByTitle();
+    //getArticleByTitle();
+    parseCSV();
     function getArticleByTag() {
         $.ajax({
             type: "GET",
@@ -33,7 +34,7 @@
                 console.log("SQL-AJAX", JSON.parse(data));
             },
             error: function () {
-                alert(error);
+                alert("error");
             }
         });
     }
@@ -47,7 +48,21 @@
                 console.log("SQL-AJAX", JSON.parse(data));
             },
             error: function () {
-                alert(error);
+                alert("error");
+            }
+        });
+    }
+
+    function parseCSV() {
+        $.ajax({
+            type: "GET",
+            url: "http://" + location.host + "/NewsMap/csv_parse.php",
+            success: function (data) {
+
+                console.log("SQL-AJAX", JSON.parse(data));
+            },
+            error: function () {
+                alert("error");
             }
         });
     }
