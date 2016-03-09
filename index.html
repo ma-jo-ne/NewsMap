@@ -24,14 +24,19 @@
 <body>
 <script>
     //getArticleByTitle();
-    parseCSV();
+    getArticleByLocation();
     function getArticleByTag() {
         $.ajax({
             type: "GET",
             url: "http://" + location.host + "/NewsMap/get_data.php",
             data: {func: "tag", tag: "person"},
             success: function (data) {
-                console.log("SQL-AJAX", JSON.parse(data));
+                if (data.length == 0) {
+                    console.log("Keine Ergebnisse");
+                }
+                else
+                    console.log("SQL-AJAX-Ergebnisse", JSON.parse(data));
+                ;
             },
             error: function () {
                 alert("error");
@@ -45,7 +50,11 @@
             url: "http://" + location.host + "/NewsMap/get_data.php",
             data: {func: "title", title: "burgkunstadt"},
             success: function (data) {
-                console.log("SQL-AJAX", JSON.parse(data));
+                if (data.length == 0) {
+                    console.log("Keine Ergebnisse");
+                }
+                else
+                    console.log("SQL-AJAX-Ergebnisse", JSON.parse(data));
             },
             error: function () {
                 alert("error");
@@ -53,13 +62,17 @@
         });
     }
 
-    function parseCSV() {
+    function getArticleByLocation() {
         $.ajax({
             type: "GET",
-            url: "http://" + location.host + "/NewsMap/csv_parse.php",
+            url: "http://" + location.host + "/NewsMap/get_data.php",
+            data: {func: "location", location: "burgkunstadt"},
             success: function (data) {
-
-                console.log("SQL-AJAX", JSON.parse(data));
+                if (data.length == 0) {
+                    console.log("Keine Ergebnisse");
+                }
+                else
+                    console.log("SQL-AJAX-Ergebnisse", JSON.parse(data));
             },
             error: function () {
                 alert("error");

@@ -23,6 +23,8 @@ if ($_GET["func"] == "tag") {
 
 } else if ($_GET["func"] == "title") {
     getArticleByTitle($conn);
+} else if ($_GET["func"] == "location") {
+    getArticleByLocation($conn);
 }
 //
 
@@ -42,6 +44,20 @@ function getArticleByTag($conn) {
 
 function getArticleByTitle($conn) {
     $sql = 'SELECT *FROM articles WHERE title LIKE "%' . $_GET["title"] . '%"';
+    if ($result = $conn->query($sql)) {
+
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+        /* free result set */
+        $result->close();
+    }
+}
+
+function getArticleByLocation($conn) {
+    $sql = 'SELECT * FROM articles INNER JOIN locations ON articles.post_id=article_id WHERE locations.city LIKE "%' . $_GET["location"] . '%"';
     if ($result = $conn->query($sql)) {
 
         $rows = array();
