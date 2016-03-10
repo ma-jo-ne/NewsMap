@@ -36,7 +36,7 @@ else if ($_GET["func"] == "article") {
 //
 
 function getArticle($conn) {
-    $sql = 'SELECT title, post_id, lat, lon, city FROM articles, locations WHERE articles.post_id = locations.article_id ';
+    $sql = 'SELECT content, link, pub_data, title, post_id, lat, lon, city FROM articles, locations WHERE articles.post_id = locations.article_id ';
     if ($result = $conn->query($sql)) {
 
         $rows = array();

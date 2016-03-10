@@ -42,10 +42,10 @@ NewsMap.NewsMapView = (function () {
         },
 
         _setArticleContent = function (clickedArticle) {
-            $(".title").html(clickedArticle["title"]);
-            $(".preview-link").attr("href", clickedArticle["link"]);
-            $(".entry-summary").html(clickedArticle["content"]);
-            $(".pub-date").html(clickedArticle["pubData"]);
+            $(".title").html(clickedArticle.title);
+            $(".more-link").attr("href", clickedArticle.link);
+            $(".entry-summary").html(clickedArticle.content);
+            $(".pub-date").html(clickedArticle.pub_data);
             $("#menu-left").show();
 
             console.log(clickedArticle);

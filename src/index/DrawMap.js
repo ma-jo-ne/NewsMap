@@ -21,7 +21,9 @@ NewsMap.DrawMap = (function () {
                 enterListen();
                 drawmap();
 
+                return this;
             },
+
             getArticles = function () {
                 $.ajax({
                     type: "GET",
@@ -33,7 +35,9 @@ NewsMap.DrawMap = (function () {
                         }
                         else
 
-                        addMarker(JSON.parse(data));
+                            addMarker(JSON.parse(data));
+                        foundArticles = JSON.parse(data);
+
                     },
                     error: function () {
                         alert("error");
@@ -212,6 +216,15 @@ NewsMap.DrawMap = (function () {
                 return 1 - (result + 4 * Math.abs(a.length - b.length)) / (2 * (a.length + b.length));
             },
 
+            _getArticle = function (articleID) {
+                for (var i = 0; i < foundArticles.length; i++) {
+                    if (articleID == foundArticles[i].post_id) {
+                        return foundArticles[i];
+                    }
+                }
+                return "0";
+            },
+
             _setLocation = function (lat, long) {
                 // Removing old markers
                 for (i = 0; i < marker.length; i++) {
@@ -230,20 +243,12 @@ NewsMap.DrawMap = (function () {
                 marker.push(myLocationMarker);
                 map.addLayer(marker[marker.length - 1]);
                 myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
-            },
+            };
 
 
         /*
          return article by goiven articleID
          */
-            _getArticle = function (articleID) {
-                for (var i = 0; i < foundArticles.length; i++) {
-                    if (articleID == foundArticles[i].postId) {
-                        return foundArticles[i];
-                    }
-                }
-                return "0";
-            };
 
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
