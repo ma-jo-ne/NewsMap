@@ -29,7 +29,39 @@ if ($_GET["func"] == "tag") {
 } else if ($_GET["func"] == "location") {
     getArticleByLocation($conn);
 }
+else if ($_GET["func"] == "article") {
+    getArticle($conn);
+}
+
 //
+
+function getArticle($conn) {
+    $sql = 'SELECT title, post_id, lat, lon, city FROM articles, locations WHERE articles.post_id = locations.article_id ';
+    if ($result = $conn->query($sql)) {
+
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+        /* free result set */
+        $result->close();
+    }
+}
+
+function getLocation($conn) {
+    $sql = 'SELECT lat, lon, article_id, city FROM locations' ;
+    if ($result = $conn->query($sql)) {
+
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+        /* free result set */
+        $result->close();
+    }
+}
 
 function getArticleByTag($conn) {
     $sql = 'SELECT * FROM articles INNER JOIN articles_tags ON articles.post_id=articles_tags.article_id WHERE articles_tags.name LIKE "%' . $_GET["tag"] . '%"';
@@ -60,7 +92,7 @@ function getArticleByTitle($conn) {
 }
 
 function getArticleByLocation($conn) {
-    $sql = 'SELECT * FROM articles INNER JOIN locations ON articles.post_id=article_id WHERE locations.city LIKE "%' . $_GET["location"] . '%"';
+    $sql = 'SELECT * FROM articles, locations INNER JOIN locations ON articles.post_id=article_id WHERE locations.city LIKE "%' . $_GET["location"] . '%"';
     if ($result = $conn->query($sql)) {
 
         $rows = array();
