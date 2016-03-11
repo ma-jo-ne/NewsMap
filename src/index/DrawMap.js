@@ -37,6 +37,7 @@ NewsMap.DrawMap = (function () {
 
                             addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
+                        console.log(foundArticles);
 
                     },
                     error: function () {
@@ -223,6 +224,10 @@ NewsMap.DrawMap = (function () {
                     }
                 }
                 return "0";
+            },
+
+            _bundleMarkers = function(){
+
             },
 
             _setLocation = function (lat, long) {
