@@ -1,7 +1,7 @@
 NewsMap.DrawMap = (function () {
         var marker = [],
             articles = [],
-            markers = [],
+            markers = new L.MarkerClusterGroup(),
             markersSet = false,
             that = {},
             map = null,
@@ -39,6 +39,7 @@ NewsMap.DrawMap = (function () {
                         foundArticles = JSON.parse(data);
                         console.log(foundArticles);
 
+
                     },
                     error: function () {
                         alert("error");
@@ -70,16 +71,20 @@ NewsMap.DrawMap = (function () {
                 console.log(data.length);
                 if (!markersSet) {
                     for (i = 0; i < 100; i++) {
-                        var marker = L.marker([data[i].lat, data[i].lon]).addTo(map);
+                        var marker = L.marker([data[i].lat, data[i].lon]);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
                         marker.bindPopup(markerPopup);
                         $(markerPopup).attr("id", data[i].post_id);
-                        markers.push(marker);
+                        markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
 
                     }
+                    map.addLayer(markers);
                     markersSet = true;
+
+
                     console.log("markers set");
+                    console.log(markers);
                 }
             },
 
@@ -227,6 +232,7 @@ NewsMap.DrawMap = (function () {
             },
 
             _bundleMarkers = function(){
+           // console.log("some shit");
 
             },
 
@@ -246,7 +252,7 @@ NewsMap.DrawMap = (function () {
 
                 var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
                 marker.push(myLocationMarker);
-                map.addLayer(marker[marker.length - 1]);
+                map.addLayer(markers);
                 myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
             };
 
@@ -254,7 +260,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
-
+        that._bundleMarkers=_bundleMarkers;
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;
