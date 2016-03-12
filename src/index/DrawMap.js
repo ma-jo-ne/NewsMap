@@ -8,6 +8,8 @@ NewsMap.DrawMap = (function () {
             newsDataObjects = [],
             foundArticles = [],
 
+
+
             wordInString = function (s, word) {
                 return new RegExp('\\b' + word.toLowerCase() + '\\b', 'i').test(s.toLowerCase());
             },
