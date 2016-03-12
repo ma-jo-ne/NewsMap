@@ -231,10 +231,7 @@ NewsMap.DrawMap = (function () {
                 return "0";
             },
 
-            _bundleMarkers = function(){
-           // console.log("some shit");
 
-            },
 
             _setLocation = function (lat, long) {
                 // Removing old markers
@@ -260,7 +257,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
-        that._bundleMarkers=_bundleMarkers;
+
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;
