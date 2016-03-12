@@ -13,6 +13,7 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
             $(newsMapView).on("searchButtonClick", getTagsFromArticles);
             $(newsMapView).on("shareButtonClick", setShareOptions);
+            $(newsMapView).on("outlookButtonClick", sendToOutlook);
             $(drawMap).on("locationClicked", closeMenu);
 
             return this;
@@ -25,6 +26,13 @@ NewsMap.MainController = (function () {
         setShareOptions = function(){
             console.log("MainController: in setShareOptions");
             drawMap.showShareOptions();
+            new Clipboard('.btn'); //muss erstellt werden um Link zu kopieren wegen Clipboard copy script
+        },
+
+
+        sendToOutlook = function(){
+            console.log("in MainController sendToOutlook");
+
         },
 
         closeMenu = function () {
@@ -39,6 +47,8 @@ NewsMap.MainController = (function () {
             var clickedArticle = drawMap._getArticle(articleID);
             newsMapView._setArticleContent(clickedArticle);
         };
+
+
 
     that.init = init;
 

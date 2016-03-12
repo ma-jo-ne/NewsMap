@@ -14,6 +14,8 @@ NewsMap.NewsMapView = (function () {
             menuItemClick();
             searchButtonClick();
             shareButtonClick();
+            outlookButtonClick();
+            linkButtonClick();
 
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
@@ -28,6 +30,19 @@ NewsMap.NewsMapView = (function () {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
 
+            });
+        },
+
+        linkButtonClick= function () {
+            $('body').on('click', '#link-button', function () {
+                $(that).trigger("linkClicked", [$(this).attr("data-id")]);
+
+            });
+        },
+
+        outlookButtonClick = function () {
+            $('body').on('click', '#outlook-button', function () {
+                $(that).trigger("outlookButtonClick");
             });
         },
 
@@ -59,6 +74,8 @@ NewsMap.NewsMapView = (function () {
             $("#menu-left").show();
 
             console.log(clickedArticle);
+
+            $("#foo").val(clickedArticle.link);
         },
 
 

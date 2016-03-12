@@ -21,6 +21,7 @@
     <script src="js/leaflet.js"></script>
     <script src="js/vendor/jquery.js"></script>
     <script src="leaflet_markercluster_07/dist/leaflet.markercluster.js"></script>
+    <script src="https://cdn.jsdelivr.net/clipboard.js/1.5.8/clipboard.min.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
 
 </head>
@@ -218,10 +219,14 @@
 
     <button id="outlook-button">Outlook</button>
      <br/>
-    <button id="link-button">Link kopieren</button>
+
+    <button  class="btn" data-clipboard-target="#foo" id="link-button">Link kopieren</button>
+    <input id="foo" value="linkzuArtikel">
     <br/>
+
     <button id="facebook-button">Facebook</button>
     <br/>
+
     <button id="twitter-button">Twitter</button>
 
 </div>
