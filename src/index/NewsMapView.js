@@ -13,6 +13,7 @@ NewsMap.NewsMapView = (function () {
             identifyLocation();
             menuItemClick();
             searchButtonClick();
+            shareButtonClick();
 
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
@@ -30,11 +31,19 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
+        shareButtonClick = function(){
+            console.log("View: in share Button Click ");
+            $('body').on('click', '#share-button', function () {
+                $(that).trigger("shareButtonClick");
+            });
+        },
+
         searchButtonClick = function() {
             $('body').on('click', '#search-button', function () {
                 $(that).trigger("searchButtonClick");
             });
         },
+
 
         previewClose = function () {
             $("#close-preview").on("click", function () {

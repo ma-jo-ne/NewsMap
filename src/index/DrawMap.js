@@ -237,6 +237,13 @@ NewsMap.DrawMap = (function () {
 
             },
 
+            showShareOptions = function(){
+                $("#menu-left").hide();
+                $("#share-menu").toggle();
+
+               //popUp in mitte des Fensters anzeigen, dort zur Auswahl "Outlook versenden" "link kopieren" "auf Facebook posten"
+            },
+
             _setLocation = function (lat, long) {
                 // Removing old markers
                 for (i = 0; i < marker.length; i++) {
@@ -261,7 +268,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
-        that._bundleMarkers = _bundleMarkers;
+        that.showShareOptions = showShareOptions;
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;

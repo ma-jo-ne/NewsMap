@@ -85,6 +85,18 @@ a:hover {
     padding: 1rem;
     overflow-y: auto;
 }
+#share-menu{
+    display: none;
+    float: left;
+    height: 93%;
+    width: 30%;
+    position: absolute;
+    z-index: 1000;
+    background: #2c60b5;
+    color: #f5f5f5;
+    padding: 1rem;
+    overflow-y: auto;
+}
 
 .entry-title {
     font-weight: bold;
