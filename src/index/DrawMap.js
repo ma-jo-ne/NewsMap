@@ -1,7 +1,7 @@
 NewsMap.DrawMap = (function () {
         var marker = [],
             articles = [],
-            markers = [],
+            markers = new L.MarkerClusterGroup(),
             markersSet = false,
             that = {},
             map = null,
@@ -37,6 +37,8 @@ NewsMap.DrawMap = (function () {
 
                             addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
+                        console.log(foundArticles);
+
 
                     },
                     error: function () {
@@ -44,6 +46,7 @@ NewsMap.DrawMap = (function () {
                     }
                 });
             },
+
 
             drawmap = function () {
                 load_map();
@@ -65,21 +68,23 @@ NewsMap.DrawMap = (function () {
 
             addMarker = function (data) {
                 //map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lat));
+                console.log(data.length);
                 if (!markersSet) {
-                    for (i = 0; i < markers.length; i++) {
-                        map.removeLayer(markers[i]);
-                    }
                     for (i = 0; i < 100; i++) {
-                        var marker = L.marker([data[i].lat, data[i].lon]).addTo(map);
+                        var marker = L.marker([data[i].lat, data[i].lon]);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
                         marker.bindPopup(markerPopup);
                         $(markerPopup).attr("id", data[i].post_id);
-                        markers.push(marker);
+                        markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
 
                     }
+                    map.addLayer(markers);
                     markersSet = true;
+
+
                     console.log("markers set");
+                    console.log(markers);
                 }
             },
 
@@ -202,25 +207,6 @@ NewsMap.DrawMap = (function () {
                     addMarker();
                 }
             },
-
-            getLocationById = function (id) {
-                $.ajax({
-                    type: "GET",
-                    url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: "id", id: id},
-                    success: function (data) {
-                        if (data.length == 0) {
-                            console.log("Keine Ergebnisse");
-                        }
-                        else
-                            return JSON.parse(data);
-                        //addMarker(JSON.parse(data));
-                    },
-                    error: function () {
-                        alert("error");
-                    }
-                });
-            },
         /*
          compare string similarity
          UNUSED
@@ -245,7 +231,8 @@ NewsMap.DrawMap = (function () {
                 return "0";
             },
 
-            _bundleMarkers = function () {
+            _bundleMarkers = function(){
+           // console.log("some shit");
 
             },
 
@@ -265,7 +252,7 @@ NewsMap.DrawMap = (function () {
 
                 var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
                 marker.push(myLocationMarker);
-                map.addLayer(marker[marker.length - 1]);
+                map.addLayer(markers);
                 myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
             };
 
@@ -273,7 +260,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
-
+        that._bundleMarkers=_bundleMarkers;
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;
