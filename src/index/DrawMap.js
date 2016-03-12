@@ -85,6 +85,7 @@ NewsMap.DrawMap = (function () {
 
                     console.log("markers set");
                     console.log(markers);
+                    
                 }
             },
 
