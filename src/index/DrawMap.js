@@ -70,7 +70,7 @@ NewsMap.DrawMap = (function () {
                 //map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lat));
                 console.log(data.length);
                 if (!markersSet) {
-                    for (i = 0; i < 100; i++) {
+                    for (i = 0; i < data.length; i++) {
                         var marker = L.marker([data[i].lat, data[i].lon]);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
