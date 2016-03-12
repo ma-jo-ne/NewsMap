@@ -3,12 +3,11 @@ NewsMap.DrawMap = (function () {
             articles = [],
             markers = new L.MarkerClusterGroup(),
             markersSet = false,
+
             that = {},
             map = null,
             newsDataObjects = [],
             foundArticles = [],
-
-
 
             wordInString = function (s, word) {
                 return new RegExp('\\b' + word.toLowerCase() + '\\b', 'i').test(s.toLowerCase());
@@ -39,7 +38,6 @@ NewsMap.DrawMap = (function () {
 
                             addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
-                        console.log(foundArticles);
 
 
                     },
@@ -70,8 +68,10 @@ NewsMap.DrawMap = (function () {
 
             addMarker = function (data) {
                 //map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lat));
-                console.log(data.length);
                 if (!markersSet) {
+
+                    markers.clearLayers();
+
                     for (i = 0; i < data.length; i++) {
                         var marker = L.marker([data[i].lat, data[i].lon]);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
@@ -82,12 +82,10 @@ NewsMap.DrawMap = (function () {
 
                     }
                     map.addLayer(markers);
-                    markersSet = true;
-
-
                     console.log("markers set");
-                    console.log(markers);
-                    
+
+
+                    markersSet = true;
                 }
             },
 
@@ -185,8 +183,8 @@ NewsMap.DrawMap = (function () {
                         }
                         else
                             console.log("TAG-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                        markersSet = false;
-                        addMarker(JSON.parse(data));
+                            markersSet = false;
+                            addMarker(JSON.parse(data));
                     },
                     error: function () {
                         alert("error");
@@ -234,7 +232,10 @@ NewsMap.DrawMap = (function () {
                 return "0";
             },
 
+            _bundleMarkers = function () {
+                // console.log("some shit");
 
+            },
 
             _setLocation = function (lat, long) {
                 // Removing old markers
@@ -260,7 +261,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
-
+        that._bundleMarkers = _bundleMarkers;
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;
