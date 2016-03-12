@@ -37,7 +37,6 @@ NewsMap.DrawMap = (function () {
 
                             addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
-                        console.log(foundArticles);
 
                     },
                     error: function () {
@@ -45,7 +44,6 @@ NewsMap.DrawMap = (function () {
                     }
                 });
             },
-
 
             drawmap = function () {
                 load_map();
@@ -67,8 +65,10 @@ NewsMap.DrawMap = (function () {
 
             addMarker = function (data) {
                 //map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lat));
-                console.log(data.length);
                 if (!markersSet) {
+                    for (i = 0; i < markers.length; i++) {
+                        map.removeLayer(markers[i]);
+                    }
                     for (i = 0; i < 100; i++) {
                         var marker = L.marker([data[i].lat, data[i].lon]).addTo(map);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
@@ -94,7 +94,7 @@ NewsMap.DrawMap = (function () {
 
                 $('#tag-search-input').keypress(function (e) {
                     if (e.which == 13) {
-                        getArticleByTag($('#tag-search-input').val());
+                        getArticleByTag($('#tag-search-input').val().toLowerCase());
                         //$("#autocomplete").empty();
                         return false;    //<---- Add this line
                     }
@@ -159,7 +159,6 @@ NewsMap.DrawMap = (function () {
                         foundArticles.push(currentArticle);
                     }
                 }
-                console.log(foundArticles);
                 if (foundArticles.length == 0)
                     alert("Keine Ergebnisse für " + selectedLocation + " gefunden");
                 else {
@@ -167,18 +166,19 @@ NewsMap.DrawMap = (function () {
                 }
             },
 
-            getArticleByTag = function (searchedTag) {
+            getArticleByTag = function (selectedTag) {
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: "tag", tag: searchedTag},
+                    data: {func: "tag", tag: selectedTag},
                     success: function (data) {
                         if (data.length == 0) {
                             console.log("Keine Ergebnisse");
                         }
                         else
                             console.log("TAG-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                        addMarker();
+                        markersSet = false;
+                        addMarker(JSON.parse(data));
                     },
                     error: function () {
                         alert("error");
@@ -201,6 +201,25 @@ NewsMap.DrawMap = (function () {
                 else {
                     addMarker();
                 }
+            },
+
+            getLocationById = function (id) {
+                $.ajax({
+                    type: "GET",
+                    url: "http://" + location.host + "/NewsMap/get_data.php",
+                    data: {func: "id", id: id},
+                    success: function (data) {
+                        if (data.length == 0) {
+                            console.log("Keine Ergebnisse");
+                        }
+                        else
+                            return JSON.parse(data);
+                        //addMarker(JSON.parse(data));
+                    },
+                    error: function () {
+                        alert("error");
+                    }
+                });
             },
         /*
          compare string similarity
@@ -226,7 +245,7 @@ NewsMap.DrawMap = (function () {
                 return "0";
             },
 
-            _bundleMarkers = function(){
+            _bundleMarkers = function () {
 
             },
 
