@@ -29,16 +29,10 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-
+                console.log();
             });
         },
 
-        linkButtonClick= function () {
-            $('body').on('click', '#link-button', function () {
-                $(that).trigger("linkClicked", [$(this).attr("data-id")]);
-
-            });
-        },
 
         outlookButtonClick = function () {
             $('body').on('click', '#outlook-button', function () {
