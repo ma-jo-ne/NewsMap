@@ -37,7 +37,26 @@ else if ($_GET["func"] == "id") {
     getLocationById($conn);
 }
 
+else if ($_GET["func"] == "tagAuto") {
+    tagAutocomplete($conn);
+}
+
 //
+
+function tagAutocomplete($conn) {
+    $keyword = '%'.$_GET['keyword'].'%';
+    $sql = 'SELECT articles_tags.name FROM articles_tags WHERE articles_tags.name LIKE "%' . $_GET["keyword"] . '%"';
+    if ($result = $conn->query($sql)) {
+
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+        /* free result set */
+        $result->close();
+    }
+}
 
 function getArticle($conn) {
     $sql = 'SELECT content, link, pub_data, title, post_id, lat, lon, city FROM articles, locations WHERE articles.post_id = locations.article_id ';

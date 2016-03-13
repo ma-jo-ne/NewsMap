@@ -323,6 +323,9 @@ a:hover {
 #autocomplete {
     margin: 0;
     background-color: white;
+    overflow: scroll;
+    height: 15rem;
+    display: none;
 }
 
 #autocomplete li {

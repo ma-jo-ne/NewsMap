@@ -101,7 +101,7 @@ NewsMap.DrawMap = (function () {
                 $('#tag-search-input').keypress(function (e) {
                     if (e.which == 13) {
                         getArticleByTag($('#tag-search-input').val().toLowerCase());
-                        //$("#autocomplete").empty();
+                        $("#autocomplete").empty();
                         return false;    //<---- Add this line
                     }
                 });
@@ -114,40 +114,70 @@ NewsMap.DrawMap = (function () {
             },
 
             autocomplete = function () {
-                $('input#loc-start-inp').on('input', function (e) {
-                    if ($(this).val().length >= 0) {
-                        var searchResults = [];
-
-                        $.ajax({
-                            url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#loc-start-inp").val()
-
-                        }).done(function (data) {
-                            searchResults = data;
-                            $("#autocomplete").empty();
-                            $.each(data, function (key) {
-
-                                var display_name = data[key]["display_name"],
-                                    $li = $("<li>");
-                                $li.attr("index", key).html(display_name);
-                                $("#autocomplete").append($li);
-                            });
-                            $("#autocomplete li").on("click", function () {
-                                $("#selected-location").html($(this).html());
-                                findArticlesByLocation($('input#loc-start-inp').val());
-                                // $('input#loc-start-inp').val("");
-                                $("#autocomplete").empty();
-                                var index = $(this).attr("index"),
-                                    lat = searchResults[index]["lat"],
-                                    lon = searchResults[index]["lon"];
-
-                                //_setLocation(lat, lon);
-                                //console.log(searchResults[index]);
-                                $("#selected-location").show();
-                                $(that).trigger("locationClicked");
-                            });
-                        });
+                $('#tag-search-input').on('input', function (e) {
+                    $("#autocomplete").empty();
+                    var min_length = 1; // min caracters to display the autocomplete
+                    var keyword = $('#tag-search-input').val();
+                    if (keyword.length == 0) {
+                        $("#autocomplete").hide();
                     }
-                });
+                    if (keyword.length >= min_length) {
+                        $.ajax({
+                            url: "http://" + location.host + "/NewsMap/get_data.php",
+                            type: 'GET',
+                            data: {func: "tagAuto", keyword: keyword},
+                            success: function (data) {
+                                $("#autocomplete").empty();
+                                var parsedData = JSON.parse(data);
+                                $("#autocomplete").show();
+                                $.each(parsedData, function (key) {
+
+                                    var display_name = parsedData[key].name,
+                                        $li = $("<li>");
+                                    $li.attr("index", key).html(display_name);
+                                    $("#autocomplete").append($li);
+                                });
+                                $("#autocomplete li").on("click", function () {
+                                    $("#tag-search-input").val($(this).html());
+                                    getArticleByTag($('#tag-search-input').val());
+                                    $("#autocomplete").empty();
+                                    $("#autocomplete").hide();
+                                });
+                            }
+                        });
+                    }});
+                /*var searchResults = [];
+
+                 $.ajax({
+                 url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#tag-search-input").val()
+
+                 }).done(function (data) {
+                 searchResults = data;
+                 $("#autocomplete").empty();
+                 $.each(data, function (key) {
+
+                 var display_name = data[key]["display_name"],
+                 $li = $("<li>");
+                 $li.attr("index", key).html(display_name);
+                 $("#autocomplete").append($li);
+                 });
+                 $("#autocomplete li").on("click", function () {
+                 $("#selected-location").html($(this).html());
+                 findArticlesByLocation($('input#loc-start-inp').val());
+                 // $('input#loc-start-inp').val("");
+                 $("#autocomplete").empty();
+                 var index = $(this).attr("index"),
+                 lat =  [index]["lat"],
+                 lon = searchResults[index]["lon"];
+
+                 //_setLocation(lat, lon);
+                 //console.log(searchResults[index]);
+                 $("#selected-location").show();
+                 $(that).trigger("locationClicked");
+                 });
+                 });*/
+
+
             },
 
         /*
@@ -183,8 +213,8 @@ NewsMap.DrawMap = (function () {
                         }
                         else
                             console.log("TAG-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                            markersSet = false;
-                            addMarker(JSON.parse(data));
+                        markersSet = false;
+                        addMarker(JSON.parse(data));
                     },
                     error: function () {
                         alert("error");
