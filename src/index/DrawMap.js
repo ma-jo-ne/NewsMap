@@ -3,6 +3,7 @@ NewsMap.DrawMap = (function () {
             articles = [],
             markers = new L.MarkerClusterGroup(),
             markersSet = false,
+            searchSelect = null,
 
             that = {},
             map = null,
@@ -122,62 +123,61 @@ NewsMap.DrawMap = (function () {
                         $("#autocomplete").hide();
                     }
                     if (keyword.length >= min_length) {
+                        var selectedFunction;
+
+                        switch (searchSelect) {
+                            case "tag":
+                                selectedFunction = "tagAuto";
+                                break;
+                            case "location":
+                                selectedFunction = "locAuto";
+                                break;
+                            case "title":
+                                selectedFunction = "titleAuto";
+                                break;
+                        }
+
                         $.ajax({
                             url: "http://" + location.host + "/NewsMap/get_data.php",
                             type: 'GET',
-                            data: {func: "tagAuto", keyword: keyword},
+                            data: {func: selectedFunction, keyword: keyword},
                             success: function (data) {
                                 $("#autocomplete").empty();
                                 var parsedData = JSON.parse(data);
                                 $("#autocomplete").show();
                                 $.each(parsedData, function (key) {
-
-                                    var display_name = parsedData[key].name,
-                                        $li = $("<li>");
+                                    var display_name;
+                                    if(selectedFunction == "tagAuto") {
+                                        display_name = parsedData[key].name;
+                                    }
+                                    else if (selectedFunction == "locAuto") {
+                                        display_name = parsedData[key].city;
+                                    }
+                                    else if (selectedFunction == "titleAuto") {
+                                        display_name = parsedData[key].title;
+                                    }
+                                    var $li = $("<li>");
                                     $li.attr("index", key).html(display_name);
                                     $("#autocomplete").append($li);
                                 });
                                 $("#autocomplete li").on("click", function () {
                                     $("#tag-search-input").val($(this).html());
-                                    getArticleByTag($('#tag-search-input').val());
+                                    if(selectedFunction == "tagAuto") {
+                                        getArticleByTag($('#tag-search-input').val());
+                                    }
+                                    else if (selectedFunction == "locAuto") {
+                                        console.log("noch nicht implementiert");
+                                    }
+                                    else if (selectedFunction == "titleAuto") {
+                                        console.log("noch nicht implementiert");
+                                    }
                                     $("#autocomplete").empty();
                                     $("#autocomplete").hide();
                                 });
                             }
                         });
-                    }});
-                /*var searchResults = [];
-
-                 $.ajax({
-                 url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#tag-search-input").val()
-
-                 }).done(function (data) {
-                 searchResults = data;
-                 $("#autocomplete").empty();
-                 $.each(data, function (key) {
-
-                 var display_name = data[key]["display_name"],
-                 $li = $("<li>");
-                 $li.attr("index", key).html(display_name);
-                 $("#autocomplete").append($li);
-                 });
-                 $("#autocomplete li").on("click", function () {
-                 $("#selected-location").html($(this).html());
-                 findArticlesByLocation($('input#loc-start-inp').val());
-                 // $('input#loc-start-inp').val("");
-                 $("#autocomplete").empty();
-                 var index = $(this).attr("index"),
-                 lat =  [index]["lat"],
-                 lon = searchResults[index]["lon"];
-
-                 //_setLocation(lat, lon);
-                 //console.log(searchResults[index]);
-                 $("#selected-location").show();
-                 $(that).trigger("locationClicked");
-                 });
-                 });*/
-
-
+                    }
+                });
             },
 
         /*
@@ -267,11 +267,16 @@ NewsMap.DrawMap = (function () {
 
             },
 
-            showShareOptions = function(){
+            showShareOptions = function () {
                 $("#menu-left").hide();
                 $("#share-menu").toggle();
 
-               //popUp in mitte des Fensters anzeigen, dort zur Auswahl "Outlook versenden" "link kopieren" "auf Facebook posten"
+                //popUp in mitte des Fensters anzeigen, dort zur Auswahl "Outlook versenden" "link kopieren" "auf Facebook posten"
+            },
+
+            selectChanged = function () {
+                searchSelect = $("#search-select").val();
+                console.log(searchSelect);
             },
 
             _setLocation = function (lat, long) {
@@ -302,6 +307,7 @@ NewsMap.DrawMap = (function () {
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;
+        that.selectChanged = selectChanged;
         that.init = init;
 
         return that;

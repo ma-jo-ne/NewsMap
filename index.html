@@ -115,7 +115,15 @@
         <li data-show="share"><i class="fi-share" id="share-button"></i></li>
     </ul>
     <div class="menu-item" id="search-wrapper">
-        <input type="text" id="tag-search-input">
+        <div class="row">
+            <div class="large-8 columns">
+            <input type="text" id="tag-search-input"></div>
+            <div class="large-4 columns">
+            <select id="search-select">
+                <option value="tag">Suche nach Begriff</option>
+                <option value="location">Suche nach Ort</option>
+                <option value="title">Suche nach Titel</option>
+            </select></div></div>
         <ul id="autocomplete">
         </ul>
         <button id="search-button">Suchen</button>
@@ -217,7 +225,7 @@
 <div id="share-menu">
 
     <button id="outlook-button">Outlook</button>
-     <br/>
+    <br/>
     <button id="link-button">Link kopieren</button>
     <br/>
     <button id="facebook-button">Facebook</button>

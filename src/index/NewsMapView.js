@@ -18,8 +18,13 @@ NewsMap.NewsMapView = (function () {
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
             $("#menu-list li").on("click", menuItemClick);
+            $("#search-select").on("change", searchSelectChanged)
 
             return this;
+        },
+
+        searchSelectChanged = function() {
+            $(that).trigger("searchSelectChanged");
         },
 
         popupClick = function () {

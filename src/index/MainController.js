@@ -13,9 +13,14 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
             $(newsMapView).on("searchButtonClick", getTagsFromArticles);
             $(newsMapView).on("shareButtonClick", setShareOptions);
+            $(newsMapView).on("searchSelectChanged", changeSearchSelect);
             $(drawMap).on("locationClicked", closeMenu);
 
             return this;
+        },
+
+        changeSearchSelect = function() {
+            drawMap.selectChanged();
         },
 
         setLocation = function (e, lat, long) {

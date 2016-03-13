@@ -41,11 +41,49 @@ else if ($_GET["func"] == "tagAuto") {
     tagAutocomplete($conn);
 }
 
+else if ($_GET["func"] == "locAuto") {
+    locationAutocomplete($conn);
+}
+
+else if ($_GET["func"] == "titleAuto") {
+    titleAutocomplete($conn);
+}
+
 //
 
 function tagAutocomplete($conn) {
     $keyword = '%'.$_GET['keyword'].'%';
     $sql = 'SELECT articles_tags.name FROM articles_tags WHERE articles_tags.name LIKE "%' . $_GET["keyword"] . '%"';
+    if ($result = $conn->query($sql)) {
+
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+        /* free result set */
+        $result->close();
+    }
+}
+
+function locationAutocomplete($conn) {
+    $keyword = '%'.$_GET['keyword'].'%';
+    $sql = 'SELECT city FROM locations WHERE city LIKE "%' . $_GET["keyword"] . '%"';
+    if ($result = $conn->query($sql)) {
+
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+        /* free result set */
+        $result->close();
+    }
+}
+
+function titleAutocomplete($conn) {
+    $keyword = '%'.$_GET['keyword'].'%';
+    $sql = 'SELECT title FROM articles WHERE title LIKE "%' . $_GET["keyword"] . '%"';
     if ($result = $conn->query($sql)) {
 
         $rows = array();
