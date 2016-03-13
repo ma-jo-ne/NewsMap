@@ -3,12 +3,13 @@ NewsMap.DrawMap = (function () {
             articles = [],
             markers = new L.MarkerClusterGroup(),
             markersSet = false,
-            searchSelect = null,
+            searchSelect = $("#search-select").val(),
 
             that = {},
             map = null,
             newsDataObjects = [],
             foundArticles = [],
+            foundArticlesBySearch = [],
 
             wordInString = function (s, word) {
                 return new RegExp('\\b' + word.toLowerCase() + '\\b', 'i').test(s.toLowerCase());
@@ -39,8 +40,6 @@ NewsMap.DrawMap = (function () {
 
                             addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
-
-
                     },
                     error: function () {
                         alert("error");
@@ -147,7 +146,7 @@ NewsMap.DrawMap = (function () {
                                 $("#autocomplete").show();
                                 $.each(parsedData, function (key) {
                                     var display_name;
-                                    if(selectedFunction == "tagAuto") {
+                                    if (selectedFunction == "tagAuto") {
                                         display_name = parsedData[key].name;
                                     }
                                     else if (selectedFunction == "locAuto") {
@@ -162,14 +161,14 @@ NewsMap.DrawMap = (function () {
                                 });
                                 $("#autocomplete li").on("click", function () {
                                     $("#tag-search-input").val($(this).html());
-                                    if(selectedFunction == "tagAuto") {
-                                        getArticleByTag($('#tag-search-input').val());
+                                    if (selectedFunction == "tagAuto") {
+                                        getArticle($('#tag-search-input').val(), "tag");
                                     }
                                     else if (selectedFunction == "locAuto") {
-                                        console.log("noch nicht implementiert");
+                                        getArticle($('#tag-search-input').val(), "location");
                                     }
                                     else if (selectedFunction == "titleAuto") {
-                                        console.log("noch nicht implementiert");
+                                        getArticle($('#tag-search-input').val(), "title");
                                     }
                                     $("#autocomplete").empty();
                                     $("#autocomplete").hide();
@@ -180,39 +179,17 @@ NewsMap.DrawMap = (function () {
                 });
             },
 
-        /*
-         foundArticles by Locationsearch / inputfield
-         */
-            findArticlesByLocation = function (selectedLocation) {
-                foundArticles = [];
-                for (var i = 0; i < articles.length; i++) {
-                    var currentArticle = articles[i],
-                        city = currentArticle["city"],
-                        county = currentArticle["county"],
-                        region = currentArticle["region"],
-                        municipality = currentArticle["municipality"];
-                    if (wordInString(selectedLocation, city) || wordInString(selectedLocation, county) || wordInString(selectedLocation, region) || wordInString(selectedLocation, municipality)) {
-                        foundArticles.push(currentArticle);
-                    }
-                }
-                if (foundArticles.length == 0)
-                    alert("Keine Ergebnisse für " + selectedLocation + " gefunden");
-                else {
-                    addMarker();
-                }
-            },
-
-            getArticleByTag = function (selectedTag) {
+            getArticle = function (selectedQuery, selectedFunction) {
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: "tag", tag: selectedTag},
+                    data: {func: selectedFunction, query: selectedQuery},
                     success: function (data) {
                         if (data.length == 0) {
                             console.log("Keine Ergebnisse");
                         }
                         else
-                            console.log("TAG-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
+                            console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
                         markersSet = false;
                         addMarker(JSON.parse(data));
                     },
@@ -222,22 +199,6 @@ NewsMap.DrawMap = (function () {
                 });
             },
 
-            findArticlesByTitle = function (selectedTitle) {
-                console.log(selectedTitle);
-                foundArticles = [];
-                for (var i = 0; i < articles.length; i++) {
-                    var currentArticleTitle = articles[i]["title"].toLowerCase();
-                    if (wordInString(selectedTitle, currentArticleTitle)) {
-                        foundArticles.push(currentArticleTitle);
-                    }
-                }
-                console.log(foundArticles);
-                if (foundArticles.length == 0)
-                    alert("Keine Ergebnisse für " + selectedTitle + " gefunden");
-                else {
-                    addMarker();
-                }
-            },
         /*
          compare string similarity
          UNUSED
