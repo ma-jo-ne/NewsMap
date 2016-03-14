@@ -24,7 +24,7 @@ NewsMap.MainController = (function () {
         },
 
         setLocation = function (e, lat, long) {
-            //drawMap._setLocation(lat, long);
+            drawMap._setLocation(lat, long);
         },
 
         setShareOptions = function(){

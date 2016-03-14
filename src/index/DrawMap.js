@@ -4,6 +4,7 @@ NewsMap.DrawMap = (function () {
             markers = new L.MarkerClusterGroup(),
             markersSet = false,
             searchSelect = $("#search-select").val(),
+            myLocation = null,
 
             that = {},
             map = null,
@@ -259,8 +260,8 @@ NewsMap.DrawMap = (function () {
 
             _setLocation = function (lat, long) {
                 // Removing old markers
-                for (i = 0; i < marker.length; i++) {
-                    map.removeLayer(marker[i]);
+                if (myLocation != null) {
+                    map.removeLayer(myLocation);
                 }
                 map.setView(new L.LatLng(lat, long));
 
@@ -272,8 +273,8 @@ NewsMap.DrawMap = (function () {
                 });
 
                 var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
-                marker.push(myLocationMarker);
-                map.addLayer(markers);
+                myLocation = myLocationMarker;
+                map.addLayer(myLocationMarker);
                 myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
             };
 
