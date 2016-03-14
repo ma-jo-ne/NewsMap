@@ -3,11 +3,14 @@ NewsMap.DrawMap = (function () {
             articles = [],
             markers = new L.MarkerClusterGroup(),
             markersSet = false,
+            searchSelect = $("#search-select").val(),
+            myLocation = null,
 
             that = {},
             map = null,
             newsDataObjects = [],
             foundArticles = [],
+            foundArticlesBySearch = [],
 
             wordInString = function (s, word) {
                 return new RegExp('\\b' + word.toLowerCase() + '\\b', 'i').test(s.toLowerCase());
@@ -38,8 +41,6 @@ NewsMap.DrawMap = (function () {
 
                             addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
-
-
                     },
                     error: function () {
                         alert("error");
@@ -67,7 +68,7 @@ NewsMap.DrawMap = (function () {
             },
 
             addMarker = function (data) {
-                //map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lat));
+
                 if (!markersSet) {
 
                     markers.clearLayers();
@@ -82,6 +83,7 @@ NewsMap.DrawMap = (function () {
 
                     }
                     map.addLayer(markers);
+                    map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
                     console.log("markers set");
 
 
@@ -90,18 +92,12 @@ NewsMap.DrawMap = (function () {
             },
 
             enterListen = function () {
-                $('input#loc-start-inp').keypress(function (e) {
-                    if (e.which == 13) {
-                        findArticlesByLocation($('input#loc-start-inp').val());
-                        $("#autocomplete").empty();
-                        return false;    //<---- Add this line
-                    }
-                });
 
                 $('#tag-search-input').keypress(function (e) {
                     if (e.which == 13) {
-                        getArticleByTag($('#tag-search-input').val().toLowerCase());
-                        //$("#autocomplete").empty();
+                        getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
+                        $("#autocomplete").empty();
+                        $("#autocomplete").hide();
                         return false;    //<---- Add this line
                     }
                 });
@@ -110,81 +106,116 @@ NewsMap.DrawMap = (function () {
             },
 
             tagSearchClicked = function () {
-                getArticleByTag($('#tag-search-input').val().toLowerCase());
+                getArticle($('#tag-search-input').val().toLowerCase(), selectedFunction);
             },
 
             autocomplete = function () {
-                $('input#loc-start-inp').on('input', function (e) {
-                    if ($(this).val().length >= 0) {
-                        var searchResults = [];
+                $('#tag-search-input').on('input', function (e) {
+                    $("#autocomplete").empty();
+                    var min_length = 1; // min caracters to display the autocomplete
+                    var keyword = $('#tag-search-input').val();
+                    if (keyword.length == 0) {
+                        $("#autocomplete").hide();
+                    }
+                    if (keyword.length >= min_length) {
+                        var selectedFunction;
+
+                        switch (searchSelect) {
+                            case "tag":
+                                selectedFunction = "tagAuto";
+                                break;
+                            case "location":
+                                selectedFunction = "locAuto";
+                                break;
+                            case "title":
+                                selectedFunction = "titleAuto";
+                                break;
+                        }
 
                         $.ajax({
-                            url: 'http://nominatim.openstreetmap.org/search?format=json&limit=5&q=' + $("#loc-start-inp").val()
-
-                        }).done(function (data) {
-                            searchResults = data;
-                            $("#autocomplete").empty();
-                            $.each(data, function (key) {
-
-                                var display_name = data[key]["display_name"],
-                                    $li = $("<li>");
-                                $li.attr("index", key).html(display_name);
-                                $("#autocomplete").append($li);
-                            });
-                            $("#autocomplete li").on("click", function () {
-                                $("#selected-location").html($(this).html());
-                                findArticlesByLocation($('input#loc-start-inp').val());
-                                // $('input#loc-start-inp').val("");
+                            url: "http://" + location.host + "/NewsMap/get_data.php",
+                            type: 'GET',
+                            data: {func: selectedFunction, keyword: keyword},
+                            success: function (data) {
                                 $("#autocomplete").empty();
-                                var index = $(this).attr("index"),
-                                    lat = searchResults[index]["lat"],
-                                    lon = searchResults[index]["lon"];
+                                var parsedData = JSON.parse(data);
+                                $("#autocomplete").show();
 
-                                //_setLocation(lat, lon);
-                                //console.log(searchResults[index]);
-                                $("#selected-location").show();
-                                $(that).trigger("locationClicked");
-                            });
+                                var removedDuplicates = [];
+
+                                if (selectedFunction == "tagAuto") {
+                                    $.each(parsedData, function(index, value) {
+                                        if ($.inArray(value.name, removedDuplicates)==-1) {
+                                            removedDuplicates.push(value.name);
+                                        }
+                                    });
+                                }
+                                else if (selectedFunction == "locAuto") {
+                                    $.each(parsedData, function(index, value) {
+                                        if ($.inArray(value.city, removedDuplicates)==-1) {
+                                            removedDuplicates.push(value.city);
+                                        }
+                                    });
+                                }
+                                else if (selectedFunction == "titleAuto") {
+                                    $.each(parsedData, function(index, value) {
+                                        if ($.inArray(value.title, removedDuplicates)==-1) {
+                                            removedDuplicates.push(value.title);
+                                        }
+                                    });
+                                }
+
+                                $.each(removedDuplicates, function (key) {
+                                    var display_name = removedDuplicates[key];
+
+                                    var $li = $("<li>");
+                                    $li.attr("index", key).html(display_name);
+                                    $("#autocomplete").append($li);
+                                });
+                                $("#autocomplete li").on("click", function () {
+                                    $("#tag-search-input").val($(this).html());
+                                    if (selectedFunction == "tagAuto") {
+                                        getArticle($('#tag-search-input').val(), "tag");
+                                    }
+                                    else if (selectedFunction == "locAuto") {
+                                        getArticle($('#tag-search-input').val(), "location");
+                                    }
+                                    else if (selectedFunction == "titleAuto") {
+                                        getArticle($('#tag-search-input').val(), "title");
+                                    }
+                                    $("#autocomplete").empty();
+                                    $("#autocomplete").hide();
+                                });
+                            }
                         });
                     }
                 });
             },
 
-        /*
-         foundArticles by Locationsearch / inputfield
-         */
-            findArticlesByLocation = function (selectedLocation) {
-                foundArticles = [];
-                for (var i = 0; i < articles.length; i++) {
-                    var currentArticle = articles[i],
-                        city = currentArticle["city"],
-                        county = currentArticle["county"],
-                        region = currentArticle["region"],
-                        municipality = currentArticle["municipality"];
-                    if (wordInString(selectedLocation, city) || wordInString(selectedLocation, county) || wordInString(selectedLocation, region) || wordInString(selectedLocation, municipality)) {
-                        foundArticles.push(currentArticle);
-                    }
-                }
-                if (foundArticles.length == 0)
-                    alert("Keine Ergebnisse für " + selectedLocation + " gefunden");
-                else {
-                    addMarker();
-                }
-            },
+            getArticle = function (selectedQuery, selectedFunction) {
 
-            getArticleByTag = function (selectedTag) {
+                if (selectedFunction == "tagAuto") {
+                   selectedFunction = "tag";
+                }
+                else if (selectedFunction == "locAuto") {
+                    selectedFunction = "location";
+                }
+                else if (selectedFunction == "titleAuto") {
+                    selectedFunction = "title";
+                }
+
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: "tag", tag: selectedTag},
+                    data: {func: selectedFunction, query: selectedQuery},
                     success: function (data) {
                         if (data.length == 0) {
                             console.log("Keine Ergebnisse");
                         }
                         else
-                            console.log("TAG-SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                            markersSet = false;
-                            addMarker(JSON.parse(data));
+                            console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
+                        markersSet = false;
+                        addMarker(JSON.parse(data));
                     },
                     error: function () {
                         alert("error");
@@ -192,22 +223,6 @@ NewsMap.DrawMap = (function () {
                 });
             },
 
-            findArticlesByTitle = function (selectedTitle) {
-                console.log(selectedTitle);
-                foundArticles = [];
-                for (var i = 0; i < articles.length; i++) {
-                    var currentArticleTitle = articles[i]["title"].toLowerCase();
-                    if (wordInString(selectedTitle, currentArticleTitle)) {
-                        foundArticles.push(currentArticleTitle);
-                    }
-                }
-                console.log(foundArticles);
-                if (foundArticles.length == 0)
-                    alert("Keine Ergebnisse für " + selectedTitle + " gefunden");
-                else {
-                    addMarker();
-                }
-            },
         /*
          compare string similarity
          UNUSED
@@ -237,17 +252,22 @@ NewsMap.DrawMap = (function () {
 
             },
 
-            showShareOptions = function(){
+            showShareOptions = function () {
                 $("#menu-left").hide();
                 $("#share-menu").toggle();
 
-               //popUp in mitte des Fensters anzeigen, dort zur Auswahl "Outlook versenden" "link kopieren" "auf Facebook posten"
+                //popUp in mitte des Fensters anzeigen, dort zur Auswahl "Outlook versenden" "link kopieren" "auf Facebook posten"
+            },
+
+            selectChanged = function () {
+                searchSelect = $("#search-select").val();
+                console.log(searchSelect);
             },
 
             _setLocation = function (lat, long) {
                 // Removing old markers
-                for (i = 0; i < marker.length; i++) {
-                    map.removeLayer(marker[i]);
+                if (myLocation != null) {
+                    map.removeLayer(myLocation);
                 }
                 map.setView(new L.LatLng(lat, long));
 
@@ -259,8 +279,8 @@ NewsMap.DrawMap = (function () {
                 });
 
                 var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
-                marker.push(myLocationMarker);
-                map.addLayer(markers);
+                myLocation = myLocationMarker;
+                map.addLayer(myLocationMarker);
                 myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
             };
 
@@ -272,6 +292,7 @@ NewsMap.DrawMap = (function () {
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
         that.tagSearchClicked = tagSearchClicked;
+        that.selectChanged = selectChanged;
         that.init = init;
 
         return that;

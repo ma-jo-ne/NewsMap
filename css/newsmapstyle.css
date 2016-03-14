@@ -327,6 +327,9 @@ a:hover {
 #autocomplete {
     margin: 0;
     background-color: white;
+    overflow: scroll;
+    height: 15rem;
+    display: none;
 }
 
 #autocomplete li {
@@ -350,6 +353,11 @@ a:hover {
 .marker-title {
     font-size: 1rem;
     color: black;
+}
+
+#search-button {
+    margin-left: 1rem;
+    bottom: 0.7rem;
 }
 
 .
