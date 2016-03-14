@@ -165,7 +165,9 @@
     <br/>
     <button id="link-button">Link kopieren</button>
     <br/>
-    <button id="facebook-button">Facebook</button>
+
+    <a class="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank" alt="Share on Facebook">Facebook</a>
+
     <br/>
     <button id="twitter-button">Twitter</button>
 
@@ -202,11 +204,14 @@
 <script type="text/javascript" src="src/index/DrawMap.js"></script>
 <script type="text/javascript" src="src/index/DataObjectFactory.js"></script>
 
+
+
 <script>
     $(document).foundation();
     $(function () {
         NewsMap.init();
     });
 </script>
+
 </body>
 </html>
