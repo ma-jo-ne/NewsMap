@@ -2,6 +2,7 @@ NewsMap.NewsMapView = (function () {
     var that = {},
         $buttonFindLocation = null,
         $buttonIdentifyLocation = null,
+        currentArticle="http://google.de",
 
         init = function () {
 
@@ -14,6 +15,8 @@ NewsMap.NewsMapView = (function () {
             menuItemClick();
             searchButtonClick();
             shareButtonClick();
+
+
 
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
@@ -32,9 +35,15 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-
+                if(NewsMap.DrawMap._getArticle($(this).attr("data-id")).link!=null)
+                currentArticle=NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
+                
             });
         },
+
+        getCurrentArticle = function() {
+            return currentArticle;
+        }
 
         shareButtonClick = function(){
             console.log("View: in share Button Click ");
@@ -64,6 +73,7 @@ NewsMap.NewsMapView = (function () {
             $("#menu-left").show();
 
             console.log(clickedArticle);
+
         },
 
 
@@ -124,6 +134,7 @@ NewsMap.NewsMapView = (function () {
             $("#menu-items").hide();
         };
 
+    that.getCurrentArticle=getCurrentArticle;
     that._closeMenu = _closeMenu;
     that._setArticleContent = _setArticleContent;
     that.init = init;

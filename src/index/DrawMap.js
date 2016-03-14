@@ -276,6 +276,12 @@ NewsMap.DrawMap = (function () {
                 });
             },
 
+             fbshareCurrentPage = function()
+                {window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURI(NewsMap.NewsMapView.getCurrentArticle())+"&t="+document.title, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+                    console.log(NewsMap.NewsMapView.getCurrentArticle());
+                    ;return false;
+                },
+
             _setLocation = function (lat, long) {
                 // Removing old markers
                 if (myLocation != null) {
@@ -300,6 +306,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
+        that.fbshareCurrentPage=fbshareCurrentPage;
         that.showShareOptions = showShareOptions;
         that._setLocation = _setLocation;
         that._getArticle = _getArticle;
