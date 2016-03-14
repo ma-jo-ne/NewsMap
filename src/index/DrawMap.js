@@ -37,7 +37,7 @@ NewsMap.DrawMap = (function () {
                     data: {func: "article", date: dateSelectionVal},
                     success: function (data) {
                         if (JSON.parse(data).length == 0) {
-                            alert("keine Ergebnisse");
+                            alert("keine Ergebnisse a");
                             console.log("Keine Ergebnisse");
                         }
                         else{
@@ -212,10 +212,10 @@ NewsMap.DrawMap = (function () {
                     url: "http://" + location.host + "/NewsMap/get_data.php",
                     data: {func: selectedFunction, query: selectedQuery, date: dateSelectionVal},
                     success: function (data) {
-                        console.log(JSON.parse(data).length);
+                        console.log(data);
                         if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
-                            alert("keine Ergebnisse");
+                            alert("keine Ergebnisse a");
                         }
                         else{
                             console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
