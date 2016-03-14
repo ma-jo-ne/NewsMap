@@ -282,6 +282,14 @@ NewsMap.DrawMap = (function () {
                     ;return false;
                 },
 
+            setUpEmailLink = function (){
+              var link= "mailto: blala@bla.de?body="+encodeURI(NewsMap.NewsMapView.getCurrentArticle());
+                console.log(link);
+                return link;
+
+            },
+
+
             _setLocation = function (lat, long) {
                 // Removing old markers
                 if (myLocation != null) {
@@ -306,6 +314,7 @@ NewsMap.DrawMap = (function () {
         /*
          return article by goiven articleID
          */
+        that.setUpEmailLink=setUpEmailLink;
         that.fbshareCurrentPage=fbshareCurrentPage;
         that.showShareOptions = showShareOptions;
         that._setLocation = _setLocation;

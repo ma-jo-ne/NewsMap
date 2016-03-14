@@ -37,7 +37,8 @@ NewsMap.NewsMapView = (function () {
                 $("#menu-items").hide();
                 if(NewsMap.DrawMap._getArticle($(this).attr("data-id")).link!=null)
                 currentArticle=NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
-                
+
+                $("#mailButton").attr("href",NewsMap.DrawMap.setUpEmailLink);
             });
         },
 
