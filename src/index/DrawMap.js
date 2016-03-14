@@ -68,7 +68,7 @@ NewsMap.DrawMap = (function () {
             },
 
             addMarker = function (data) {
-                //map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lat));
+
                 if (!markersSet) {
 
                     markers.clearLayers();
@@ -83,6 +83,7 @@ NewsMap.DrawMap = (function () {
 
                     }
                     map.addLayer(markers);
+                    map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
                     console.log("markers set");
 
 
