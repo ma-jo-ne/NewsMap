@@ -144,17 +144,34 @@ NewsMap.DrawMap = (function () {
                                 $("#autocomplete").empty();
                                 var parsedData = JSON.parse(data);
                                 $("#autocomplete").show();
-                                $.each(parsedData, function (key) {
-                                    var display_name;
-                                    if (selectedFunction == "tagAuto") {
-                                        display_name = parsedData[key].name;
-                                    }
-                                    else if (selectedFunction == "locAuto") {
-                                        display_name = parsedData[key].city;
-                                    }
-                                    else if (selectedFunction == "titleAuto") {
-                                        display_name = parsedData[key].title;
-                                    }
+
+                                var removedDuplicates = [];
+
+                                if (selectedFunction == "tagAuto") {
+                                    $.each(parsedData, function(index, value) {
+                                        if ($.inArray(value.name, removedDuplicates)==-1) {
+                                            removedDuplicates.push(value.name);
+                                        }
+                                    });
+                                }
+                                else if (selectedFunction == "locAuto") {
+                                    $.each(parsedData, function(index, value) {
+                                        if ($.inArray(value.city, removedDuplicates)==-1) {
+                                            removedDuplicates.push(value.city);
+                                        }
+                                    });
+                                }
+                                else if (selectedFunction == "titleAuto") {
+                                    $.each(parsedData, function(index, value) {
+                                        if ($.inArray(value.title, removedDuplicates)==-1) {
+                                            removedDuplicates.push(value.title);
+                                        }
+                                    });
+                                }
+
+                                $.each(removedDuplicates, function (key) {
+                                    var display_name = removedDuplicates[key];
+
                                     var $li = $("<li>");
                                     $li.attr("index", key).html(display_name);
                                     $("#autocomplete").append($li);
