@@ -46,7 +46,7 @@ function storeRelations($conn) {
         $tag_id = (int)$curTag["tag_id"];
         $article_id = (int)$curTag["article_id"];
         $name = $curTag["name"];
-        $sql2 = "INSERT INTO articles_tags (article_id, tag_id, name) VALUES ('$article_id','$tag_id', '$name')";
+        $sql2 = "INSERT INTO articles_tags (article_id, tag_id, tag_name) VALUES ('$article_id','$tag_id', '$name')";
         $result = $conn->query($sql2);
         echo $result;
     }
