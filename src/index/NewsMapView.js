@@ -69,7 +69,7 @@ NewsMap.NewsMapView = (function () {
             $(".title").html(clickedArticle.title);
             $(".more-link ").attr("href", clickedArticle.link);
             $(".entry-summary").html(clickedArticle.content);
-            $(".pub-date").html(clickedArticle.pub_data);
+            $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
 
             console.log(clickedArticle);

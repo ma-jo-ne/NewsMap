@@ -4,6 +4,8 @@ NewsMap.DrawMap = (function () {
             markers = new L.MarkerClusterGroup(),
             markersSet = false,
             searchSelect = $("#search-select").val(),
+            $dateSelect = $("#date-select"),
+            dateSelectionVal = $dateSelect.val(),
             myLocation = null,
 
             that = {},
@@ -20,7 +22,7 @@ NewsMap.DrawMap = (function () {
                 function isInArray(value, array) {
                     return array.indexOf(value) > -1;
                 }
-
+                dateSelection();
                 autocomplete();
                 enterListen();
                 drawmap();
@@ -32,15 +34,18 @@ NewsMap.DrawMap = (function () {
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: "article"},
+                    data: {func: "article", date: dateSelectionVal},
                     success: function (data) {
-                        if (data.length == 0) {
+                        if (JSON.parse(data).length == 0) {
+                            alert("keine Ergebnisse");
                             console.log("Keine Ergebnisse");
                         }
-                        else
-
+                        else{
                             addMarker(JSON.parse(data));
-                        foundArticles = JSON.parse(data);
+                            console.log(JSON.parse(data));
+                            foundArticles = JSON.parse(data);
+                        }
+
                     },
                     error: function () {
                         alert("error");
@@ -68,7 +73,6 @@ NewsMap.DrawMap = (function () {
             },
 
             addMarker = function (data) {
-
                 if (!markersSet) {
 
                     markers.clearLayers();
@@ -106,7 +110,7 @@ NewsMap.DrawMap = (function () {
             },
 
             tagSearchClicked = function () {
-                getArticle($('#tag-search-input').val().toLowerCase(), selectedFunction);
+                getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
             },
 
             autocomplete = function () {
@@ -135,7 +139,7 @@ NewsMap.DrawMap = (function () {
                         $.ajax({
                             url: "http://" + location.host + "/NewsMap/get_data.php",
                             type: 'GET',
-                            data: {func: selectedFunction, keyword: keyword},
+                            data: {func: selectedFunction, keyword: keyword, date: dateSelectionVal},
                             success: function (data) {
                                 $("#autocomplete").empty();
                                 var parsedData = JSON.parse(data);
@@ -193,7 +197,6 @@ NewsMap.DrawMap = (function () {
             },
 
             getArticle = function (selectedQuery, selectedFunction) {
-
                 if (selectedFunction == "tagAuto") {
                    selectedFunction = "tag";
                 }
@@ -207,15 +210,18 @@ NewsMap.DrawMap = (function () {
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: selectedFunction, query: selectedQuery},
+                    data: {func: selectedFunction, query: selectedQuery, date: dateSelectionVal},
                     success: function (data) {
-                        if (data.length == 0) {
+                        console.log(JSON.parse(data).length);
+                        if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
+                            alert("keine Ergebnisse");
                         }
-                        else
+                        else{
                             console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                        markersSet = false;
-                        addMarker(JSON.parse(data));
+                            markersSet = false;
+                            addMarker(JSON.parse(data)) ;
+                        }
                     },
                     error: function () {
                         alert("error");
@@ -264,6 +270,12 @@ NewsMap.DrawMap = (function () {
                 console.log(searchSelect);
             },
 
+            dateSelection = function(){
+                $dateSelect.on("change", function(){
+                    dateSelectionVal = $(this).val();
+                });
+            },
+
             _setLocation = function (lat, long) {
                 // Removing old markers
                 if (myLocation != null) {
@@ -296,11 +308,7 @@ NewsMap.DrawMap = (function () {
         that.init = init;
 
         return that;
-    }
-    ()
-)
-;
-
+}());
 
 
 
