@@ -91,18 +91,12 @@ NewsMap.DrawMap = (function () {
             },
 
             enterListen = function () {
-                $('input#loc-start-inp').keypress(function (e) {
-                    if (e.which == 13) {
-                        findArticlesByLocation($('input#loc-start-inp').val());
-                        $("#autocomplete").empty();
-                        return false;    //<---- Add this line
-                    }
-                });
 
                 $('#tag-search-input').keypress(function (e) {
                     if (e.which == 13) {
-                        getArticleByTag($('#tag-search-input').val().toLowerCase());
+                        getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
                         $("#autocomplete").empty();
+                        $("#autocomplete").hide();
                         return false;    //<---- Add this line
                     }
                 });
@@ -111,7 +105,7 @@ NewsMap.DrawMap = (function () {
             },
 
             tagSearchClicked = function () {
-                getArticleByTag($('#tag-search-input').val().toLowerCase());
+                getArticle($('#tag-search-input').val().toLowerCase(), selectedFunction);
             },
 
             autocomplete = function () {
@@ -198,6 +192,17 @@ NewsMap.DrawMap = (function () {
             },
 
             getArticle = function (selectedQuery, selectedFunction) {
+
+                if (selectedFunction == "tagAuto") {
+                   selectedFunction = "tag";
+                }
+                else if (selectedFunction == "locAuto") {
+                    selectedFunction = "location";
+                }
+                else if (selectedFunction == "titleAuto") {
+                    selectedFunction = "title";
+                }
+
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
