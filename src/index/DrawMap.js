@@ -36,13 +36,16 @@ NewsMap.DrawMap = (function () {
                     url: "http://" + location.host + "/NewsMap/get_data.php",
                     data: {func: "article", date: dateSelectionVal},
                     success: function (data) {
-                        if (data.length == 0) {
+                        if (JSON.parse(data).length == 0) {
+                            alert("keine Ergebnisse");
                             console.log("Keine Ergebnisse");
                         }
-                        else
+                        else{
                             addMarker(JSON.parse(data));
                             console.log(JSON.parse(data));
-                           foundArticles = JSON.parse(data);
+                            foundArticles = JSON.parse(data);
+                        }
+
                     },
                     error: function () {
                         alert("error");
@@ -70,7 +73,6 @@ NewsMap.DrawMap = (function () {
             },
 
             addMarker = function (data) {
-console.log(data);
                 if (!markersSet) {
 
                     markers.clearLayers();
@@ -210,13 +212,16 @@ console.log(data);
                     url: "http://" + location.host + "/NewsMap/get_data.php",
                     data: {func: selectedFunction, query: selectedQuery, date: dateSelectionVal},
                     success: function (data) {
-                        if (data.length == 0) {
+                        console.log(JSON.parse(data).length);
+                        if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
+                            alert("keine Ergebnisse");
                         }
-                        else
+                        else{
                             console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                        markersSet = false;
-                        addMarker(JSON.parse(data));
+                            markersSet = false;
+                            addMarker(JSON.parse(data)) ;
+                        }
                     },
                     error: function () {
                         alert("error");
