@@ -40,10 +40,9 @@ NewsMap.DrawMap = (function () {
                             console.log("Keine Ergebnisse");
                         }
                         else
-                        {
                             addMarker(JSON.parse(data));
                             console.log(JSON.parse(data));
-                        }    foundArticles = JSON.parse(data);
+                           foundArticles = JSON.parse(data);
                     },
                     error: function () {
                         alert("error");
@@ -109,7 +108,7 @@ NewsMap.DrawMap = (function () {
             },
 
             tagSearchClicked = function () {
-                getArticle($('#tag-search-input').val().toLowerCase(), selectedFunction);
+                getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
             },
 
             autocomplete = function () {
@@ -196,7 +195,6 @@ NewsMap.DrawMap = (function () {
             },
 
             getArticle = function (selectedQuery, selectedFunction) {
-
                 if (selectedFunction == "tagAuto") {
                    selectedFunction = "tag";
                 }
