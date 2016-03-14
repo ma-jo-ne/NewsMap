@@ -90,16 +90,21 @@ a:hover {
 
 #share-menu{
     display: none;
-    text-align: center;
+    text-align: left;
     float: left;
     height: 93%;
     width: 10%;
     position: absolute;
     z-index: 1000;
-    background: #2c60b5;
+    background: #FFFFFF;
     color: #f5f5f5;
     padding: 1rem;
     overflow-y: auto;
+}
+#share-menu .button{
+    width: 100%;
+    float: left;
+    text-align: left;
 }
 
 .entry-title {
