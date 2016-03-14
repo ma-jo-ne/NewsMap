@@ -253,10 +253,6 @@ NewsMap.DrawMap = (function () {
                 return "0";
             },
 
-            _bundleMarkers = function () {
-                // console.log("some shit");
-
-            },
 
             showShareOptions = function () {
                 $("#menu-left").hide();

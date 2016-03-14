@@ -146,6 +146,7 @@ a:hover {
 }
 
 #menu-list {
+    margin-top: 1%;
     list-style-type: none;
     height: 8%;
     width: 100%;
