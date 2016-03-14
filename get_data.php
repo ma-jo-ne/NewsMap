@@ -19,7 +19,10 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
 $dateSelection = $_GET["date"];
 //$dateUpperBorder = date("Y-m-d H:i:s");
-$dateUpperBorder = "2016-01-20";
+/*
+ * Daten mit locations sind erst ab 28.11. verfügbar
+ */
+$dateUpperBorder = "2015-11-28";
 $dateLowerBorder = "0";
 
 if($dateSelection == "today"){
@@ -68,21 +71,21 @@ else if ($_GET["func"] == "id") {
     getLocationById($conn, $dateLowerBorder, $dateUpperBorder);
 }
 else if ($_GET["func"] == "tagAuto") {
-    tagAutocomplete($conn);
+    tagAutocomplete($conn, $dateLowerBorder, $dateUpperBorder);
 }
 
 else if ($_GET["func"] == "locAuto") {
-    locationAutocomplete($conn);
+    locationAutocomplete($conn, $dateLowerBorder, $dateUpperBorder);
 }
 
 else if ($_GET["func"] == "titleAuto") {
-    titleAutocomplete($conn);
+    titleAutocomplete($conn, $dateLowerBorder, $dateUpperBorder);
 }
 
 
 //
 
-function tagAutocomplete($conn) {
+function tagAutocomplete($conn, $dateLowerBorder, $dateUpperBorder) {
     $keyword = '%'.$_GET['keyword'].'%';
     $sql = 'SELECT articles_tags.name FROM articles_tags WHERE articles_tags.name LIKE "%' . $_GET["keyword"] . '%"';
     if ($result = $conn->query($sql)) {
@@ -97,7 +100,7 @@ function tagAutocomplete($conn) {
     }
 }
 
-function locationAutocomplete($conn) {
+function locationAutocomplete($conn, $dateLowerBorder, $dateUpperBorder) {
     $keyword = '%'.$_GET['keyword'].'%';
     $sql = 'SELECT city FROM locations WHERE city LIKE "%' . $_GET["keyword"] . '%"';
     if ($result = $conn->query($sql)) {
@@ -112,7 +115,7 @@ function locationAutocomplete($conn) {
     }
 }
 
-function titleAutocomplete($conn) {
+function titleAutocomplete($conn, $dateLowerBorder, $dateUpperBorder) {
     $keyword = '%'.$_GET['keyword'].'%';
     $sql = 'SELECT title FROM articles WHERE title LIKE "%' . $_GET["keyword"] . '%"';
     if ($result = $conn->query($sql)) {
@@ -143,7 +146,7 @@ function getArticle($conn, $dateLowerBorder, $dateUpperBorder) {
 }
 
 function getLocation($conn, $dateLowerBorder, $dateUpperBorder) {
-    $sql = 'SELECT lat, lon, article_id, city FROM locations' ;
+    $sql = 'SELECT lat, lon, article_id, city FROM locations AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '") ORDER BY articles.pub_date DESC';
     if ($result = $conn->query($sql)) {
 
         $rows = array();
@@ -158,7 +161,7 @@ function getLocation($conn, $dateLowerBorder, $dateUpperBorder) {
 
 function getArticleByTag($conn, $dateLowerBorder, $dateUpperBorder) {
     //$sql = 'SELECT * FROM articles INNER JOIN articles_tags ON articles.post_id=articles_tags.article_id WHERE articles_tags.name LIKE "%' . $_GET["tag"] . '%"';
-    $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon, articles_tags.name FROM articles, locations, articles_tags WHERE articles.post_id=locations.article_id AND articles.post_id=articles_tags.article_id AND articles_tags.name LIKE "%' . $_GET["query"] . '%"  AND pub_date >="' .$dateLowerBorder. '" AND pub_date <= "'. $dateUpperBorder.'" ORDER BY articles.pub_date DESC';
+    $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon, articles_tags.name FROM articles, locations, articles_tags WHERE articles.post_id=locations.article_id AND articles.post_id=articles_tags.article_id AND articles_tags.name LIKE "%' . $_GET["query"] . '%" AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '") ORDER BY articles.pub_date DESC';
 
     if ($result = $conn->query($sql)) {
 
@@ -174,7 +177,7 @@ function getArticleByTag($conn, $dateLowerBorder, $dateUpperBorder) {
 
 function getArticleByTitle($conn, $dateLowerBorder, $dateUpperBorder) {
     //$sql = 'SELECT * FROM articles WHERE title LIKE "%' . $_GET["title"] . '%"';
-    $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon FROM articles, locations WHERE articles.post_id=locations.article_id AND articles.title LIKE "%' . $_GET["query"] . '%" AND pub_date >="' .$dateLowerBorder. '" AND pub_date <= "'. $dateUpperBorder.'" ORDER BY articles.pub_date DESC';
+    $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon FROM articles, locations WHERE articles.post_id=locations.article_id AND articles.title LIKE "%' . $_GET["query"] . '%" AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '") ORDER BY articles.pub_date DESC';
 
     if ($result = $conn->query($sql)) {
 
@@ -190,7 +193,7 @@ function getArticleByTitle($conn, $dateLowerBorder, $dateUpperBorder) {
 
 function getArticleByLocation($conn, $dateLowerBorder, $dateUpperBorder) {
     //$sql = 'SELECT * FROM articles, locations INNER JOIN locations ON articles.post_id=article_id WHERE locations.city LIKE "%' . $_GET["location"] . '%"';
-    $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon FROM articles, locations WHERE articles.post_id=locations.article_id AND locations.city LIKE "%' . $_GET["query"] . '%" AND pub_date >="' .$dateLowerBorder. '" AND pub_date <= "'. $dateUpperBorder.'" ORDER BY articles.pub_date DESC';
+    $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon FROM articles, locations WHERE articles.post_id=locations.article_id AND locations.city LIKE "%' . $_GET["query"] . '%" AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '") ORDER BY articles.pub_date DESC';
 
     if ($result = $conn->query($sql)) {
 
@@ -205,7 +208,7 @@ function getArticleByLocation($conn, $dateLowerBorder, $dateUpperBorder) {
 }
 
 function getLocationById($conn, $dateLowerBorder, $dateUpperBorder) {
-    $sql = 'SELECT lat, lon FROM locations WHERE locations.article_id = "' . $_GET["id"] . '"AND pub_date >="' .$dateLowerBorder. '" AND pub_date <= "'. $dateUpperBorder.'" ORDER BY articles.pub_date DESC';
+    $sql = 'SELECT lat, lon FROM locations WHERE locations.article_id = "' . $_GET["id"] . '"AND AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '") ORDER BY articles.pub_date DESC';
     if ($result = $conn->query($sql)) {
 
         $rows = array();

@@ -44,7 +44,7 @@ NewsMap.NewsMapView = (function () {
 
         getCurrentArticle = function() {
             return currentArticle;
-        }
+        },
 
         shareButtonClick = function(){
             console.log("View: in share Button Click ");

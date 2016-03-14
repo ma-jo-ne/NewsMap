@@ -2192,7 +2192,7 @@
                     dragstart: this._onDragStart,
                     drag: this._onDrag,
                     dragend: this._onDragEnd
-                }, this), t.options.worldCopyJump && (this._draggable.on("predrag", this._onPreDrag, this), t.on("viewreset", this._onViewReset, this), t.whenReady(this._onViewReset, this))
+                }, this), true && (this._draggable.on("predrag", this._onPreDrag, this), t.on("viewreset", this._onViewReset, this), t.whenReady(this._onViewReset, this))
             }
             this._draggable.enable()
         }, removeHooks: function () {
