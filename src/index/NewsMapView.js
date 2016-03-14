@@ -15,7 +15,7 @@ NewsMap.NewsMapView = (function () {
             searchButtonClick();
             shareButtonClick();
             outlookButtonClick();
-            linkButtonClick();
+
 
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);

@@ -15,12 +15,16 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("shareButtonClick", setShareOptions);
             $(newsMapView).on("searchSelectChanged", changeSearchSelect);
             $(drawMap).on("locationClicked", closeMenu);
-
+            $(newsMapView).on("outlookButtonClick", setUpOutlook);
             return this;
         },
 
         changeSearchSelect = function() {
             drawMap.selectChanged();
+        },
+
+        setUpOutlook = function() {
+          drawMap.setUpEmail();
         },
 
         setLocation = function (e, lat, long) {
