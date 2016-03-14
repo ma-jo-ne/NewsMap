@@ -30,8 +30,8 @@
     // PUUUUSHHHHHH #warumgehtderscheissned
 
     /*getArticleByTitle();
-    getArticleByLocation();
-    getArticleByLocation();*/
+     getArticleByLocation();
+     getArticleByLocation();*/
 
     /*
      fur parameter tag, title oder location den wert des input felds mitgeben;
@@ -106,38 +106,44 @@
 
 
 <div>
-    <ul id="menu-list">
-        <li data-show="search"><i class="fi-magnifying-glass"></i></li>
-        <li data-show="location"><i class="fi-marker"></i></li>
-        <li data-show="video"><i class="fi-video"></i></li>
-        <li data-show="text"><i class="fi-clipboard-notes"></i></li>
-        <li data-show="image"><i class="fi-puzzle"></i></li>
-        <li data-show="share" id="share-button"><i class="fi-share"></i></li>
-    </ul>
-    <div class="menu-item" id="search-wrapper">
-        <div class="row">
-            <div class="large-8 columns">
-            <input type="text" id="tag-search-input"></div>
-            <div class="large-4 columns">
-            <select id="search-select">
-                <option value="tag">Suche nach Begriff</option>
-                <option value="location">Suche nach Ort</option>
-                <option value="title">Suche nach Titel</option>
-            </select>
-            </div>
-            <div class="large-12 columns">
-                <select id="date-select">
-                    <option value="entire-time">gesamter Zeitraum</option>
-                    <option value="today">Heute</option>
-                    <option value="yesterday">Gestern</option>
-                    <option value="last-week">letzte Woche</option>
-                    <option value="last-four-weeks">letzten vier Wochen</option>
-                </select>
-            </div>
-        </div>
-        <ul id="autocomplete">
+    <div class="large-3 columns">
+        <ul id="menu-list">
+            <li data-show="search"><i class="fi-magnifying-glass"></i></li>
+            <li data-show="location"><i class="fi-marker"></i></li>
+            <!--<li data-show="video"><i class="fi-video"></i></li>
+            <li data-show="text"><i class="fi-clipboard-notes"></i></li>
+            <li data-show="image"><i class="fi-puzzle"></i></li>
+            <li data-show="share" id="share-button"><i class="fi-share"></i></li>-->
         </ul>
-        <button id="search-button">Suchen</button>
+    </div>
+    <div class="large-9 columns">
+        <div id="search-wrapper" class="menu-item">
+            <div class="row">
+                <div class="large-3 columns">
+                    <input type="text" id="tag-search-input"></div>
+                <div class="large-3 columns">
+                    <select id="search-select">
+                        <option value="tag">Suche nach Begriff</option>
+                        <option value="location">Suche nach Ort</option>
+                        <option value="title">Suche nach Titel</option>
+                    </select>
+                </div>
+                <div class="large-3 columns">
+                    <select id="date-select">
+                        <option value="entire-time">gesamter Zeitraum</option>
+                        <option value="today">Heute</option>
+                        <option value="yesterday">Gestern</option>
+                        <option value="last-week">letzte Woche</option>
+                        <option value="last-four-weeks">letzten vier Wochen</option>
+                    </select>
+                </div>
+                <div class="large-3 columns">
+                    <button id="search-button">Suchen</button>
+                </div>
+            </div>
+            <ul id="autocomplete">
+            </ul>
+        </div>
     </div>
     <div class="menu-item" id="location-wrapper">
         <div id="location-start" class="text-center">
@@ -236,15 +242,16 @@
 <div id="share-menu">
 
 
-  <!--  <a class="button" id="mailButton" href="javascript:NewsMap.DrawMap.setUpEmailLink()" target="_blank"> Mail</a>
-  -->
+    <!--  <a class="button" id="mailButton" href="javascript:NewsMap.DrawMap.setUpEmailLink()" target="_blank"> Mail</a>
+    -->
     <a class="button" id="mailButton" href="mailto:blala@bla.de" target="_blank"> Mail</a>
     <br/>
 
     <a class="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank" alt="Share on Facebook">Facebook</a>
 
     <br/>
-    <a class="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()" target="_blank" alt="Share on Twitter">Twitter</a>
+    <a class="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()" target="_blank"
+       alt="Share on Twitter">Twitter</a>
 
 </div>
 
@@ -267,6 +274,7 @@
     <button id="read-more-button"><a class="more-link"
                                      href="http://lokalreporter.idvl.de/wegen-einer-personalversammlung-ist-das-landratsamt-bamberg-am-mittwoch-16-dezember-2015-ab-1300-uhr-geschlossen-41413/"
                                      rel="bookmark">Weiterlesen</a></button>
+    <div class="button" id="share-button"><i class="fi-share"></i></div>
 </article>
 
 
@@ -278,7 +286,6 @@
 <script type="text/javascript" src="src/index/NewsMapView.js"></script>
 <script type="text/javascript" src="src/index/DrawMap.js"></script>
 <script type="text/javascript" src="src/index/DataObjectFactory.js"></script>
-
 
 
 <script>

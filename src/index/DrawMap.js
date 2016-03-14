@@ -212,7 +212,6 @@ NewsMap.DrawMap = (function () {
                     url: "http://" + location.host + "/NewsMap/get_data.php",
                     data: {func: selectedFunction, query: selectedQuery, date: dateSelectionVal},
                     success: function (data) {
-                        console.log(data);
                         if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
                             alert("keine Ergebnisse a");
