@@ -279,7 +279,7 @@ NewsMap.DrawMap = (function () {
              fbshareCurrentPage = function()
                 {window.open("https://www.facebook.com/sharer/sharer.php?u="+encodeURI(NewsMap.NewsMapView.getCurrentArticle())+"&t="+document.title, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
                     console.log(NewsMap.NewsMapView.getCurrentArticle());
-                    ;return false;
+                    return false;
                 },
 
             setUpEmailLink = function (){
@@ -287,6 +287,14 @@ NewsMap.DrawMap = (function () {
                 console.log(link);
                 return link;
 
+            },
+
+            twitterCurrentArticle = function() {
+                {
+                    window.open("https://twitter.com/intent/tweet?text=" + encodeURI(NewsMap.NewsMapView.getCurrentArticle()), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
+                    console.log(NewsMap.NewsMapView.getCurrentArticle());
+                    return false;
+                }
             },
 
 
@@ -315,6 +323,7 @@ NewsMap.DrawMap = (function () {
          return article by goiven articleID
          */
         that.setUpEmailLink=setUpEmailLink;
+        that.twitterCurrentArticle=twitterCurrentArticle;
         that.fbshareCurrentPage=fbshareCurrentPage;
         that.showShareOptions = showShareOptions;
         that._setLocation = _setLocation;
