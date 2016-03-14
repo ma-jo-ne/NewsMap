@@ -57,9 +57,6 @@ else if ($_GET["func"] == "article") {
 else if ($_GET["func"] == "id") {
     getLocationById($conn, $dateLowerBorder, $dateUpperBorder);
 }
-else if($_GET["func"] ==  "date"){
-    getArticleByDate($conn, $dateLowerBorder, $dateUpperBorder);
-}
 else if ($_GET["func"] == "tagAuto") {
     tagAutocomplete($conn);
 }
@@ -198,21 +195,6 @@ function getArticleByLocation($conn, $dateLowerBorder, $dateUpperBorder) {
 
 function getLocationById($conn, $dateLowerBorder, $dateUpperBorder) {
     $sql = 'SELECT lat, lon FROM locations WHERE locations.article_id = "' . $_GET["id"] . '"AND pub_date >="' .$dateLowerBorder. '" AND pub_date <= "'. $dateUpperBorder.'" ORDER BY articles.pub_date DESC';
-    if ($result = $conn->query($sql)) {
-
-        $rows = array();
-        while ($r = mysqli_fetch_assoc($result)) {
-            $rows[] = $r;
-        }
-        echo json_encode($rows);
-        /* free result set */
-        $result->close();
-    }
-}
-
-function getArticleByDate($conn, $dateLowerBorder, $dateUpperBorder){
-    $sql = 'SELECT * FROM articles WHERE pub_date > "2015-09-16" ORDER BY articles.pub_date DESC AND pub_date >="' .$dateLowerBorder. '" AND pub_date <= "'. $dateUpperBorder.'" ORDER BY articles.pub_date DESC';
-
     if ($result = $conn->query($sql)) {
 
         $rows = array();

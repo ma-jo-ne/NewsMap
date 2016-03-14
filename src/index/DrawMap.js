@@ -70,7 +70,7 @@ NewsMap.DrawMap = (function () {
             },
 
             addMarker = function (data) {
-
+console.log(data);
                 if (!markersSet) {
 
                     markers.clearLayers();
