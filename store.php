@@ -15,8 +15,8 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-//storeArticles($conn);
-storeRelations($conn);
+storeArticles($conn);
+//storeRelations($conn);
 //storeTags($conn);
 
 function storeArticles($conn) {
@@ -28,9 +28,9 @@ function storeArticles($conn) {
         $content = $cur["content"];
         $link = $cur["link"];
         $post_id = $cur["postId"];
-        $pub_data = $cur["pubData"];
-
-        $sql = "INSERT INTO articles (link, content, title, post_id, pub_data) VALUES('$link','$content','$title','$post_id','$pub_data')";
+        $pub_date = $cur["pubDate"];
+        $pub_date = date('Y-m-d H:i:s', strtotime($pub_date));
+        $sql = "INSERT INTO articles (link, content, title, post_id, pub_date) VALUES('$link','$content','$title','$post_id','$pub_date')";
 
 
         $result = $conn->query($sql);

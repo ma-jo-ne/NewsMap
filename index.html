@@ -45,7 +45,7 @@
      und die ergebnisse aus der success-funktion dann in einem autocomplete angezeigt und auswählbar gemacht.
      die Funktionen müssen noch in da entsprechende Modul , glaub drawmap oder noch ein modul erstellen für das Abrufen der Daten.
      */
-    function getArticleByTag() {
+/*    function getArticleByTag() {
         $.ajax({
             type: "GET",
             url: "http://" + location.host + "/NewsMap/get_data.php",
@@ -97,7 +97,7 @@
                 alert("error");
             }
         });
-    }
+    }*/
 </script>
 <div id="header">
     <div id="selected-location">
@@ -123,7 +123,18 @@
                 <option value="tag">Suche nach Begriff</option>
                 <option value="location">Suche nach Ort</option>
                 <option value="title">Suche nach Titel</option>
-            </select></div></div>
+            </select>
+            </div>
+            <div class="large-12 columns">
+                <select id="date-select">
+                    <option value="entire-time">gesamter Zeitraum</option>
+                    <option value="today">Heute</option>
+                    <option value="yesterday">Gestern</option>
+                    <option value="last-week">letzte Woche</option>
+                    <option value="last-four-weeks">letzten vier Wochen</option>
+                </select>
+            </div>
+        </div>
         <ul id="autocomplete">
         </ul>
         <button id="search-button">Suchen</button>

@@ -50,7 +50,7 @@ if ($_GET["store"] == true):
                     var nd = {
                         title: $title,
                         link: $link,
-                        pubData: $pubDate,
+                        pubDate: $pubDate,
                         content: $content,
                         categories: $categories,
                         tags: $tags,
@@ -58,6 +58,7 @@ if ($_GET["store"] == true):
                     };
                     newsData.push(nd);
                 });
+
                 //Remove Duplicates
 
 
