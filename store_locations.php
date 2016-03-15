@@ -35,7 +35,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 
 for ($i = 0; $i < $rows; $i++) {
     $location = json_decode($rows[$i]["locationData_HGC"]);
-    $articleId = $location->articleId;
+    $articleId = $location->id;
     $locationData = $location->locations;
     /* print_r($articleId);
      print_r("<br>");*/
@@ -44,10 +44,8 @@ for ($i = 0; $i < $rows; $i++) {
         $lat = $currentLocation->lat;
         $lon = $currentLocation->lon;
         $city = $currentLocation->name;
-        $state = $currentLocation->state;
         $county = $currentLocation->county;
         $region = $currentLocation->region;
-        $municipality = $currentLocation->municipality;
         // print_r($currentLocation);
         /*     print_r($lat);
                 print_r($lon);
@@ -56,7 +54,7 @@ for ($i = 0; $i < $rows; $i++) {
                 print_r($state);
                 print_r($county);
                 print_r("<br>");*/
-        $insert = "INSERT INTO locations (article_id, lat, lon, city, region, municipality, county, state) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$municipality', '$county', '$state')";
+        $insert = "INSERT INTO locations (article_id, lat, lon, city, region, county) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$county')";
         $conn->query($insert);
     }
 }
