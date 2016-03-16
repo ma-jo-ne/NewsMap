@@ -21,6 +21,7 @@
     <script src="js/leaflet.js"></script>
     <script src="js/vendor/jquery.js"></script>
     <script src="leaflet_markercluster_07/dist/leaflet.markercluster.js"></script>
+    <script src="libs/jquery.dotdotdot.min.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
 
 </head>
@@ -29,7 +30,11 @@
     <span>Lade Nachrichten...</span>
 </div>
 <script>
-
+    $(document).ready(function () {
+        $("#menu-left").dotdotdot({
+            //	configuration goes here
+        });
+    });
     // PUUUUSHHHHHH #warumgehtderscheissned
 
     /*getArticleByTitle();
@@ -290,8 +295,6 @@
 <script type="text/javascript" src="src/index/NewsMapView.js"></script>
 <script type="text/javascript" src="src/index/DrawMap.js"></script>
 <script type="text/javascript" src="src/index/DataObjectFactory.js"></script>
-
-<script src="libs/jquery.dotdotdot.min.js"></script>
 
 <script>
     $(document).foundation();

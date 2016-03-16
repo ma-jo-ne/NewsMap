@@ -73,18 +73,32 @@ a:hover {
     width: 9%;
 }
 
-#menu-left {
-    float: left;
-    display: none;
-    height: 93%;
-    width: 30%;
-    position: absolute;
-    z-index: 1000;
-    background: #2c60b5;
-    color: #f5f5f5;
-    padding: 1rem;
-    overflow-y: scroll;
-    margin-top: 5.7%
+@media (min-width: 64em) {
+    #menu-left {
+        float: left;
+        display: none;
+        height: 100%;
+        width: 30%;
+        position: absolute;
+        z-index: 1000;
+        background: #2c60b5;
+        color: #f5f5f5;
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 64em) {
+    #menu-left {
+        float: left;
+        display: none;
+        height: 100%;
+        width: 95%;
+        position: absolute;
+        z-index: 1000;
+        background: #2c60b5;
+        color: #f5f5f5;
+        padding: 1rem;
+    }
 }
 
 
