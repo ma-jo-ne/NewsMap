@@ -154,6 +154,7 @@ a:hover {
     text-align: left;
 }
 
+
 #menu-list li {
     /*    cursor: pointer;
         width: 100%;
@@ -261,6 +262,20 @@ a:hover {
     display: none;
 }
 */
+
+#menu-rechts{
+    right: 0;
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    z-index: 1000;
+    margin-top: 3.7%;
+    overflow-y: scroll;
+}
+
+#accordUl{
+
+}
 
 .menu-item {
     position: fixed;

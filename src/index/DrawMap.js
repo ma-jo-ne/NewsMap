@@ -103,6 +103,7 @@ NewsMap.DrawMap = (function () {
                 map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
                 console.log("markers set");
 
+                setChronoView(data);
 
                 markersSet = true;
             }
@@ -120,6 +121,29 @@ NewsMap.DrawMap = (function () {
             });
 
 
+        },
+
+        setChronoView = function (data) {
+            //lädt nur 20 im moment..
+            console.log("in setChronoView");
+            var EIDI;
+            var artikelTitel;
+            var artikelLink;
+            var accord;
+            for (i = 0; i < 20; i++) {
+                 EIDI = "a"+i
+                 artikelTitel = data[i].title;
+                 artikelLink= data[i].link;
+                 accord = $('<li class="accordion-navigation">' +
+                    '<a href="#' + EIDI + '">' + artikelTitel + '</a>' +
+                    '<div id="' + EIDI +'" class="content disabled">' +
+                    artikelLink +
+                    '</div>' +
+                    '</li>');
+
+                $("#accordUl").append(accord);
+            }
+            $(document).foundation();
         },
 
         tagSearchClicked = function () {
@@ -236,6 +260,7 @@ NewsMap.DrawMap = (function () {
                         console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
                         markersSet = false;
                         addMarker(JSON.parse(data));
+
                     }
                 },
                 error: function () {
@@ -298,7 +323,6 @@ NewsMap.DrawMap = (function () {
 
         setUpEmailLink = function () {
             var link = "mailto: blala@bla.de?body=" + encodeURI(NewsMap.NewsMapView.getCurrentArticle());
-            console.log(link);
             return link;
 
         },
