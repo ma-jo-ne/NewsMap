@@ -22,7 +22,7 @@ $dateSelection = $_GET["date"];
 /*
  * Daten mit locations sind erst ab 28.11. verfügbar
  */
-$dateUpperBorder = "2016-01-13";
+$dateUpperBorder = "2016-01-20";
 $dateLowerBorder = "0";
 
 if($dateSelection == "today"){
