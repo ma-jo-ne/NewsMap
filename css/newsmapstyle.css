@@ -37,6 +37,10 @@ a:hover {
     font-size: 1em;
     overflow: hidden;
     color: #ffffff;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
 }
 
 #content {
@@ -52,7 +56,7 @@ a:hover {
 /*eigenes css*/
 
 #map {
-    height: 93%;
+    height: 100%;
     width: 100%;
     padding: 0;
     margin: 0;
