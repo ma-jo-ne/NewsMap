@@ -9,6 +9,7 @@ NewsMap.DrawMap = (function () {
         dateSelectionVal = $dateSelect.val(),
         myLocation = null,
         $loading = null,
+        initLoading = true,
 
         map = null,
         newsDataObjects = [],
@@ -99,10 +100,15 @@ NewsMap.DrawMap = (function () {
 
                 }
                 map.addLayer(markers);
-                map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
+                if (initLoading) {
+                    map.setView(new L.LatLng(49.02, 12.08));
+                    initLoading = false;
+                }
+                else {
+                    map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
+                }
+
                 console.log("markers set");
-
-
                 markersSet = true;
             }
         },
@@ -123,6 +129,7 @@ NewsMap.DrawMap = (function () {
 
         tagSearchClicked = function () {
             getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
+            $('#autocomplete').hide();
         },
 
         autocomplete = function () {
