@@ -130,7 +130,7 @@ NewsMap.DrawMap = (function () {
             var artikelTitel;
             var artikelLink;
             var accord;
-            for (i = 0; i < 20; i++) {
+            for (i = 0; i < data.length; i++) {
                  EIDI = "a"+i
                  artikelTitel = data[i].title;
                  artikelLink= data[i].link;
