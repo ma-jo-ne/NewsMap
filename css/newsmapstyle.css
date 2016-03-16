@@ -79,7 +79,7 @@ a:hover {
         display: none;
         height: 100%;
         width: 30%;
-        position: absolute;
+        position: fixed;
         z-index: 1000;
         background: #2c60b5;
         color: #f5f5f5;
@@ -93,7 +93,7 @@ a:hover {
         display: none;
         height: 100%;
         width: 95%;
-        position: absolute;
+        position: fixed;
         z-index: 1000;
         background: #2c60b5;
         color: #f5f5f5;
@@ -215,8 +215,18 @@ a:hover {
     display: none;
 }
 
-.entry-summary {
-    overflow-y: auto;
+@media (min-width: 64em) {
+    .entry-summary {
+        overflow-y: hidden;
+        max-height: 50%;
+    }
+}
+
+@media (max-width: 64em) {
+    .entry-summary {
+        overflow-y: hidden;
+        max-height: 80%;
+    }
 }
 
 /*
