@@ -23,6 +23,7 @@
     <script src="js/foundation/foundation.js"></script>
     <script src="js/foundation/foundation.accordion.js"></script>
     <script src="leaflet_markercluster_07/dist/leaflet.markercluster.js"></script>
+    <script src="libs/jquery.dotdotdot.min.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
 
 </head>
@@ -31,7 +32,11 @@
     <span>Lade Nachrichten...</span>
 </div>
 <script>
-
+    $(document).ready(function () {
+        $(".entry-summary").dotdotdot({
+            //	configuration goes here
+        });
+    });
     // PUUUUSHHHHHH #warumgehtderscheissned
 
     /*getArticleByTitle();
@@ -105,84 +110,83 @@
     }
 </script>
 <div id="header">
-    <div id="selected-location">
-    </div>
-</div>
 
 
-<div>
-    <div class="large-3 columns">
-        <ul id="menu-list">
-            <li data-show="search"><i class="fi-magnifying-glass"></i></li>
-            <li data-show="location"><i class="fi-marker"></i></li>
-            <!--<li data-show="video"><i class="fi-video"></i></li>
-            <li data-show="text"><i class="fi-clipboard-notes"></i></li>
-            <li data-show="image"><i class="fi-puzzle"></i></li>
-            <li data-show="share" id="share-button"><i class="fi-share"></i></li>-->
-        </ul>
-    </div>
-    <div class="large-9 columns">
-        <div id="search-wrapper" class="menu-item">
-            <div class="row">
-                <div class="large-3 columns">
-                    <input type="text" id="tag-search-input"></div>
-                <div class="large-3 columns">
-                    <select id="search-select">
-                        <option value="tag">Suche nach Begriff</option>
-                        <option value="location">Suche nach Ort</option>
-                        <option value="title">Suche nach Titel</option>
-                    </select>
-                </div>
-                <div class="large-3 columns">
-                    <select id="date-select">
-                        <option value="entire-time">gesamter Zeitraum</option>
-                        <option value="today">Heute</option>
-                        <option value="yesterday">Gestern</option>
-                        <option value="last-week">letzte Woche</option>
-                        <option value="last-four-weeks">letzten vier Wochen</option>
-                    </select>
-                </div>
-                <div class="large-3 columns">
-                    <button id="search-button">Suchen</button>
-                </div>
-            </div>
-            <ul id="autocomplete">
+    <div>
+        <div class="large-3 columns">
+            <ul id="menu-list">
+                <li data-show="search"><i class="fi-magnifying-glass"></i></li>
+                <li data-show="location"><i class="fi-marker"></i></li>
+                <!--<li data-show="video"><i class="fi-video"></i></li>
+                <li data-show="text"><i class="fi-clipboard-notes"></i></li>
+                <li data-show="image"><i class="fi-puzzle"></i></li>
+                <li data-show="share" id="share-button"><i class="fi-share"></i></li>-->
             </ul>
         </div>
-    </div>
-    <div class="menu-item" id="location-wrapper">
-        <div id="location-start" class="text-center">
-            <div class="row">
-                <div class="small-12 large-4 columns">
-                    <button id="identify-location" class="tiny">Eigenen Standort ermitteln</button>
-                </div>
-                <div class="small-12 large-4 columns">
-                    <span class="text-center"><b>oder</b></span>
-                </div>
-                <div id="location-input" class="small-12 large-4 columns">
-                    <div id="location-start-wrapper">
-                        <div class="postfix-round row collapse" id="loc-start-margin">
+        <div class="large-9 columns">
+            <div id="search-wrapper" class="menu-item">
+                <div class="row">
+                    <div class="large-3 columns">
+                        <input type="text" id="tag-search-input"></div>
+                    <div class="large-3 columns">
+                        <select id="search-select">
+                            <option value="tag">Suche nach Begriff</option>
+                            <option value="location">Suche nach Ort</option>
+                            <option value="title">Suche nach Titel</option>
+                        </select>
+                    </div>
+                    <div class="large-3 columns">
+                        <select id="date-select">
+                            <option value="last-week">letzte Woche</option>
+                            <option value="entire-time">gesamter Zeitraum</option>
+                            <option value="today">Heute</option>
+                            <option value="yesterday">Gestern</option>
 
-                            <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
+                            <option value="last-four-weeks">letzten vier Wochen</option>
+                        </select>
+                    </div>
+                    <div class="large-3 columns">
+                        <button id="search-button">Suchen</button>
+                    </div>
+                </div>
+                <ul id="autocomplete">
+                </ul>
+            </div>
+        </div>
+        <div class="menu-item" id="location-wrapper">
+            <div id="location-start" class="text-center">
+                <div class="row">
+                    <div class="small-12 large-4 columns">
+                        <button id="identify-location" class="tiny">Eigenen Standort ermitteln</button>
+                    </div>
+                    <div class="small-12 large-4 columns">
+                        <span class="text-center"><b>oder</b></span>
+                    </div>
+                    <div id="location-input" class="small-12 large-4 columns">
+                        <div id="location-start-wrapper">
+                            <div class="postfix-round row collapse" id="loc-start-margin">
+
+                                <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                </div>
+                <br>
             </div>
-            <div class="row">
-            </div>
-            <br>
         </div>
-    </div>
-    <div class="menu-item" id="video-wrapper">
-        <button>Nach Video suchen</button>
-    </div>
-    <div class="menu-item" id="text-wrapper">
-        <button>Nach Texten suchen</button>
-    </div>
-    <div class="menu-item" id="image-wrapper">
-        <button>kaa</button>
-    </div>
+        <div class="menu-item" id="video-wrapper">
+            <button>Nach Video suchen</button>
+        </div>
+        <div class="menu-item" id="text-wrapper">
+            <button>Nach Texten suchen</button>
+        </div>
+        <div class="menu-item" id="image-wrapper">
+            <button>kaa</button>
+        </div>
 
+    </div>
 </div>
 <script></script>
 <!--<div id="menu-right">
@@ -271,7 +275,7 @@
 
 
     <div id="close-preview"><i class="fi-x"></i></div>
-    <img src="https://dhregensburg.files.wordpress.com/2012/11/img_1044-e1406648774335.jpg" width="485" height="209"
+    <img src="http://blog.xebialabs.com/wp-content/uploads/2015/01/news.jpg" width="485" height="209"
          alt="">
 
     <h2 class="entry-title"><a class="preview-link" target="_blank"
@@ -300,7 +304,6 @@
 <script type="text/javascript" src="src/index/NewsMapView.js"></script>
 <script type="text/javascript" src="src/index/DrawMap.js"></script>
 <script type="text/javascript" src="src/index/DataObjectFactory.js"></script>
-
 
 <script>
     $(document).foundation();

@@ -15,7 +15,7 @@ NewsMap.NewsMapView = (function () {
             menuItemClick();
             searchButtonClick();
             shareButtonClick();
-
+            toggleMenu();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -75,6 +75,17 @@ NewsMap.NewsMapView = (function () {
 
             console.log(clickedArticle);
 
+        },
+
+        toggleMenu = function () {
+            $("#menu-icon").on("click", function () {
+                if ($("#menu-form").is(":visible")) {
+                    $("#menu-form").hide()
+                }
+                else {
+                    $("#menu-form").show();
+                }
+            });
         },
 
 
