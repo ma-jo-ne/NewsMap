@@ -51,7 +51,6 @@ NewsMap.DrawMap = (function () {
                     }
                     else {
                         addMarker(JSON.parse(data));
-                        console.log(JSON.parse(data));
                         foundArticles = JSON.parse(data);
                     }
 
