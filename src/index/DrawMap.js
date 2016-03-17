@@ -136,7 +136,7 @@ NewsMap.DrawMap = (function () {
 
             $(".accordion-navigation").remove();
             $(document).foundation()
-            console.log("in setChronoView");
+
             var EIDI,
                 artikelTitel,
                 artikelLink,
@@ -144,7 +144,7 @@ NewsMap.DrawMap = (function () {
                 artikelOrt,
                 artikelRegion;
             for (i = 0; i < data.length; i++) {
-                console.log(data[i]);
+
                 if(i!=0 && data[i-1].title != data[i].title || data.length==2){
                      EIDI = "a" + i;
                      artikelTitel = data[i].title;
@@ -321,14 +321,6 @@ NewsMap.DrawMap = (function () {
             return "0";
         },
 
-
-        showShareOptions = function () {
-            $("#menu-left").hide();
-            $("#share-menu").toggle();
-
-            //popUp in mitte des Fensters anzeigen, dort zur Auswahl "Outlook versenden" "link kopieren" "auf Facebook posten"
-        },
-
         selectChanged = function () {
             searchSelect = $("#search-select").val();
             console.log(searchSelect);
@@ -342,7 +334,6 @@ NewsMap.DrawMap = (function () {
 
         fbshareCurrentPage = function () {
             window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(NewsMap.NewsMapView.getCurrentArticle()) + "&t=" + document.title, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-            console.log(NewsMap.NewsMapView.getCurrentArticle());
             return false;
         },
 
@@ -355,7 +346,6 @@ NewsMap.DrawMap = (function () {
         twitterCurrentArticle = function () {
             {
                 window.open("https://twitter.com/intent/tweet?text=" + encodeURI(NewsMap.NewsMapView.getCurrentArticle()), 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');
-                console.log(NewsMap.NewsMapView.getCurrentArticle());
                 return false;
             }
         },
@@ -388,7 +378,6 @@ NewsMap.DrawMap = (function () {
     that.setUpEmailLink = setUpEmailLink;
     that.twitterCurrentArticle = twitterCurrentArticle;
     that.fbshareCurrentPage = fbshareCurrentPage;
-    that.showShareOptions = showShareOptions;
     that._setLocation = _setLocation;
     that._getArticle = _getArticle;
     that.tagSearchClicked = tagSearchClicked;

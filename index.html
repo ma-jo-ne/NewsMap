@@ -22,6 +22,7 @@
     <script src="js/vendor/jquery.js"></script>
     <script src="js/foundation/foundation.js"></script>
     <script src="js/foundation/foundation.accordion.js"></script>
+    <script src="js/foundation/foundation.reveal.js"></script>
     <script src="leaflet_markercluster_07/dist/leaflet.markercluster.js"></script>
     <script src="libs/jquery.dotdotdot.min.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
@@ -31,6 +32,23 @@
 <div class="text-center" id="loading">
     <span>Lade Nachrichten...</span>
 </div>
+
+<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+    <h2 id="modalTitle">Teilen sie einen Artikel</h2>
+
+    <a class="button" id="mailButton" href="mailto:blala@bla.de" target="_blank"> Mail</a>
+    <br/>
+
+    <a class="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank" alt="Share on Facebook">Facebook</a>
+
+    <br/>
+    <a class="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()" target="_blank"
+       alt="Share on Twitter">Twitter</a>
+
+
+    <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+</div>
+
 <script>
     $(document).ready(function () {
         $(".entry-summary").dotdotdot({
@@ -251,21 +269,6 @@
 <div id="map">
 </div>
 
-<div id="share-menu">
-
-
-    <!--  <a class="button" id="mailButton" href="javascript:NewsMap.DrawMap.setUpEmailLink()" target="_blank"> Mail</a>
-    -->
-    <a class="button" id="mailButton" href="mailto:blala@bla.de" target="_blank"> Mail</a>
-    <br/>
-
-    <a class="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank" alt="Share on Facebook">Facebook</a>
-
-    <br/>
-    <a class="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()" target="_blank"
-       alt="Share on Twitter">Twitter</a>
-
-</div>
 
 <article id="menu-rechts">
     <ul class="accordion menu-item" id="chrono-wrapper" data-accordion>
@@ -300,7 +303,8 @@
     <button id="read-more-button"><a class="more-link"
                                      href="http://lokalreporter.idvl.de/wegen-einer-personalversammlung-ist-das-landratsamt-bamberg-am-mittwoch-16-dezember-2015-ab-1300-uhr-geschlossen-41413/"
                                      rel="bookmark">Weiterlesen</a></button>
-    <div class="button" id="share-button"><i class="fi-share"></i></div>
+    <!-- <div class="button" id="share-button"><i class="fi-share"></i></div> -->
+    <a class="button" href="#" data-reveal-id="myModal"><i class="fi-share"></i></a>
 </article>
 
 

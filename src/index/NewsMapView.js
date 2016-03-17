@@ -14,7 +14,6 @@ NewsMap.NewsMapView = (function () {
             identifyLocation();
             menuItemClick();
             searchButtonClick();
-            shareButtonClick();
             toggleMenu();
 
 
@@ -44,13 +43,6 @@ NewsMap.NewsMapView = (function () {
 
         getCurrentArticle = function() {
             return currentArticle;
-        },
-
-        shareButtonClick = function(){
-            console.log("View: in share Button Click ");
-            $('body').on('click', '#share-button', function () {
-                $(that).trigger("shareButtonClick");
-            });
         },
 
         searchButtonClick = function() {

@@ -12,7 +12,6 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("locationFound", setLocation);
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
             $(newsMapView).on("searchButtonClick", getTagsFromArticles);
-            $(newsMapView).on("shareButtonClick", setShareOptions);
             $(newsMapView).on("searchSelectChanged", changeSearchSelect);
             $(drawMap).on("locationClicked", closeMenu);
 
@@ -27,10 +26,6 @@ NewsMap.MainController = (function () {
             drawMap._setLocation(lat, long);
         },
 
-        setShareOptions = function(){
-            console.log("MainController: in setShareOptions");
-            drawMap.showShareOptions();
-        },
 
         closeMenu = function () {
             newsMapView._closeMenu();
