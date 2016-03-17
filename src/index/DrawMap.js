@@ -131,26 +131,31 @@ NewsMap.DrawMap = (function () {
         },
 
         setChronoView = function (data) {
-            //lädt nur 20 im moment..
+
+            $(".accordion-navigation").remove();
+            $(document).foundation()
             console.log("in setChronoView");
             var EIDI,
                 artikelTitel,
                 artikelLink,
                 accord;
             for (i = 0; i < data.length; i++) {
-                EIDI = "a" + i;
-                 artikelTitel = data[i].title;
-                 artikelLink= data[i].link;
-                 accord = $('<li class="accordion-navigation">' +
-                    '<a href="#' + EIDI + '">' + artikelTitel + '</a>' +
-                     '<a href="' + artikelLink + '" id="' + EIDI + '" class="content disabled" target="_blank">' +
-                    artikelLink +
-                     '</a>' +
-                    '</li>');
+                if(i!=0 && data[i-1].title != data[i].title){
+                    console.log(data[i]);
+                     EIDI = "a" + i;
+                     artikelTitel = data[i].title;
+                     artikelLink= data[i].link;
+                     accord = $('<li class="accordion-navigation">' +
+                        '<a  href="#' + EIDI + '">' + artikelTitel + '</a>' +
+                        '<div'+ ' id="' + EIDI + '" class="content disabled">'+'<a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                    
+                    'Weitleiten</a>' +
+                         '</div> </li>');
 
-                $("#accordUl").append(accord);
+                    $("#accordUl").append(accord);
+                }
             }
-            $(document).foundation();
+            //$(document).foundation();
         },
 
         tagSearchClicked = function () {
