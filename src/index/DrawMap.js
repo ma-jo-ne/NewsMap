@@ -91,6 +91,8 @@ NewsMap.DrawMap = (function () {
                 markers.clearLayers();
 
                 for (i = 0; i < data.length; i++) {
+
+
                     var marker = L.marker([data[i].lat, data[i].lon]);
                     var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
@@ -140,7 +142,8 @@ NewsMap.DrawMap = (function () {
                 artikelLink,
                 accord;
             for (i = 0; i < data.length; i++) {
-                if(i!=0 && data[i-1].title != data[i].title){
+
+                if(i!=0 && data[i-1].title != data[i].title || data.length==2){
                     console.log(data[i]);
                      EIDI = "a" + i;
                      artikelTitel = data[i].title;
@@ -148,11 +151,13 @@ NewsMap.DrawMap = (function () {
                      accord = $('<li class="accordion-navigation">' +
                         '<a  href="#' + EIDI + '">' + artikelTitel + '</a>' +
                         '<div'+ ' id="' + EIDI + '" class="content disabled">'+'<a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
-                    
+
                     'Weitleiten</a>' +
                          '</div> </li>');
 
-                    $("#accordUl").append(accord);
+                    $("#chrono-wrapper").append(accord);
+                    $("#chrono-wrapper").css("position","absolute");
+                    $("#chrono-wrapper").css("width","100%");
                 }
             }
             //$(document).foundation();
