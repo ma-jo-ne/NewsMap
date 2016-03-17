@@ -140,24 +140,31 @@ NewsMap.DrawMap = (function () {
             var EIDI,
                 artikelTitel,
                 artikelLink,
-                accord;
+                accord,
+                artikelOrt,
+                artikelRegion;
             for (i = 0; i < data.length; i++) {
-
+                console.log(data[i]);
                 if(i!=0 && data[i-1].title != data[i].title || data.length==2){
-                    console.log(data[i]);
                      EIDI = "a" + i;
                      artikelTitel = data[i].title;
                      artikelLink= data[i].link;
+                     artikelOrt= data[i].city;
                      accord = $('<li class="accordion-navigation">' +
-                        '<a  href="#' + EIDI + '">' + artikelTitel + '</a>' +
-                        '<div'+ ' id="' + EIDI + '" class="content disabled">'+'<a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<a class="accordItem" href="#' + EIDI + '">' + artikelTitel + '</a>' +
+                        '<div'+ ' id="' + EIDI + '" class="content disabled">'+artikelOrt+'<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
-                    'Weitleiten</a>' +
+                    'Weitleiten <br/></a>' +
                          '</div> </li>');
 
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position","absolute");
                     $("#chrono-wrapper").css("width","100%");
+                    $(".accordItem").css("background-color","#008CBA");
+                    $(".accordItem").css("color","#F5F5F5");
+                    //$(".accordItem").css("border","4px solid whitesmoke");
+                    $(".accordion-navigation").css("border","4px solid whitesmoke");
+
                 }
             }
             //$(document).foundation();

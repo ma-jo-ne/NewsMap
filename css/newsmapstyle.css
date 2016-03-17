@@ -316,6 +316,15 @@ li.accordion-navigation {
     width: 50%;
 }
 
+.accordion .accordion-navigation.active > a, .accordion dd.active > a {
+    backgound-color: #008CBA;
+    color: #F5F5F5;
+}
+
+.accordItem{
+    backgound-color: #008CBA;
+}
+
 #close-menu {
 
 }
