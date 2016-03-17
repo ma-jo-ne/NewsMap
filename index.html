@@ -34,17 +34,29 @@
 </div>
 
 <div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+
     <h2 id="modalTitle">Teilen sie einen Artikel</h2>
+    <br/><br/>
 
-    <a class="button" id="mailButton" href="mailto:blala@bla.de" target="_blank"> Mail</a>
-    <br/>
+    <div class="row">
+        <div class="large-4 columns">
+            <a type="button" id="mailButton" href="mailto:blala@bla.de" target="_blank">
+                <img border="0" alt="mail" src="img/mail-share.png" width="70" height="70">
+            </a>
+            <br/>
+        </div>
+        <div class="large-4 columns">
+            <a type="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank" >
+                <img border="0" alt="facebook" src="img/fbshare.png" width="70" height="70">
+            </a>
+            <br/>
+        </div>
+        <div class="large-4 columns">
+            <a type="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()" target="_blank"
+            ><img border="0" alt="twitter" src="img/twitter_share.png" width="70" height="70"></a>
+        </div>
 
-    <a class="button" href="javascript:NewsMap.DrawMap.fbshareCurrentPage()" target="_blank" alt="Share on Facebook">Facebook</a>
-
-    <br/>
-    <a class="button" id="twitter-button" href="javascript:NewsMap.DrawMap.twitterCurrentArticle()" target="_blank"
-       alt="Share on Twitter">Twitter</a>
-
+    </div>
 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>

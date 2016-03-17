@@ -120,13 +120,6 @@ a:hover {
     padding: 1rem;
     overflow-y: auto;
 }
-#share-menu .button{
-    width: 100%;
-    float: left;
-    text-align: left;
-}
-
-
 
 .entry-title {
     font-weight: bold;
