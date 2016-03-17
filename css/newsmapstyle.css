@@ -305,6 +305,10 @@ a:hover {
 
 }
 
+li.accordion-navigation {
+    border-bottom: 1px solid #808080;
+}
+
 .menu-item {
     position: fixed;
     z-index: 100;
@@ -383,7 +387,10 @@ a:hover {
     height: 15rem;
     display: none;
     width: 46.9%;
-    margin-left: 0.9rem;
+    margin-left: 35%;
+    position: fixed;
+    z-index: 10000;
+    top: 4.7rem;
 }
 
 #autocomplete li {

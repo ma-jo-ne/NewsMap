@@ -133,19 +133,19 @@ NewsMap.DrawMap = (function () {
         setChronoView = function (data) {
             //lädt nur 20 im moment..
             console.log("in setChronoView");
-            var EIDI;
-            var artikelTitel;
-            var artikelLink;
-            var accord;
+            var EIDI,
+                artikelTitel,
+                artikelLink,
+                accord;
             for (i = 0; i < data.length; i++) {
-                 EIDI = "a"+i
+                EIDI = "a" + i;
                  artikelTitel = data[i].title;
                  artikelLink= data[i].link;
                  accord = $('<li class="accordion-navigation">' +
                     '<a href="#' + EIDI + '">' + artikelTitel + '</a>' +
-                    '<div id="' + EIDI +'" class="content disabled">' +
+                     '<a href="' + artikelLink + '" id="' + EIDI + '" class="content disabled" target="_blank">' +
                     artikelLink +
-                    '</div>' +
+                     '</a>' +
                     '</li>');
 
                 $("#accordUl").append(accord);
