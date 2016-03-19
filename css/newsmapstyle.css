@@ -180,7 +180,7 @@ a:hover {
         display: inline;*/
     display: inline;
 
-    margin-left: 20%;
+    margin-left: 2rem;
     cursor: pointer;
     text-align: center;
     width: 100%;
@@ -295,11 +295,26 @@ a:hover {
     width: 20%;
     position: absolute;
     z-index: 1000;
-    margin-top: 3.7%;
     overflow-y: scroll;
 }
 
+#favorites-menu {
+    display: none;
+    right: 0;
+    height: 100%;
+    width: 20%;
+    position: absolute;
+    z-index: 1000;
+    overflow-y: scroll;
+    background: #2c60b5;
+    color: #f5f5f5;
+}
 
+#add-to-favorites i {
+    float: left;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
 
 li.accordion-navigation {
     border-bottom: 1px solid #808080;

@@ -22,12 +22,24 @@ NewsMap.NewsMapView = (function () {
             $("#menu-list li").on("click", menuItemClick);
             $("#search-select").on("change", searchSelectChanged);
             $("#right-menu-button").on("click", showRightMenu);
+            $("#favorites-button").on("click", showFavorites);
+            $("#add-to-favorites").on("click", addToFavorites);
 
             return this;
         },
 
+        addToFavorites = function() {
+            $(this).css('color', 'yellow');
+        },
+
+        showFavorites = function() {
+            $("#favorites-menu").toggle();
+            $("#menu-rechts").hide();
+        },
+
         showRightMenu = function() {
             $("#menu-rechts").toggle();
+            $("#favorites-menu").hide();
         },
 
         searchSelectChanged = function() {
