@@ -376,8 +376,7 @@ li.accordion-navigation {
 
 @media (min-width: 64em) {
     #location-start {
-        background-color: white;
-        border: 1px solid black;
+        margin-left: 3rem;
         max-height: 64px;
         line-height: 64px;
     }
@@ -385,8 +384,7 @@ li.accordion-navigation {
 
 @media (max-width: 64em) {
     #location-start {
-        background-color: white;
-        border: 1px solid black;
+        margin-left: 3rem;
         min-height: 64px;
         line-height: 64px;
     }
