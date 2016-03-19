@@ -20,9 +20,14 @@ NewsMap.NewsMapView = (function () {
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
             $("#menu-list li").on("click", menuItemClick);
-            $("#search-select").on("change", searchSelectChanged)
+            $("#search-select").on("change", searchSelectChanged);
+            $("#right-menu-button").on("click", showRightMenu);
 
             return this;
+        },
+
+        showRightMenu = function() {
+            $("#menu-rechts").toggle();
         },
 
         searchSelectChanged = function() {
