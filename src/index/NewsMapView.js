@@ -164,8 +164,9 @@ NewsMap.NewsMapView = (function () {
 
         menuItemClick = function () {
 
-            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+         var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
+            $(".menu-off-canvas").hide();
             console.log($(this).attr("data-show") + "-wrapper");
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
