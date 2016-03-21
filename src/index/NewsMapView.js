@@ -2,10 +2,11 @@ NewsMap.NewsMapView = (function () {
     var that = {},
         $buttonFindLocation = null,
         $buttonIdentifyLocation = null,
-        currentArticle="http://google.de",
+        currentArticle = "http://google.de",
         currentClickedArticle = null,
         favorites = [],
         $header = null,
+        favoritesVisible = false,
 
         init = function () {
 
@@ -19,6 +20,7 @@ NewsMap.NewsMapView = (function () {
             menuItemClick();
             searchButtonClick();
             toggleMenu();
+            showFavArticle();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -26,37 +28,66 @@ NewsMap.NewsMapView = (function () {
             $("#menu-list li").on("click", menuItemClick);
             $("#search-select").on("change", searchSelectChanged);
             $("#right-menu-button").on("click", showRightMenu);
-            $("#favorites-button").on("click", showFavorites);
+            $("#showFavOnMap").on("click", showFavoritesOnMap);
+            $("#favorites-menu-star").on("click", showFavorites);
             $("#add-to-favorites").on("click", addToFavorites);
+
+            $(".right-x").on("click", closeMenuRight);
 
             return this;
         },
 
-        addToFavorites = function() {
+        showFavArticle = function () {
+
+            $('body').on('click', '.favorites-li', function () {
+                var index = $(this).index();
+                $(that).trigger("showFavArticle", index)
+            });
+        },
+
+        closeMenuRight = function () {
+            $("#menu-rechts").hide();
+            $("#favorites-menu").hide();
+        },
+
+        addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
             var menuStar = $("#favorites-menu-star");
             var bg = menuStar.css('color');
             menuStar.css('color', 'yellow');
-            setTimeout(function() {
+            setTimeout(function () {
                 menuStar.css('color', bg);
             }, 1000)
 
+        },
+
+        showFavorites = function () {
+            $("#favorites-menu").toggle();
+            $("#menu-rechts").hide();
 
         },
 
-        showFavorites = function() {
-            $("#favorites-menu").toggle();
-            $("#menu-rechts").hide();
+        showFavoritesOnMap = function () {
+
+            if (favoritesVisible) {
+                $(this).html("Nur Favoriten anzeigen");
+                favoritesVisible = false;
+            }
+            else {
+                $(this).html("Alle Ergebnisse");
+                favoritesVisible = true;
+            }
+
             $(that).trigger("showFavorites");
         },
 
-        showRightMenu = function() {
+        showRightMenu = function () {
             $("#menu-rechts").toggle();
             $("#favorites-menu").hide();
         },
 
-        searchSelectChanged = function() {
+        searchSelectChanged = function () {
             $(that).trigger("searchSelectChanged");
         },
 
@@ -65,18 +96,18 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-                if(NewsMap.DrawMap._getArticle($(this).attr("data-id")).link!=null)
-                currentArticle=NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
+                if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
+                    currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
 
-                $("#mailButton").attr("href",NewsMap.DrawMap.setUpEmailLink);
+                $("#mailButton").attr("href", NewsMap.DrawMap.setUpEmailLink);
             });
         },
 
-        getCurrentArticle = function() {
+        getCurrentArticle = function () {
             return currentArticle;
         },
 
-        searchButtonClick = function() {
+        searchButtonClick = function () {
             $('body').on('click', '#search-button', function () {
                 $(that).trigger("searchButtonClick");
             });
@@ -174,7 +205,7 @@ NewsMap.NewsMapView = (function () {
             $header.removeClass("menu-visible");
         };
 
-    that.getCurrentArticle=getCurrentArticle;
+    that.getCurrentArticle = getCurrentArticle;
     that._closeMenu = _closeMenu;
     that._setArticleContent = _setArticleContent;
     that.init = init;

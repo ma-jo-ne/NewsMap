@@ -18,8 +18,13 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("showFavorites", showFavorites);
             $(drawMap).on("locationClicked", closeMenu);
             $(drawMap).on("showMenuLeftForFavorite", showMenuLeftforFavorite);
+            $(newsMapView).on("showFavArticle", showFavArticle);
 
             return this;
+        },
+
+        showFavArticle = function(e, index) {
+            drawMap.showFavArticle(index);
         },
 
         showFavorites = function() {

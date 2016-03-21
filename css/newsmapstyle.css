@@ -520,6 +520,15 @@ li.accordion-navigation {
     display: none;
 }
 
-.
 
-
+#showFavOnMap:hover {
+    background: #3a9bd8;
+    color: white;
+}
+#showFavOnMap {
+    position: absolute;
+    margin-left: 6rem;
+    background: white;
+    text-align: center;
+    color: #3a9bd8;
+}

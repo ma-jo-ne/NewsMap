@@ -379,14 +379,15 @@ NewsMap.DrawMap = (function () {
         },
 
         addToFavorites = function (article) {
-            favoritesSet = true;
             favorites.push(article);
 
-            var display_name = favorites[favorites.length-1].title;
+            var display_name = favorites[favorites.length - 1].title;
 
             var $li = $("<li>");
-            $li.attr("index", favorites.length-1).html(display_name);
+            $li.attr("index", favorites.length - 1).html(display_name);
+            $li.attr("class", "favorites-li");
             $("#favorites-list").append($li);
+
         },
 
         showFavorites = function () {
@@ -395,17 +396,15 @@ NewsMap.DrawMap = (function () {
                 favoritesVisible = true;
                 addMarker(favorites);
             }
-            else if(!(jQuery.isEmptyObject(favorites))) {
+            else if (favoritesVisible) {
                 favoritesVisible = false;
                 addMarker(lastData);
             }
+        },
 
-
-            $("#favorites-list li").on("click", function() {
-                var index = $(this).index();
-                map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
-                $(that).trigger("showMenuLeftForFavorite", favorites[index]);
-            });
+        showFavArticle = function (index) {
+            map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
+            $(that).trigger("showMenuLeftForFavorite", favorites[index]);
         };
 
 
@@ -421,6 +420,7 @@ NewsMap.DrawMap = (function () {
     that.selectChanged = selectChanged;
     that.addToFavorites = addToFavorites;
     that.showFavorites = showFavorites;
+    that.showFavArticle = showFavArticle;
     that.init = init;
 
     return that;
