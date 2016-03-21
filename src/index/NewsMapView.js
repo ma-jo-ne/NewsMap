@@ -150,22 +150,27 @@ NewsMap.NewsMapView = (function () {
 
         menuItemClick = function () {
 
-            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper"),
+                $header =        $("#header");
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
+                $header.removeClass("menu-visible");
+
             }
             else {
                 $(".menu-item").hide();
                 $toShow.show();
                 $("#menu-items").show(50);
                 $("#menu-left").hide();
+                $header.addClass("menu-visible");
             }
         },
 
         _closeMenu = function () {
             $(".menu-item").hide();
             $("#menu-items").hide();
+            $header.removeClass("menu-visible");
         };
 
     that.getCurrentArticle=getCurrentArticle;

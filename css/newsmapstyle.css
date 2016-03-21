@@ -10,7 +10,6 @@ html, body {
     color: #ffffff;
 }
 
-
 #selected-location {
     display: none;
     position: absolute;
@@ -42,6 +41,19 @@ a:hover {
     z-index: 1000;
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 64em) {
+    #header.menu-visible {
+        height: 400px;
+    }
+
+}
+
+.no-padding-margin{
+    margin: 0 !important;
+    padding: 0;
+    max-width: 100% !important;
 }
 
 #content {
@@ -109,9 +121,7 @@ a:hover {
     }
 }
 
-
-
-#share-menu{
+#share-menu {
     display: none;
     text-align: left;
     float: left;
@@ -170,7 +180,6 @@ a:hover {
     width: 100%;
     text-align: left;
 }
-
 
 #menu-list li {
     /*    cursor: pointer;
@@ -326,7 +335,7 @@ a:hover {
 
 #favorites-list {
     list-style-type: none;
-    margin-left: 0!important;
+    margin-left: 0 !important;
 }
 
 #favorites-list li {
@@ -364,8 +373,8 @@ li.accordion-navigation {
     color: #F5F5F5;
 }
 
-.accordItem{
-    background-color: #2c60b5!important;
+.accordItem {
+    background-color: #2c60b5 !important;
 }
 
 #close-menu {
