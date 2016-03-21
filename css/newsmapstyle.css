@@ -49,13 +49,13 @@ a:hover {
     }
 
 }
+
 @media (min-width: 40em) and (max-width: 64em) {
     #header.menu-visible {
         height: 250px;
     }
 
 }
-
 
 .no-padding-margin {
     margin: 0 !important;
@@ -306,7 +306,6 @@ a:hover {
     width: 20%;
     position: absolute;
     z-index: 1000;
-    overflow-y: scroll;
     margin-top: 4.5rem;
     color: #f5f5f5;
     background: #2c60b5;
@@ -322,6 +321,23 @@ a:hover {
     #menu-rechts, #favorites-menu {
         width: 90%;
     }
+}
+
+.close-menu-right {
+    cursor: pointer;
+    width: 100%;
+    padding: .5rem;
+    border-bottom: 1px solid #fff;
+}
+
+.close-menu-right i {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+#chrono-wrapper, #favorites-list {
+    overflow-y: scroll;
+    height: 100%;
 }
 
 #add-to-favorites i {
