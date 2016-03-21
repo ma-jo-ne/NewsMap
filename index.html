@@ -82,7 +82,8 @@
                 <li data-show="search"><i class="fi-magnifying-glass"></i></li>
                 <li data-show="location"><i class="fi-marker"></i></li>
                 <li data-show="favorites" id="favorites-button"><i class="fi-star" id="favorites-menu-star"></i></li>
-                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i></li>
+                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i>
+                </li>
 
             </ul>
         </div>
@@ -116,22 +117,11 @@
 
             </div>
         </div>
-        <div class="menu-item" id="location-wrapper">
-            <div id="location-start" class="text-center">
+        <div class="large-9 columns">
+            <div class="menu-item" id="location-wrapper">
                 <div class="row">
                     <div class="small-12 large-4 columns">
                         <button id="identify-location" class="tiny">Eigenen Standort ermitteln</button>
-                    </div>
-                    <div class="small-12 large-4 columns">
-                        <span class="text-center"><b>oder</b></span>
-                    </div>
-                    <div id="location-input" class="small-12 large-4 columns">
-                        <div id="location-start-wrapper">
-                            <div class="postfix-round row collapse" id="loc-start-margin">
-
-                                <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
-                            </div>
-                        </div>
                     </div>
                 </div>
                 <br>
@@ -144,15 +134,15 @@
 </div>
 
 
-<article id="menu-rechts">
-    <div class="close-menu-right"><i class="fi-x right-x"></i></div>
+<article id="menu-rechts" class="menu-off-canvas">
+    <div class="close-menu-right"><i id="close-timeline" class="fi-x"></i></div>
     <ul class="accordion menu-item" id="chrono-wrapper" data-accordion>
 
     </ul>
 </article>
 
-<article id="favorites-menu">
-    <div class="close-menu-right"><i class="fi-x right-x"></i><div class="button tiny" id="showFavOnMap">Nur Favoriten
+<article id="favorites-menu" class="menu-off-canvas">
+    <div class="close-menu-right"><i class="fi-x right-x" id="close-favorites"></i><div class="button tiny" id="showFavOnMap">Nur Favoriten
         anzeigen</div></div>
     <h3 id="favorites-heading">Favoriten:</h3>
     <ul id="favorites-list">

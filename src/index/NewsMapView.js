@@ -5,6 +5,8 @@ NewsMap.NewsMapView = (function () {
         currentArticle = "http://google.de",
         currentClickedArticle = null,
         favorites = [],
+        $favoritesMenu = null,
+        $timelineMenu = null,
         $header = null,
         favoritesVisible = false,
 
@@ -12,6 +14,8 @@ NewsMap.NewsMapView = (function () {
 
             $buttonFindLocation = $('.button-find-location');
             $buttonIdentifyLocation = $('#identify-location');
+            $favoritesMenu = $("#favorites-menu");
+            $timelineMenu = $("#menu-rechts");
             $header = $("#header");
 
             popupClick();
@@ -31,10 +35,16 @@ NewsMap.NewsMapView = (function () {
             $("#showFavOnMap").on("click", showFavoritesOnMap);
             $("#favorites-menu-star").on("click", showFavorites);
             $("#add-to-favorites").on("click", addToFavorites);
-
-            $(".right-x").on("click", closeMenuRight);
+            $("#close-timeline").on("click", closeChrono);
+            $("#close-favorites").on("click", closeFavorites);
 
             return this;
+        },
+        closeChrono = function () {
+            $timelineMenu.hide();
+        },
+        closeFavorites = function () {
+            $favoritesMenu.hide();
         },
 
         showFavArticle = function () {
@@ -50,6 +60,7 @@ NewsMap.NewsMapView = (function () {
             $("#favorites-menu").hide();
         },
 
+        addToFavorites = function () {
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
@@ -182,20 +193,19 @@ NewsMap.NewsMapView = (function () {
         },
 
         menuItemClick = function () {
-
-            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+         var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+            $header.removeClass("menu-visible");
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-                $header.removeClass("menu-visible");
-
             }
-            else {
+            else {    $(".menu-off-canvas").hide();
                 $(".menu-item").hide();
                 $toShow.show();
                 $("#menu-items").show(50);
-                $("#menu-left").hide();
-                $header.addClass("menu-visible");
+                $("#menu-left").hide();  console.log($(this).attr("data-show") + "-wrapper");
+                if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0])
+                    $header.addClass("menu-visible");
             }
         },
 

@@ -30,10 +30,14 @@ NewsMap.DrawMap = (function () {
 
             $loading = $("#loading");
 
-            dateSelection();
-            autocomplete();
-            enterListen();
-            drawmap();
+
+            $(document).ready(function(){
+                dateSelection();
+                autocomplete();
+                enterListen();
+                drawmap();
+            });
+
 
             return this;
         },
@@ -170,7 +174,6 @@ NewsMap.DrawMap = (function () {
                     $(".accordItem").css("background-color", "#008CBA");
                     $(".accordItem").css("color", "#F5F5F5");
                     //$(".accordItem").css("border","4px solid whitesmoke");
-                    $(".accordion-navigation").css("border", "4px solid whitesmoke");
 
                 }
             }
