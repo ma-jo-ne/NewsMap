@@ -30,10 +30,14 @@ NewsMap.DrawMap = (function () {
 
             $loading = $("#loading");
 
-            dateSelection();
-            autocomplete();
-            enterListen();
-            drawmap();
+
+            $(document).ready(function(){
+                dateSelection();
+                autocomplete();
+                enterListen();
+                drawmap();
+            });
+
 
             return this;
         },
