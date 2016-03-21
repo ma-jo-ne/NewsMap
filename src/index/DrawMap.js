@@ -188,13 +188,14 @@ NewsMap.DrawMap = (function () {
         setAutocompletePoisition = function () {
             var offsetTop = $("#tag-search-input").offset().top + $("#tag-search-input").outerHeight(),
                 offsetLeft = $("#tag-search-input").offset().left,
-                width =  $("#tag-search-input").outerWidth();
+                width = $("#tag-search-input").outerWidth();
             $("#autocomplete").offset({top: offsetTop, left: offsetLeft});
             $("#autocomplete").width(width);
         },
         autocomplete = function () {
 
-            $('#tag-search-input').on('input', function (e) {        setAutocompletePoisition();
+            $('#tag-search-input').on('input', function (e) {
+                setAutocompletePoisition();
                 $("#autocomplete").empty();
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
