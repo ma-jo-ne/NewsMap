@@ -43,7 +43,6 @@ NewsMap.DrawMap = (function () {
         },
 
         getArticles = function () {
-            $loading.show();
             $.ajax({
                 type: "GET",
                 url: "http://" + location.host + "/NewsMap/get_data.php",
