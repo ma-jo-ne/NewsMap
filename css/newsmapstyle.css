@@ -43,14 +43,21 @@ a:hover {
     background: rgba(0, 0, 0, 0.5);
 }
 
-@media (max-width: 64em) {
+@media (max-width: 40em) {
     #header.menu-visible {
-        height: 400px;
+        height: 320px;
+    }
+
+}
+@media (min-width: 40em) and (max-width: 64em) {
+    #header.menu-visible {
+        height: 250px;
     }
 
 }
 
-.no-padding-margin{
+
+.no-padding-margin {
     margin: 0 !important;
     padding: 0;
     max-width: 100% !important;
@@ -178,20 +185,13 @@ a:hover {
     list-style-type: none;
     /*height: 8%;*/
     width: 100%;
-    text-align: left;
+    margin-left: 0 !important;
+    text-align: center;
 }
 
 #menu-list li {
-    /*    cursor: pointer;
-        width: 100%;
-        border-bottom: 1px solid #6f6f6f;
-        background-color: #ffffff;
-        text-align: center;
-        margin-right: 11%;
-        display: inline;*/
     display: inline;
-
-    margin-left: 2rem;
+    padding: 1rem;
     cursor: pointer;
     text-align: center;
     width: 100%;
@@ -299,7 +299,7 @@ a:hover {
 }
 */
 
-#menu-rechts {
+#menu-rechts, #favorites-menu {
     display: none;
     right: 0;
     height: 100%;
@@ -308,19 +308,20 @@ a:hover {
     z-index: 1000;
     overflow-y: scroll;
     margin-top: 4.5rem;
+    color: #f5f5f5;
+    background: #2c60b5;
 }
 
-#favorites-menu {
-    display: none;
-    right: 0;
-    height: 100%;
-    width: 20%;
-    position: absolute;
-    z-index: 1000;
-    overflow-y: scroll;
-    background: #2c60b5;
-    color: #f5f5f5;
-    margin-top: 4.5rem;
+@media (min-width: 40em) and (max-width: 64em) {
+    #menu-rechts, #favorites-menu {
+        width: 50%;
+    }
+}
+
+@media (max-width: 40em) {
+    #menu-rechts, #favorites-menu {
+        width: 90%;
+    }
 }
 
 #add-to-favorites i {

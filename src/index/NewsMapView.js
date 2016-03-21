@@ -4,12 +4,14 @@ NewsMap.NewsMapView = (function () {
         $buttonIdentifyLocation = null,
         currentArticle="http://google.de",
         currentClickedArticle = null,
-        favorites = [];
+        favorites = [],
+        $header = null,
 
         init = function () {
 
             $buttonFindLocation = $('.button-find-location');
             $buttonIdentifyLocation = $('#identify-location');
+            $header = $("#header");
 
             popupClick();
             previewClose();
@@ -150,8 +152,7 @@ NewsMap.NewsMapView = (function () {
 
         menuItemClick = function () {
 
-            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper"),
-                $header =        $("#header");
+            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
