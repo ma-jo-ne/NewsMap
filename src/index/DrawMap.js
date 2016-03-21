@@ -10,6 +10,9 @@ NewsMap.DrawMap = (function () {
         myLocation = null,
         $loading = null,
         initLoading = true,
+        favorites = [],
+        favoritesVisible = false,
+        lastData = [],
 
         map = null,
         newsDataObjects = [],
@@ -86,6 +89,10 @@ NewsMap.DrawMap = (function () {
         },
 
         addMarker = function (data) {
+            if (!favoritesVisible) {
+                lastData = data;
+            }
+
             if (!markersSet) {
 
                 markers.clearLayers();
@@ -145,25 +152,25 @@ NewsMap.DrawMap = (function () {
                 artikelRegion;
             for (i = 0; i < data.length; i++) {
 
-                if(i!=0 && data[i-1].title != data[i].title || data.length==2){
-                     EIDI = "a" + i;
-                     artikelTitel = data[i].title;
-                     artikelLink= data[i].link;
-                     artikelOrt= data[i].city;
-                     accord = $('<li class="accordion-navigation">' +
+                if (i != 0 && data[i - 1].title != data[i].title || data.length == 2) {
+                    EIDI = "a" + i;
+                    artikelTitel = data[i].title;
+                    artikelLink = data[i].link;
+                    artikelOrt = data[i].city;
+                    accord = $('<li class="accordion-navigation">' +
                         '<a class="accordItem" href="#' + EIDI + '">' + artikelTitel + '</a>' +
-                        '<div'+ ' id="' + EIDI + '" class="content disabled">'+artikelOrt+'<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<div' + ' id="' + EIDI + '" class="content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
-                    'Weitleiten <br/></a>' +
-                         '</div> </li>');
+                        'Weitleiten <br/></a>' +
+                        '</div> </li>');
 
                     $("#chrono-wrapper").append(accord);
-                    $("#chrono-wrapper").css("position","absolute");
-                    $("#chrono-wrapper").css("width","100%");
-                    $(".accordItem").css("background-color","#008CBA");
-                    $(".accordItem").css("color","#F5F5F5");
+                    $("#chrono-wrapper").css("position", "absolute");
+                    $("#chrono-wrapper").css("width", "100%");
+                    $(".accordItem").css("background-color", "#008CBA");
+                    $(".accordItem").css("color", "#F5F5F5");
                     //$(".accordItem").css("border","4px solid whitesmoke");
-                    $(".accordion-navigation").css("border","4px solid whitesmoke");
+                    $(".accordion-navigation").css("border", "4px solid whitesmoke");
 
                 }
             }
@@ -369,6 +376,35 @@ NewsMap.DrawMap = (function () {
             myLocation = myLocationMarker;
             map.addLayer(myLocationMarker);
             myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
+        },
+
+        addToFavorites = function (article) {
+            favoritesSet = true;
+            favorites.push(article);
+
+            var display_name = favorites[favorites.length-1].title;
+
+            var $li = $("<li>");
+            $li.attr("index", favorites.length-1).html(display_name);
+            $("#favorites-list").append($li);
+        },
+
+        showFavorites = function () {
+            markersSet = false;
+            if (!favoritesVisible && !(jQuery.isEmptyObject(favorites))) {
+                favoritesVisible = true;
+                addMarker(favorites);
+            }
+            else {
+                addMarker(lastData);
+                favoritesVisible = false;
+            }
+
+            $("#favorites-list li").on("click", function() {
+                var index = $(this).index();
+                map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
+                $(that).trigger("showMenuLeftForFavorite", favorites[index]);
+            });
         };
 
 
@@ -382,6 +418,8 @@ NewsMap.DrawMap = (function () {
     that._getArticle = _getArticle;
     that.tagSearchClicked = tagSearchClicked;
     that.selectChanged = selectChanged;
+    that.addToFavorites = addToFavorites;
+    that.showFavorites = showFavorites;
     that.init = init;
 
     return that;

@@ -83,7 +83,7 @@
             <ul id="menu-list">
                 <li data-show="search"><i class="fi-magnifying-glass"></i></li>
                 <li data-show="location"><i class="fi-marker"></i></li>
-                <li data-show="favorites" id="favorites-button"><i class="fi-star"></i></li>
+                <li data-show="favorites" id="favorites-button"><i class="fi-star" id="favorites-menu-star"></i></li>
                 <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i></li>
 
 
@@ -146,62 +146,6 @@
     </div>
 </div>
 <script></script>
-<!--<div id="menu-right">
-    <div id="menu-items">
-        <div id="close-menu"><i class="fi-x"></i></div>
-        <div class="menu-item" id="search-wrapper">
-            <input type="text">
-            <button>Suchen</button>
-        </div>
-        <div class="menu-item" id="location-wrapper">
-            <div id="location-start" class="text-center">
-                <div class="row">
-                    <div class="small-12 large-4 columns">
-                        <button id="identify-location">Eigenen Standort ermitteln</button>
-                    </div>
-                    <div class="small-12 large-4 columns">
-                        <span class="text-center"><b>oder</b></span>
-                    </div>
-                    <div id="location-input" class="small-12 large-4 columns">
-                        <div id="location-start-wrapper">
-                            <div class="postfix-round row collapse" id="loc-start-margin">
-
-                                <input name="myInput" id="loc-start-inp" type="text" placeholder="Ort/PLZ/Region">
-                            </div>
-                            <ul id="autocomplete">
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-
-                </div>
-                <br>
-
-            </div>
-        </div>
-        <div class="menu-item" id="video-wrapper">
-            <button>Nach Video suchen</button>
-        </div>
-        <div class="menu-item" id="text-wrapper">
-            <button>Nach Texten suchen</button>
-        </div>
-        <div class="menu-item" id="image-wrapper">
-            <button>kaa</button>
-        </div>
-        <div class="menu-item" id="share-wrapper">
-            <button>Teilen</button>
-        </div>
-    </div>
-    <ul id="menu-list">
-        <li data-show="search"><i class="fi-magnifying-glass"></i></li>
-        <li data-show="location"><i class="fi-marker"></i></li>
-        <li data-show="video"><i class="fi-video"></i></li>
-        <li data-show="text"><i class="fi-clipboard-notes"></i></li>
-        <li data-show="image"><i class="fi-puzzle"></i></li>
-        <li data-show="share"><i class="fi-share"></i></li>
-    </ul>
-</div>-->
 <div id="map">
 </div>
 
@@ -213,6 +157,7 @@
 </article>
 
 <article id="favorites-menu">
+    <h3 id="favorites-heading">Favoriten:</h3>
     <ul id="favorites-list">
     </ul>
 </article>

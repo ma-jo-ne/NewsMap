@@ -3,6 +3,7 @@ NewsMap.MainController = (function () {
         newsMapModal = null,
         newsMapView = null,
         drawMap = null,
+        currentClickedArticle = null,
 
         init = function () {
             newsMapModal = NewsMap.NewsMapModal.init();
@@ -13,9 +14,25 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("markerPopupClick", getClickedArticlePopup);
             $(newsMapView).on("searchButtonClick", getTagsFromArticles);
             $(newsMapView).on("searchSelectChanged", changeSearchSelect);
+            $(newsMapView).on("addedToFavorites", addToFavorites);
+            $(newsMapView).on("showFavorites", showFavorites);
             $(drawMap).on("locationClicked", closeMenu);
+            $(drawMap).on("showMenuLeftForFavorite", showMenuLeftforFavorite);
 
             return this;
+        },
+
+        showFavorites = function() {
+            drawMap.showFavorites();
+        },
+
+        addToFavorites = function() {
+            drawMap.addToFavorites(currentClickedArticle);
+        },
+
+        showMenuLeftforFavorite = function(e, article) {
+            currentClickedArticle = article;
+            newsMapView._setArticleContent(article);
         },
 
         changeSearchSelect = function() {
@@ -37,6 +54,7 @@ NewsMap.MainController = (function () {
 
         getClickedArticlePopup = function (e, articleID) {
             var clickedArticle = drawMap._getArticle(articleID);
+            currentClickedArticle = clickedArticle;
             newsMapView._setArticleContent(clickedArticle);
         };
 

@@ -76,6 +76,7 @@ a:hover {
     float: right !important;
     height: 100%;
     width: 9%;
+    margin-top: 4.5rem;
 }
 
 @media (min-width: 64em) {
@@ -90,6 +91,7 @@ a:hover {
         color: #f5f5f5;
         padding: 1rem;
         overflow-y: auto;
+        margin-top: 4.5rem;
     }
 }
 
@@ -308,12 +310,39 @@ a:hover {
     overflow-y: scroll;
     background: #2c60b5;
     color: #f5f5f5;
+    margin-top: 4.5rem;
 }
 
 #add-to-favorites i {
     float: left;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+#add-to-favorites i:hover {
+    color: yellow;
+}
+
+#favorites-list {
+    list-style-type: none;
+    margin-left: 0!important;
+}
+
+#favorites-list li {
+    cursor: pointer;
+    padding: 1rem;
+}
+
+#favorites-list li:hover {
+    background: white;
+    color: #2c60b5;
+}
+
+#favorites-heading {
+    color: white;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 li.accordion-navigation {
