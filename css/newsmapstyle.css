@@ -198,7 +198,7 @@ a:hover {
     height: 100%;
 }
 
-#menu-list li:hover, #menu-list li i:hover {
+#menu-list li i:hover {
     background: #3b9cd8;
 }
 
@@ -208,6 +208,8 @@ a:hover {
     line-height: 3rem;
     font-size: 3rem;
     text-align: center;
+    padding-left: .5rem;
+    padding-right: .5rem;
 }
 
 .leaflet-popup-content-wrapper {
