@@ -395,10 +395,11 @@ NewsMap.DrawMap = (function () {
                 favoritesVisible = true;
                 addMarker(favorites);
             }
-            else {
-                addMarker(lastData);
+            else if(!(jQuery.isEmptyObject(favorites))) {
                 favoritesVisible = false;
+                addMarker(lastData);
             }
+
 
             $("#favorites-list li").on("click", function() {
                 var index = $(this).index();

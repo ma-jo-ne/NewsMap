@@ -298,6 +298,7 @@ a:hover {
     position: absolute;
     z-index: 1000;
     overflow-y: scroll;
+    margin-top: 4.5rem;
 }
 
 #favorites-menu {
