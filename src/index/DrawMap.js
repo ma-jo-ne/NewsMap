@@ -31,7 +31,7 @@ NewsMap.DrawMap = (function () {
             $loading = $("#loading");
 
 
-            $(document).ready(function(){
+            $(document).ready(function () {
                 dateSelection();
                 autocomplete();
                 enterListen();
@@ -185,8 +185,16 @@ NewsMap.DrawMap = (function () {
             $('#autocomplete').hide();
         },
 
+        setAutocompletePoisition = function () {
+            var offsetTop = $("#tag-search-input").offset().top + $("#tag-search-input").outerHeight(),
+                offsetLeft = $("#tag-search-input").offset().left,
+                width =  $("#tag-search-input").outerWidth();
+            $("#autocomplete").offset({top: offsetTop, left: offsetLeft});
+            $("#autocomplete").width(width);
+        },
         autocomplete = function () {
-            $('#tag-search-input').on('input', function (e) {
+
+            $('#tag-search-input').on('input', function (e) {        setAutocompletePoisition();
                 $("#autocomplete").empty();
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
@@ -385,10 +393,10 @@ NewsMap.DrawMap = (function () {
             favoritesSet = true;
             favorites.push(article);
 
-            var display_name = favorites[favorites.length-1].title;
+            var display_name = favorites[favorites.length - 1].title;
 
             var $li = $("<li>");
-            $li.attr("index", favorites.length-1).html(display_name);
+            $li.attr("index", favorites.length - 1).html(display_name);
             $("#favorites-list").append($li);
         },
 
@@ -398,13 +406,13 @@ NewsMap.DrawMap = (function () {
                 favoritesVisible = true;
                 addMarker(favorites);
             }
-            else if(!(jQuery.isEmptyObject(favorites))) {
+            else if (!(jQuery.isEmptyObject(favorites))) {
                 favoritesVisible = false;
                 addMarker(lastData);
             }
 
 
-            $("#favorites-list li").on("click", function() {
+            $("#favorites-list li").on("click", function () {
                 var index = $(this).index();
                 map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
                 $(that).trigger("showMenuLeftForFavorite", favorites[index]);

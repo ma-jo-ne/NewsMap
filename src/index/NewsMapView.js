@@ -108,6 +108,7 @@ NewsMap.NewsMapView = (function () {
             $(".entry-summary").html(clickedArticle.content);
             $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
+            $(".entry-summary").dotdotdot();
 
             console.log(clickedArticle);
 
@@ -163,17 +164,19 @@ NewsMap.NewsMapView = (function () {
         },
 
         menuItemClick = function () {
-         var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
+            var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             }
-            else {    $(".menu-off-canvas").hide();
+            else {
+                $(".menu-off-canvas").hide();
                 $(".menu-item").hide();
                 $toShow.show();
                 $("#menu-items").show(50);
-                $("#menu-left").hide();  console.log($(this).attr("data-show") + "-wrapper");
+                $("#menu-left").hide();
+                console.log($(this).attr("data-show") + "-wrapper");
                 if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0])
                     $header.addClass("menu-visible");
             }
