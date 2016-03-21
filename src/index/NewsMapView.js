@@ -20,7 +20,6 @@ NewsMap.NewsMapView = (function () {
             popupClick();
             previewClose();
             identifyLocation();
-            menuItemClick();
             searchButtonClick();
             toggleMenu();
 

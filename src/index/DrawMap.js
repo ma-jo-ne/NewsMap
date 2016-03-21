@@ -164,7 +164,7 @@ NewsMap.DrawMap = (function () {
                         '<a class="accordItem" href="#' + EIDI + '">' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
-                        'Weitleiten <br/></a>' +
+                        '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                         '</div> </li>');
 
                     $("#chrono-wrapper").append(accord);
