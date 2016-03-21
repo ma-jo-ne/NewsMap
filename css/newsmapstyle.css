@@ -540,8 +540,7 @@ li.accordion-navigation {
     color: white;
 }
 #showFavOnMap {
-    position: absolute;
-    margin-left: 6rem;
+    float: right;
     background: white;
     text-align: center;
     color: #3a9bd8;
