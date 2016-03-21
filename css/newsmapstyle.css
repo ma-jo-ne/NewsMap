@@ -339,7 +339,7 @@ a:hover {
     width: 100%;
     padding: .5rem;
     height: 3.55rem;
-    border-bottom: 1px solid #fff;
+    border-bottom: 2px solid #fff;
 }
 
 .close-menu-right i {
@@ -386,7 +386,7 @@ a:hover {
 }
 
 li.accordion-navigation {
-    border-bottom: 1px solid #808080;
+    border-bottom: 2px solid whitesmoke !important;
 }
 
 .menu-item {

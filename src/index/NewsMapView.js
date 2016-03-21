@@ -163,21 +163,17 @@ NewsMap.NewsMapView = (function () {
         },
 
         menuItemClick = function () {
-
          var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
-            $(".menu-off-canvas").hide();
-            console.log($(this).attr("data-show") + "-wrapper");
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-
             }
-            else {
+            else {    $(".menu-off-canvas").hide();
                 $(".menu-item").hide();
                 $toShow.show();
                 $("#menu-items").show(50);
-                $("#menu-left").hide();
+                $("#menu-left").hide();  console.log($(this).attr("data-show") + "-wrapper");
                 if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0])
                     $header.addClass("menu-visible");
             }
