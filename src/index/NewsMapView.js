@@ -108,6 +108,7 @@ NewsMap.NewsMapView = (function () {
                 $(".entry-summary").html(clickedArticle.content);
                 $(".pub-date").html(clickedArticle.pub_date);
                 $("#menu-left").show();
+                $(".entry-summary").dotdotdot();
 
             console.log(clickedArticle);
 
