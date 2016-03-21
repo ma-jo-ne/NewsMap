@@ -101,14 +101,13 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-        _setArticleContent = function (clickedArticle) {
-            currentClickedArticle = clickedArticle;
-            $(".title").html(clickedArticle.title);
-            $(".more-link ").attr("href", clickedArticle.link);
-            $(".entry-summary").html(clickedArticle.content);
-            $(".pub-date").html(clickedArticle.pub_date);
-            $("#menu-left").show();
-            $(".entry-summary").dotdotdot();
+            _setArticleContent = function (clickedArticle) {
+                currentClickedArticle = clickedArticle;
+                $(".title").html(clickedArticle.title);
+                $(".more-link ").attr("href", clickedArticle.link);
+                $(".entry-summary").html(clickedArticle.content);
+                $(".pub-date").html(clickedArticle.pub_date);
+                $("#menu-left").show();
 
             console.log(clickedArticle);
 
