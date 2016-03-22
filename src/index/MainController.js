@@ -19,6 +19,7 @@ NewsMap.MainController = (function () {
             $(drawMap).on("locationClicked", closeMenu);
             $(drawMap).on("showMenuLeftForFavorite", showMenuLeftforFavorite);
             $(newsMapView).on("showFavArticle", showFavArticle);
+            $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
 
             return this;
         },
@@ -26,6 +27,8 @@ NewsMap.MainController = (function () {
         showFavArticle = function(e, index) {
             drawMap.showFavArticle(index);
         },
+
+
 
         showFavorites = function() {
             drawMap.showFavorites();
@@ -42,6 +45,10 @@ NewsMap.MainController = (function () {
 
         changeSearchSelect = function() {
             drawMap.selectChanged();
+        },
+
+        changeRadiusSelect = function () {
+            drawMap.radiusSelectChanged();
         },
 
         setLocation = function (e, lat, long) {

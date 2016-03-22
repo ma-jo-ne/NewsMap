@@ -7,12 +7,16 @@ NewsMap.DrawMap = (function () {
         searchSelect = $("#search-select").val(),
         $dateSelect = $("#date-select"),
         dateSelectionVal = $dateSelect.val(),
+        radiusSelect=$("#radius-select").val(),
         myLocation = null,
         $loading = null,
         initLoading = true,
         favorites = [],
         favoritesVisible = false,
         lastData = [],
+        tempData = [],
+        myLat,
+        myLng,
 
         map = null,
         newsDataObjects = [],
@@ -102,6 +106,12 @@ NewsMap.DrawMap = (function () {
 
                 for (i = 0; i < data.length; i++) {
 
+                    //testing radius 100 km from GPS Location
+
+
+                    if(calculateDistance(myLat,myLng,data[i].lat,data[i].lon)<radiusSelect || radiusSelect==6666){
+                    tempData.push(data[i]);
+
 
                     var marker = L.marker([data[i].lat, data[i].lon]);
                     var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
@@ -110,6 +120,7 @@ NewsMap.DrawMap = (function () {
                     $(markerPopup).attr("id", data[i].post_id);
                     markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
 
+                    }
                 }
                 map.addLayer(markers);
                 if (initLoading) {
@@ -122,9 +133,12 @@ NewsMap.DrawMap = (function () {
 
                 console.log("markers set");
 
-                setChronoView(data);
-
+                setChronoView(tempData);
+                tempData.length=0;
                 markersSet = true;
+
+                
+
             }
         },
 
@@ -142,8 +156,27 @@ NewsMap.DrawMap = (function () {
 
         },
 
-        setNewsRadius = function () {
-        
+
+        calculateDistance = function(lat1,lon1,lat2,lon2){
+
+
+                var R = 6371; // Radius of the earth in km
+                var dLat = deg2rad(lat2-lat1);  // deg2rad below
+                var dLon = deg2rad(lon2-lon1);
+                var a =
+                        Math.sin(dLat/2) * Math.sin(dLat/2) +
+                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                        Math.sin(dLon/2) * Math.sin(dLon/2)
+                    ;
+                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+                var d = R * c; // Distance in km
+                return d;
+
+
+            function deg2rad(deg) {
+                return deg * (Math.PI/180)
+            }
+
         },
 
         setChronoView = function (data) {
@@ -159,7 +192,7 @@ NewsMap.DrawMap = (function () {
                 artikelRegion;
             for (i = 0; i < data.length; i++) {
 
-                if (i != 0 && data[i - 1].title != data[i].title || data.length == 2) {
+                if (i != 0 && data[i - 1].title != data[i].title || data.length == 1 || data.length == 2) {
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
@@ -345,7 +378,12 @@ NewsMap.DrawMap = (function () {
 
         selectChanged = function () {
             searchSelect = $("#search-select").val();
+
             console.log(searchSelect);
+        },
+
+        radiusSelectChanged = function () {
+            radiusSelect= $("#radius-select").val();
         },
 
         dateSelection = function () {
@@ -375,6 +413,8 @@ NewsMap.DrawMap = (function () {
 
         _setLocation = function (lat, long) {
             // Removing old markers
+            myLat=lat;
+            myLng=long;
             if (myLocation != null) {
                 map.removeLayer(myLocation);
             }
@@ -433,6 +473,7 @@ NewsMap.DrawMap = (function () {
     that._getArticle = _getArticle;
     that.tagSearchClicked = tagSearchClicked;
     that.selectChanged = selectChanged;
+    that.radiusSelectChanged = radiusSelectChanged;
     that.addToFavorites = addToFavorites;
     that.showFavorites = showFavorites;
     that.showFavArticle = showFavArticle;
