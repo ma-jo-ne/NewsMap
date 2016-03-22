@@ -142,6 +142,10 @@ NewsMap.DrawMap = (function () {
 
         },
 
+        setNewsRadius = function () {
+        
+        },
+
         setChronoView = function (data) {
 
             $(".accordion-navigation").remove();
