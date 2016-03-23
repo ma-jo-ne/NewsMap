@@ -105,6 +105,8 @@ NewsMap.DrawMap = (function () {
 
                 markers.clearLayers();
 
+                console.log("radiusSelect is: "+radiusSelect);
+
                 for (i = 0; i < data.length; i++) {
 
                     //testing radius 100 km from GPS Location
@@ -315,42 +317,52 @@ NewsMap.DrawMap = (function () {
         },
 
         getArticle = function (selectedQuery, selectedFunction) {
-            if (selectedFunction == "tagAuto") {
-                selectedFunction = "tag";
-            }
-            else if (selectedFunction == "locAuto") {
-                selectedFunction = "location";
-            }
-            else if (selectedFunction == "titleAuto") {
-                selectedFunction = "title";
-            }
 
-            $.ajax({
-                type: "GET",
-                url: "http://" + location.host + "/NewsMap/get_data.php",
-                data: {func: selectedFunction, query: selectedQuery, date: dateSelectionVal},
-                beforeSend: function () {
-                    $loading.show();
-                },
-                success: function (data) {
-                    if (JSON.parse(data).length == 0) {
-                        console.log("Keine Ergebnisse");
-                        alert("keine Ergebnisse a");
-                    }
-                    else {
-                        console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                        markersSet = false;
-                        addMarker(JSON.parse(data));
+            if(selectedQuery==""){
+                getAllArticles();
+            }
+            else {
 
-                    }
-                },
-                error: function () {
-                    alert("error");
-                },
-                complete: function () {
-                    $loading.hide();
+                if (selectedFunction == "tagAuto") {
+                    selectedFunction = "tag";
                 }
-            });
+                else if (selectedFunction == "locAuto") {
+                    selectedFunction = "location";
+                }
+                else if (selectedFunction == "titleAuto") {
+                    selectedFunction = "title";
+                }
+
+
+                //console.log("selected query is: "+selectedQuery);
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://" + location.host + "/NewsMap/get_data.php",
+                    data: {func: selectedFunction, query: selectedQuery, date: dateSelectionVal},
+                    beforeSend: function () {
+                        $loading.show();
+                    },
+                    success: function (data) {
+                        if (JSON.parse(data).length == 0) {
+                            console.log("Keine Ergebnisse");
+                            alert("keine Ergebnisse a");
+                        }
+                        else {
+                            console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
+                            markersSet = false;
+                            addMarker(JSON.parse(data));
+
+                        }
+                    },
+                    error: function () {
+                        alert("error");
+                    },
+                    complete: function () {
+                        $loading.hide();
+                    }
+                });
+            }
         },
 
     /*
