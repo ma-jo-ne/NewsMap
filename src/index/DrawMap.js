@@ -89,7 +89,7 @@ NewsMap.DrawMap = (function () {
 
 
             var osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                osmAttribution = 'Map data &copy; 2012 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+                osmAttribution = 'Map data &copy; 2016 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
             map.setView(new L.LatLng(49.0134074, 12.101631), 10).addLayer(osm);
@@ -169,8 +169,8 @@ NewsMap.DrawMap = (function () {
                 var a =
                         Math.sin(dLat/2) * Math.sin(dLat/2) +
                         Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                        Math.sin(dLon/2) * Math.sin(dLon/2)
-                    ;
+                        Math.sin(dLon/2) * Math.sin(dLon/2);
+
                 var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
                 var d = R * c; // Distance in km
                 return d;
