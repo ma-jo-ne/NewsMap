@@ -137,7 +137,7 @@ NewsMap.DrawMap = (function () {
                 tempData.length=0;
                 markersSet = true;
 
-                
+
 
             }
         },
@@ -192,7 +192,7 @@ NewsMap.DrawMap = (function () {
                 artikelRegion;
             for (i = 0; i < data.length; i++) {
 
-                if (i != 0 && data[i - 1].title != data[i].title || data.length == 1 || data.length == 2) {
+                if (i != 0 && data[i - 1].title != data[i].title ) {  //|| data.length == 2 mit in schleife ?
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
