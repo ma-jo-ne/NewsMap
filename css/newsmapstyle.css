@@ -53,7 +53,7 @@ a:hover {
 
 @media (min-width: 40em) and (max-width: 64em) {
     #header.menu-visible {
-        height: 350px;
+        height: 360px;
     }
 
 }
@@ -508,6 +508,7 @@ li.accordion-navigation {
 
 #search-button {
     height: 2.3rem;
+    margin-top: 1.3rem;
     padding: inherit;
 }
 
