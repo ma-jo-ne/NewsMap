@@ -48,6 +48,7 @@ NewsMap.DrawMap = (function () {
 
 
         getAllArticles = function () {
+            foundArticles = [];
             $.ajax({
                 type: "GET",
                 url: "http://" + location.host + "/NewsMap/get_data.php",
@@ -56,12 +57,12 @@ NewsMap.DrawMap = (function () {
                     $loading.show();
                 },
                 success: function (data) {
-
                     if (JSON.parse(data).length == 0) {
-                        alert("keine Ergebnisse a");
+                        alert("Keine Ergebnisse gefunden");
                         console.log("Keine Ergebnisse");
                     }
                     else {
+                        markersSet = false;
                         addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
                     }
@@ -79,9 +80,8 @@ NewsMap.DrawMap = (function () {
 
 
         drawmap = function () {
-            load_map();
-            map.remove();
             window.onload = load_map;
+            getAllArticles();
         },
 
         load_map = function () {
@@ -93,7 +93,6 @@ NewsMap.DrawMap = (function () {
                 osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
             map.setView(new L.LatLng(49.0134074, 12.101631), 10).addLayer(osm);
-            getAllArticles();
         },
 
         addMarker = function (data) {
@@ -402,6 +401,7 @@ NewsMap.DrawMap = (function () {
         dateSelection = function () {
             $dateSelect.on("change", function () {
                 dateSelectionVal = $(this).val();
+                console.log(dateSelectionVal)
             });
         },
 

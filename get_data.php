@@ -19,7 +19,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 $dateSelection = $_GET["date"];
 //$dateUpperBorder = date("Y-m-d H:i:s");
 /*
- * Daten mit locations sind erst ab 28.11. verfügbar
+ * Daten mit locations sind erst ab 20.01. verfügbar
  */
 $dateUpperBorder = "2016-01-20";
 $dateLowerBorder = "0";
