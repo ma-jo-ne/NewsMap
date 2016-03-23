@@ -46,7 +46,8 @@ NewsMap.DrawMap = (function () {
             return this;
         },
 
-        getArticles = function () {
+
+        getAllArticles = function () {
             $.ajax({
                 type: "GET",
                 url: "http://" + location.host + "/NewsMap/get_data.php",
@@ -92,7 +93,7 @@ NewsMap.DrawMap = (function () {
                 osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
             map.setView(new L.LatLng(49.0134074, 12.101631), 10).addLayer(osm);
-            getArticles();
+            getAllArticles();
         },
 
         addMarker = function (data) {
