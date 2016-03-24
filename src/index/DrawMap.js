@@ -201,7 +201,7 @@ NewsMap.DrawMap = (function () {
                     artikelOrt = data[i].city;
                     pubDate = data[i].pub_date;
                     accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>' + artikelTitel + '</a>' +
+                        '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
@@ -210,9 +210,9 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                   $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
-                   $(".accordItem").css("color", "#F5F5F5");
-                    $(".accordItem").css("border-style","outset");
+                    $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
+                    $(".accordItem").css("color", "#F5F5F5");
+                    $(".accordItem").css("border-style", "outset");
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
@@ -256,6 +256,9 @@ NewsMap.DrawMap = (function () {
                         case "location":
                             selectedFunction = "locAuto";
                             break;
+                        case "region":
+                            selectedFunction = "regAuto";
+                            break;
                         case "title":
                             selectedFunction = "titleAuto";
                             break;
@@ -283,6 +286,13 @@ NewsMap.DrawMap = (function () {
                                 $.each(parsedData, function (index, value) {
                                     if ($.inArray(value.city, removedDuplicates) == -1) {
                                         removedDuplicates.push(value.city);
+                                    }
+                                });
+                            }
+                            else if (selectedFunction == "regAuto") {
+                                $.each(parsedData, function (index, value) {
+                                    if ($.inArray(value.region, removedDuplicates) == -1) {
+                                        removedDuplicates.push(value.region);
                                     }
                                 });
                             }
@@ -320,6 +330,9 @@ NewsMap.DrawMap = (function () {
                                 else if (selectedFunction == "locAuto") {
                                     getArticle($('#tag-search-input').val(), "location");
                                 }
+                                else if (selectedFunction == "regAuto") {
+                                    getArticle($('#tag-search-input').val(), "region");
+                                }
                                 else if (selectedFunction == "titleAuto") {
                                     getArticle($('#tag-search-input').val(), "title");
                                 }
@@ -344,6 +357,9 @@ NewsMap.DrawMap = (function () {
                 }
                 else if (selectedFunction == "locAuto") {
                     selectedFunction = "location";
+                }
+                else if (selectedFunction == "regAuto") {
+                    selectedFunction = "region";
                 }
                 else if (selectedFunction == "titleAuto") {
                     selectedFunction = "title";
