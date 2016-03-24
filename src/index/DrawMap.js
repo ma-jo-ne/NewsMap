@@ -7,7 +7,7 @@ NewsMap.DrawMap = (function () {
         searchSelect = $("#search-select").val(),
         $dateSelect = $("#date-select"),
         dateSelectionVal = $dateSelect.val(),
-        radiusSelect=$("#radius-select").val(),
+        radiusSelect = $("#radius-select").val(),
         myLocation = null,
         $loading = null,
         initLoading = true,
@@ -46,6 +46,7 @@ NewsMap.DrawMap = (function () {
 
             return this;
         },
+
 
 
         getAllArticles = function () {
@@ -106,22 +107,21 @@ NewsMap.DrawMap = (function () {
                 markers.clearLayers();
 
 
-
                 for (i = 0; i < data.length; i++) {
 
                     //testing radius 100 km from GPS Location
 
 
-                    if(radiusSelect==6666 ||calculateDistance(myLat,myLng,data[i].lat,data[i].lon)<radiusSelect ){
-                    tempData.push(data[i]);
+                    if (radiusSelect == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect) {
+                        tempData.push(data[i]);
 
 
-                    var marker = L.marker([data[i].lat, data[i].lon]);
-                    var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
+                        var marker = L.marker([data[i].lat, data[i].lon]);
+                        var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
-                    marker.bindPopup(markerPopup);
-                    $(markerPopup).attr("id", data[i].post_id);
-                    markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
+                        marker.bindPopup(markerPopup);
+                        $(markerPopup).attr("id", data[i].post_id);
+                        markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
 
                     }
                 }
@@ -137,9 +137,8 @@ NewsMap.DrawMap = (function () {
                 console.log("markers set");
 
                 setChronoView(tempData);
-                tempData.length=0;
+                tempData.length = 0;
                 markersSet = true;
-
 
 
             }
@@ -160,24 +159,24 @@ NewsMap.DrawMap = (function () {
         },
 
 
-        calculateDistance = function(lat1,lon1,lat2,lon2){
+        calculateDistance = function (lat1, lon1, lat2, lon2) {
 
 
-                var R = 6371; // Radius of the earth in km
-                var dLat = deg2rad(lat2-lat1);  // deg2rad below
-                var dLon = deg2rad(lon2-lon1);
-                var a =
-                        Math.sin(dLat/2) * Math.sin(dLat/2) +
-                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                        Math.sin(dLon/2) * Math.sin(dLon/2);
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
-                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                var d = R * c; // Distance in km
-                return d;
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
 
 
             function deg2rad(deg) {
-                return deg * (Math.PI/180)
+                return deg * (Math.PI / 180)
             }
 
         },
@@ -195,7 +194,7 @@ NewsMap.DrawMap = (function () {
                 artikelRegion;
             for (i = 0; i < data.length; i++) {
 
-                if (i != 0 && data[i - 1].title != data[i].title ) {  //|| data.length == 2 mit in schleife ?
+                if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
@@ -229,21 +228,14 @@ NewsMap.DrawMap = (function () {
             $("#search-queries").append($queryLi);
 
             getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
-            $('#autocomplete').hide();
+            $('#autocomplete').empty().hide();
         },
 
-        setAutocompletePoisition = function () {
-            var offsetTop = $("#tag-search-input").offset().top + $("#tag-search-input").outerHeight(),
-                offsetLeft = $("#tag-search-input").offset().left,
-                width = $("#tag-search-input").outerWidth();
-            $("#autocomplete").offset({top: offsetTop, left: offsetLeft});
-            $("#autocomplete").width(width);
-        },
         autocomplete = function () {
 
             $('#tag-search-input').on('input', function (e) {
-                setAutocompletePoisition();
-                $("#autocomplete").empty();
+                $("#autocomplete").empty().show();
+$(that).trigger("setAutocompletePosition");
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
                 if (keyword.length == 0) {
@@ -316,7 +308,6 @@ NewsMap.DrawMap = (function () {
                                 $("#search-queries").append($queryLi);
 
 
-
                                 $("#tag-search-input").val($(this).html());
                                 if (selectedFunction == "tagAuto") {
                                     getArticle($('#tag-search-input').val(), "tag");
@@ -338,7 +329,7 @@ NewsMap.DrawMap = (function () {
 
         getArticle = function (selectedQuery, selectedFunction) {
 
-            if(selectedQuery==""){
+            if (selectedQuery == "") {
                 getAllArticles();
             }
             else {
@@ -416,9 +407,9 @@ NewsMap.DrawMap = (function () {
         },
 
         radiusSelectChanged = function () {
-            radiusSelect= $("#radius-select").val();
-            console.log("in radiusSelectChanged" +radiusSelect);
-            markersSet=false;
+            radiusSelect = $("#radius-select").val();
+            console.log("in radiusSelectChanged" + radiusSelect);
+            markersSet = false;
             addMarker(lastData);
         },
 
@@ -450,8 +441,8 @@ NewsMap.DrawMap = (function () {
 
         _setLocation = function (lat, long) {
             // Removing old markers
-            myLat=lat;
-            myLng=long;
+            myLat = lat;
+            myLng = long;
             if (myLocation != null) {
                 map.removeLayer(myLocation);
             }
