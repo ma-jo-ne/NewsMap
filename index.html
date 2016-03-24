@@ -74,19 +74,32 @@
 <div id="header">
     <div class="row collapse no-padding-margin">
         <div class="large-3  medium-6 columns none-selectable">
-            <ul id="menu-list">
-                <li data-show="search"><i class="fi-magnifying-glass"></i></li>
-                <li data-show="location" id="identify-location"><i class="fi-marker"></i></li>
-                <li data-show="favorites" id="favorites-button"><i class="fi-star" id="favorites-menu-star"></i></li>
-                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i>
-                </li>
 
+            <ul id="menu-list">
+                <li  data-show="search"><i class="fi-magnifying-glass"></i></li>
+                <li data-show="location" id="identify-location"><i class="fi-marker"></i></li>
+
+                <li> <div class="large-4 columns"><label>
+
+                        <label><h5>Umkreis Standort</h5><h6></h6>
+                            <select id="radius-select">
+                                <option value="6666">beliebig</option>
+                                <option value="100">100 km</option>
+                                <option value="50">50 km</option>
+                                <option value="30">30 km</option>
+                            </select>
+                        </label>
+                </div></li>
+
+                <li data-show="favorites" id="favorites-button"><i class="fi-star" id="favorites-menu-star"></i></li>
+                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i></li>
             </ul>
+
         </div>
         <div class="large-9 columns">
             <div id="search-wrapper" class="menu-item">
                 <div class="row">
-                    <div class="large-3 medium-6 columns">
+                    <div class="large-4 medium-6 columns">
                         <label>Suchbegriff<input type="text" id="tag-search-input"></label>
                     </div>
 
@@ -111,17 +124,8 @@
                             </select>
                         </label>
                     </div>
-                    <div class="large-2 medium-6 columns">
-                        <label>Umkreis
-                            <select id="radius-select">
-                                <option value="6666">beliebig</option>
-                                <option value="100">100 km</option>
-                                <option value="50">50 km</option>
-                                <option value="30">30 km</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="large-3 medium-6 columns">
+
+                    <div class="large-4 medium-6 columns">
                         <button id="search-button">Suchen</button>
                     </div>
                 </div>

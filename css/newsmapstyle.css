@@ -231,6 +231,15 @@ a:hover {
     line-height: 110px;
 }
 
+#menu-list h5 {
+    color: white;
+    font-style: italic;
+            }
+#menu-list h6 {
+    color: white;
+    font-style: italic;
+}
+
 #menu-list li {
     display: inline;
     cursor: pointer;

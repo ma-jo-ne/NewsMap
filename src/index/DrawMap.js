@@ -18,6 +18,9 @@ NewsMap.DrawMap = (function () {
         searchQueries = [],
         myLat,
         myLng,
+        tempLat,
+        tempLon,
+
 
         map = null,
         newsDataObjects = [],
@@ -96,18 +99,19 @@ NewsMap.DrawMap = (function () {
         },
 
         addMarker = function (data) {
+            //getLatLonFromCity();
+
+
             if (!favoritesVisible) {
                 lastData = data;
             }
-            //console.log("in addMarker mit lastData: "+lastData);
+
             if (!markersSet) {
 
                 markers.clearLayers();
 
 
                 for (i = 0; i < data.length; i++) {
-
-                    //testing radius 100 km from GPS Location
 
 
                     if (radiusSelect == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect) {
@@ -155,6 +159,20 @@ NewsMap.DrawMap = (function () {
             });
 
 
+        },
+
+        getLatLonFromCity = function () {
+/*
+            $.ajax({
+                    url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
+                    type: 'GET',
+                    success: function (data) {
+                        var parsedData = $.parseXML(data);
+                        $data=$(parsedData);
+                        $lati = $data.find()
+                        console.log(parsedData);
+                    }});
+                    */
         },
 
 
