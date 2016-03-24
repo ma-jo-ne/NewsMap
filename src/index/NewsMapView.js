@@ -159,6 +159,7 @@ NewsMap.NewsMapView = (function () {
             $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
             $(".entry-summary").html(clickedArticle.content).dotdotdot();
+            $(".entry-summary").dotdotdot();
             console.log(clickedArticle);
 
         },
