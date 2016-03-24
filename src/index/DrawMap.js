@@ -99,19 +99,19 @@ NewsMap.DrawMap = (function () {
             if (!favoritesVisible) {
                 lastData = data;
             }
-
+            console.log("in addMarker mit lastData: "+lastData);
             if (!markersSet) {
 
                 markers.clearLayers();
 
-                console.log("radiusSelect is: "+radiusSelect);
+
 
                 for (i = 0; i < data.length; i++) {
 
                     //testing radius 100 km from GPS Location
 
 
-                    if(calculateDistance(myLat,myLng,data[i].lat,data[i].lon)<radiusSelect || radiusSelect==6666){
+                    if(radiusSelect==6666 ||calculateDistance(myLat,myLng,data[i].lat,data[i].lon)<radiusSelect ){
                     tempData.push(data[i]);
 
 
@@ -396,6 +396,9 @@ NewsMap.DrawMap = (function () {
 
         radiusSelectChanged = function () {
             radiusSelect= $("#radius-select").val();
+            console.log("in radiusSelectChanged" +radiusSelect);
+            markersSet=false;
+            addMarker(lastData);
         },
 
         dateSelection = function () {
