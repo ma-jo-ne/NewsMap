@@ -104,7 +104,7 @@ a:hover {
 
 .chronoPubDate{
     font-size: large;
-    font-family: cursive;
+    font-style: italic;
 }
 
 @media (min-width: 64em) {
