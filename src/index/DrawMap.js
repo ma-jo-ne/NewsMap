@@ -216,7 +216,6 @@ NewsMap.DrawMap = (function () {
                     $(".accordItem").css("border-style","outset");
 
 
-
                     //$(".accordItem").css("border","4px solid whitesmoke");
 
 
