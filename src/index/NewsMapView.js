@@ -124,6 +124,7 @@ NewsMap.NewsMapView = (function () {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
                 $("#menu-rechts").hide();
+                $favoritesMenu.hide();
                 if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
                     currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
                 if(!$(this).hasChildNodes("my-location")){
