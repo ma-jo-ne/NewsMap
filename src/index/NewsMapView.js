@@ -40,6 +40,9 @@ NewsMap.NewsMapView = (function () {
             $("#favorites-button").on("click", showFavoritesMenu);
             $('.remove-query').on("click", removeQuery);
 
+            $("#autocomplete").bind("clickoutside", function(event){
+                $(this).hide();
+            });
 
             return this;
         },
@@ -153,11 +156,9 @@ NewsMap.NewsMapView = (function () {
             currentClickedArticle = clickedArticle;
             $(".title").html(clickedArticle.title);
             $(".more-link ").attr("href", clickedArticle.link);
-            $(".entry-summary").html(clickedArticle.content);
             $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
-            $(".entry-summary").dotdotdot();
-
+            $(".entry-summary").html(clickedArticle.content).dotdotdot();
             console.log(clickedArticle);
 
         },
@@ -197,30 +198,17 @@ NewsMap.NewsMapView = (function () {
             }
 
             var zoom = 10;
-
-
-            /*            $("#location-input").bind("enterKey", function (e) {
-             $("#location-start").hide();
-             });
-             $("#location-input").keyup(function (e) {
-             if (e.keyCode == 13) {
-             $(this).trigger("enterKey");
-             }
-             });
-             $("#location-start-search").on("click", function () {
-             $("#location-start").hide();
-             });*/
         },
 
         menuVisibleScroll = function () {
             $("#header").scroll(function () {
-                console.log("SCROLL")
                 setAutocompletePoisition();
             });
             $(window).resize(function () {
                 setAutocompletePoisition();
             });
         },
+
         setAutocompletePoisition = function () {
             var $inputField = $("#tag-search-input");
             var $autocomplete = $("#autocomplete");
