@@ -133,10 +133,11 @@ NewsMap.NewsMapView = (function () {
 
         searchButtonClick = function () {
             $('body').on('click', '#search-button', function () {
-                if(!Foundation.utils.is_large_up()){
+                if (!Foundation.utils.is_large_up()) {
                     $header.removeClass("menu-visible");
                     $("#search-wrapper").hide();
                 }
+                $("#autocomplete").empty().hide();
                 $(that).trigger("searchButtonClick");
             });
         },
@@ -211,10 +212,29 @@ NewsMap.NewsMapView = (function () {
              });*/
         },
 
+        menuVisibleScroll = function () {
+            $("#header").scroll(function () {
+                console.log("SCROLL")
+                setAutocompletePoisition();
+            });
+            $(window).resize(function () {
+                setAutocompletePoisition();
+            });
+        },
+        setAutocompletePoisition = function () {
+            var $inputField = $("#tag-search-input");
+            var $autocomplete = $("#autocomplete");
+            var offsetTop = $inputField.offset().top + $inputField.outerHeight(),
+                offsetLeft = $inputField.offset().left,
+                width = $inputField.outerWidth();
+            $autocomplete.offset({top: offsetTop, left: offsetLeft});
+            $autocomplete.width(width);
+        },
         menuItemClick = function () {
             var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
-            if ($toShow.is(":visible")) {          console.log("VISIBLE")
+            $("#autocomplete").empty().hide();
+            if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             }
@@ -225,8 +245,10 @@ NewsMap.NewsMapView = (function () {
                 $("#menu-items").show(50);
                 $("#menu-left").hide();
 
-                if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0]){
+                if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0]) {
                     $header.addClass("menu-visible");
+                    setAutocompletePoisition();
+                    menuVisibleScroll();
                 }
 
             }
@@ -241,6 +263,7 @@ NewsMap.NewsMapView = (function () {
     that.getCurrentArticle = getCurrentArticle;
     that._closeMenu = _closeMenu;
     that._setArticleContent = _setArticleContent;
+    that.setAutocompletePosition = setAutocompletePoisition;
     that.init = init;
 
     return that;

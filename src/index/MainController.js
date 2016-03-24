@@ -18,6 +18,7 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("showFavorites", showFavorites);
             $(drawMap).on("locationClicked", closeMenu);
             $(drawMap).on("showMenuLeftForFavorite", showMenuLeftforFavorite);
+            $(drawMap).on("setAutocompletePosition", setAutocompletePosition);
             $(newsMapView).on("showFavArticle", showFavArticle);
             $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
 
@@ -54,7 +55,9 @@ NewsMap.MainController = (function () {
         setLocation = function (e, lat, long) {
             drawMap._setLocation(lat, long);
         },
-
+        setAutocompletePosition = function(){
+            newsMapView.setAutocompletePosition();
+        },
 
         closeMenu = function () {
             newsMapView._closeMenu();
