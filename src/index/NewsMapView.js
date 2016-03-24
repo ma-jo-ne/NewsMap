@@ -125,6 +125,10 @@ NewsMap.NewsMapView = (function () {
 
         searchButtonClick = function () {
             $('body').on('click', '#search-button', function () {
+                if(!Foundation.utils.is_large_up()){
+                    $header.removeClass("menu-visible");
+                    $("#search-wrapper").hide();
+                }
                 $(that).trigger("searchButtonClick");
             });
         },
@@ -202,7 +206,7 @@ NewsMap.NewsMapView = (function () {
         menuItemClick = function () {
             var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
-            if ($toShow.is(":visible")) {
+            if ($toShow.is(":visible")) {          console.log("VISIBLE")
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             }
@@ -212,9 +216,11 @@ NewsMap.NewsMapView = (function () {
                 $toShow.show();
                 $("#menu-items").show(50);
                 $("#menu-left").hide();
-                console.log($(this).attr("data-show") + "-wrapper");
-                if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0])
+
+                if ($toShow[0] != $("#chrono-wrapper")[0] && $toShow[0] != $("#favorites-wrapper")[0]){
                     $header.addClass("menu-visible");
+                }
+
             }
         },
 
