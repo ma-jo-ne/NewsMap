@@ -256,6 +256,9 @@ NewsMap.DrawMap = (function () {
                         case "location":
                             selectedFunction = "locAuto";
                             break;
+                        case "region":
+                            selectedFunction = "regAuto";
+                            break;
                         case "title":
                             selectedFunction = "titleAuto";
                             break;
@@ -285,6 +288,15 @@ NewsMap.DrawMap = (function () {
                                         removedDuplicates.push(value.city);
                                     }
                                 });
+
+                            }
+                            else if (selectedFunction == "regAuto") {
+                                $.each(parsedData, function (index, value) {
+                                    if ($.inArray(value.region, removedDuplicates) == -1) {
+                                        removedDuplicates.push(value.region);
+                                    }
+                                });
+
                             }
                             else if (selectedFunction == "titleAuto") {
                                 $.each(parsedData, function (index, value) {
@@ -320,6 +332,9 @@ NewsMap.DrawMap = (function () {
                                 else if (selectedFunction == "locAuto") {
                                     getArticle($('#tag-search-input').val(), "location");
                                 }
+                                else if (selectedFunction == "regAuto") {
+                                    getArticle($('#tag-search-input').val(), "region");
+                                }
                                 else if (selectedFunction == "titleAuto") {
                                     getArticle($('#tag-search-input').val(), "title");
                                 }
@@ -344,6 +359,9 @@ NewsMap.DrawMap = (function () {
                 }
                 else if (selectedFunction == "locAuto") {
                     selectedFunction = "location";
+                }
+                else if (selectedFunction == "regAuto") {
+                    selectedFunction = "region";
                 }
                 else if (selectedFunction == "titleAuto") {
                     selectedFunction = "title";
