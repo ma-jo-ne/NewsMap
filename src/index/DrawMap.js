@@ -203,8 +203,7 @@ NewsMap.DrawMap = (function () {
                     artikelOrt = data[i].city;
                     pubDate =data[i].pub_date;
                     accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>'+
-                        '<br/>' + artikelTitel + '</a>' +
+                        '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
