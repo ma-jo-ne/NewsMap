@@ -48,6 +48,7 @@ a:hover {
     #header {
         height: 62px;
     }
+
     #header.menu-visible {
         height: 100%;
         overflow-y: auto;
@@ -102,7 +103,7 @@ a:hover {
     width: 9%;
 }
 
-.chronoPubDate{
+.chronoPubDate {
     font-size: large;
     font-style: italic;
 }
@@ -561,7 +562,9 @@ li.accordion-navigation {
 }
 
 label {
-    color: white !important;
+    color: #f4f4f4 !important;
+    font-size: 0.75rem !important;
+    line-height: 1.6 !important;
 }
 
 #search-queries {
@@ -596,8 +599,8 @@ label {
 }
 
 .none-selectable {
-    -webkit-user-select: none;  /* Chrome all / Safari all */
-    -moz-user-select: none;     /* Firefox all */
-    -ms-user-select: none;      /* IE 10+ */
-    user-select: none;          /* Likely future */
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none; /* Likely future */
 }
