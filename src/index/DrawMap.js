@@ -43,7 +43,6 @@ NewsMap.DrawMap = (function () {
                 drawmap();
             });
 
-
             return this;
         },
 
@@ -59,7 +58,7 @@ NewsMap.DrawMap = (function () {
                 },
                 success: function (data) {
                     if (JSON.parse(data).length == 0) {
-                        alert("Keine Ergebnisse gefunden");
+                        alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         console.log("Keine Ergebnisse");
                     }
                     else {
@@ -363,7 +362,7 @@ NewsMap.DrawMap = (function () {
                     success: function (data) {
                         if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
-                            alert("keine Ergebnisse a");
+                            alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         }
                         else {
                             console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
@@ -464,7 +463,7 @@ NewsMap.DrawMap = (function () {
             var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
             myLocation = myLocationMarker;
             map.addLayer(myLocationMarker);
-            myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
+            myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
         },
 
         addToFavorites = function (article) {
