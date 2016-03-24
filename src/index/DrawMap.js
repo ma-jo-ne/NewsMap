@@ -103,27 +103,22 @@ NewsMap.DrawMap = (function () {
             if (!markersSet) {
 
                 markers.clearLayers();
-                var cleanedLocations = [];
 
 
-                $.each(data, function (index, value) {
-                    if ($.inArray(value, cleanedLocations) == -1) {
-                        cleanedLocations.push(data[index]);
-                    }
-                });
-
-                for (i = 0; i < cleanedLocations.length; i++) {
+                for (i = 0; i < data.length; i++) {
 
                     //testing radius 100 km from GPS Location
-                    if (radiusSelect == 6666 || calculateDistance(myLat, myLng, cleanedLocations[i].lat, cleanedLocations[i].lon) < radiusSelect) {
-                        tempData.push(cleanedLocations[i]);
+
+
+                    if (radiusSelect == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect) {
+                        tempData.push(data[i]);
 
 
                         var marker = L.marker([data[i].lat, data[i].lon]);
-                        var markerPopup = "<div class='marker-popup' data-id='" + cleanedLocations[i].post_id + "' ><h3 class='marker-title'>" + cleanedLocations[i].title + "</h3></div>";
+                        var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
                         marker.bindPopup(markerPopup);
-                        $(markerPopup).attr("id", cleanedLocations[i].post_id);
+                        $(markerPopup).attr("id", data[i].post_id);
                         markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
 
                     }
@@ -135,7 +130,7 @@ NewsMap.DrawMap = (function () {
                     initLoading = false;
                 }
                 else {
-                    map.setView(new L.LatLng(cleanedLocations[data.length - 1].lat, cleanedLocations[data.length - 1].lon));
+                    map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
                 }
 
                 console.log("markers set");
@@ -206,7 +201,7 @@ NewsMap.DrawMap = (function () {
                     artikelOrt = data[i].city;
                     pubDate = data[i].pub_date;
                     accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
+                        '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
@@ -215,9 +210,9 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                    $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
-                    $(".accordItem").css("color", "#F5F5F5");
-                    $(".accordItem").css("border-style", "outset");
+                   $(".accordItem").css("background-color", "rgba(0, 140, 186,0.95");
+                   $(".accordItem").css("color", "#F5F5F5");
+                    $(".accordItem").css("border-style","outset");
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
