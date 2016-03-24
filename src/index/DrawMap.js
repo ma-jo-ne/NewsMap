@@ -48,7 +48,6 @@ NewsMap.DrawMap = (function () {
         },
 
 
-
         getAllArticles = function () {
             foundArticles = [];
             $.ajax({
@@ -201,7 +200,7 @@ NewsMap.DrawMap = (function () {
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
                     artikelOrt = data[i].city;
-                    pubDate =data[i].pub_date;
+                    pubDate = data[i].pub_date;
                     accord = $('<li class="accordion-navigation">' +
                         '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
@@ -243,7 +242,7 @@ NewsMap.DrawMap = (function () {
 
             $('#tag-search-input').on('input', function (e) {
                 $("#autocomplete").empty().show();
-$(that).trigger("setAutocompletePosition");
+                $(that).trigger("setAutocompletePosition");
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
                 if (keyword.length == 0) {
