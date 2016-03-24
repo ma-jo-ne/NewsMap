@@ -127,6 +127,7 @@ NewsMap.DrawMap = (function () {
                 }
                 map.addLayer(markers);
                 if (initLoading) {
+
                     map.setView(new L.LatLng(49.02, 12.08));
                     initLoading = false;
                 }
@@ -192,7 +193,8 @@ NewsMap.DrawMap = (function () {
                 artikelLink,
                 accord,
                 artikelOrt,
-                artikelRegion;
+                artikelRegion,
+                pubDate;
             for (i = 0; i < data.length; i++) {
 
                 if (i != 0 && data[i - 1].title != data[i].title ) {  //|| data.length == 2 mit in schleife ?
@@ -200,8 +202,10 @@ NewsMap.DrawMap = (function () {
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
                     artikelOrt = data[i].city;
+                    pubDate =data[i].pub_date;
                     accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">' + artikelTitel + '</a>' +
+                        '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>'+
+                        '<br/>' + artikelTitel + '</a>' +
                         '<div' + ' id="' + EIDI + '" class="content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
@@ -210,9 +214,13 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                    $(".accordItem").css("background-color", "#008CBA");
-                    $(".accordItem").css("color", "#F5F5F5");
+                   $(".accordItem").css("background-color", "#008CBA");
+                   $(".accordItem").css("color", "#F5F5F5");
+
+
+
                     //$(".accordItem").css("border","4px solid whitesmoke");
+
 
                 }
             }

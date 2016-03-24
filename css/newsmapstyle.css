@@ -98,6 +98,11 @@ a:hover {
     width: 9%;
 }
 
+.chronoPubDate{
+    font-size: large;
+    font-family: cursive;
+}
+
 @media (min-width: 64em) {
     #menu-left {
         float: left;
