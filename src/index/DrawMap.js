@@ -201,8 +201,8 @@ NewsMap.DrawMap = (function () {
                     artikelOrt = data[i].city;
                     pubDate = data[i].pub_date;
                     accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<a class="accordItem" href="#' + EIDI + '">'+'<div class="chronoPubDate" >'+pubDate+'</div>' + artikelTitel + '</a>' +
+                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                         '</div> </li>');
@@ -210,8 +210,9 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                    $(".accordItem").css("background-color", "#008CBA");
-                    $(".accordItem").css("color", "#F5F5F5");
+                   $(".accordItem").css("background-color", "rgba(0, 140, 186,0.8");
+                   $(".accordItem").css("color", "#F5F5F5");
+                    $(".accordItem").css("border-style","outset");
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
