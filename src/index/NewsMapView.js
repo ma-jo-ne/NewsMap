@@ -8,6 +8,7 @@ NewsMap.NewsMapView = (function () {
         $favoritesMenu = null,
         $timelineMenu = null,
         $header = null,
+        favoritesVisible = false,
 
         init = function () {
 
@@ -22,6 +23,7 @@ NewsMap.NewsMapView = (function () {
             identifyLocation();
             searchButtonClick();
             toggleMenu();
+            showFavArticle();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -30,10 +32,11 @@ NewsMap.NewsMapView = (function () {
             $("#search-select").on("change", searchSelectChanged);
             $("#radius-select").on("change", radiusSelectChanged);
             $("#right-menu-button").on("click", showRightMenu);
-            $("#favorites-button").on("click", showFavorites);
+            $("#showFavOnMap").on("click", showFavoritesOnMap);
             $("#add-to-favorites").on("click", addToFavorites);
             $("#close-timeline").on("click", closeChrono);
             $("#close-favorites").on("click", closeFavorites);
+            $("#favorites-button").on("click", showFavoritesMenu)
 
 
             return this;
@@ -43,6 +46,19 @@ NewsMap.NewsMapView = (function () {
         },
         closeFavorites = function () {
             $favoritesMenu.hide();
+        },
+
+        showFavArticle = function () {
+
+            $('body').on('click', '.favorites-li', function () {
+                var index = $(this).index();
+                $(that).trigger("showFavArticle", index)
+            });
+        },
+
+        closeMenuRight = function () {
+            $("#menu-rechts").hide();
+            $("#favorites-menu").hide();
         },
 
         addToFavorites = function () {
@@ -58,15 +74,29 @@ NewsMap.NewsMapView = (function () {
 
         },
 
-        showFavorites = function () {
-            $("#favorites-menu").toggle();
-            $("#menu-rechts").hide();
+
+        showFavoritesOnMap = function () {
+
+            if (favoritesVisible) {
+                $(this).html("Nur Favoriten anzeigen");
+                favoritesVisible = false;
+            }
+            else {
+                $(this).html("Alle Ergebnisse");
+                favoritesVisible = true;
+            }
+
             $(that).trigger("showFavorites");
         },
 
         showRightMenu = function () {
             $("#menu-rechts").toggle();
             $("#favorites-menu").hide();
+        },
+
+        showFavoritesMenu = function () {
+            $("#favorites-menu").toggle();
+            $("#menu-rechts").hide();
         },
 
         searchSelectChanged = function () {
@@ -106,14 +136,14 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-            _setArticleContent = function (clickedArticle) {
-                currentClickedArticle = clickedArticle;
-                $(".title").html(clickedArticle.title);
-                $(".more-link ").attr("href", clickedArticle.link);
-                $(".entry-summary").html(clickedArticle.content);
-                $(".pub-date").html(clickedArticle.pub_date);
-                $("#menu-left").show();
-                $(".entry-summary").dotdotdot();
+        _setArticleContent = function (clickedArticle) {
+            currentClickedArticle = clickedArticle;
+            $(".title").html(clickedArticle.title);
+            $(".more-link ").attr("href", clickedArticle.link);
+            $(".entry-summary").html(clickedArticle.content);
+            $(".pub-date").html(clickedArticle.pub_date);
+            $("#menu-left").show();
+            $(".entry-summary").dotdotdot();
 
             console.log(clickedArticle);
 
