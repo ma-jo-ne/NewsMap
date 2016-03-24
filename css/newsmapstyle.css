@@ -45,6 +45,9 @@ a:hover {
 }
 
 @media (max-width: 40em) {
+    #header {
+        height: 62px;
+    }
     #header.menu-visible {
         height: 100%;
     }
@@ -203,6 +206,11 @@ a:hover {
 }
 
 @media (max-width: 40em) {
+    #menu-list {
+        margin-bottom: 0;
+        line-height: 86px;
+    }
+
     #menu-list li {
         padding: 0;
     }
@@ -545,7 +553,8 @@ li.accordion-navigation {
     text-align: center;
     color: #3a9bd8;
 }
-label{
+
+label {
     color: white !important;
 }
 
