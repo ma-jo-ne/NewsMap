@@ -83,37 +83,37 @@
             <div id="search-wrapper" class="menu-item">
                 <div class="row">
                     <div class="large-3 medium-6 columns">
-                    <label>Suchbegriff<input type="text" id="tag-search-input"></label>
+                        <label>Suchbegriff<input type="text" id="tag-search-input"></label>
                     </div>
 
                     <div class="large-2 medium-6 columns">
                         <label>Ort / Begriff / Titel
                             <select id="search-select">
-                            <option value="location">Suche nach Ort</option>
-                            <option value="tag">Suche nach Begriff</option>
-                            <option value="title">Suche nach Titel</option>
-                        </select>
+                                <option value="location">Suche nach Ort</option>
+                                <option value="tag">Suche nach Begriff</option>
+                                <option value="title">Suche nach Titel</option>
+                            </select>
                         </label>
                     </div>
                     <div class="large-2 medium-6 columns">
                         <label>Zeitraum
-                        <select id="date-select">
-                            <option value="last-week">letzte Woche</option>
-                            <option value="entire-time">gesamter Zeitraum</option>
-                            <option value="today">Heute</option>
-                            <option value="yesterday">Gestern</option>
-                            <option value="last-four-weeks">letzten vier Wochen</option>
-                        </select>
+                            <select id="date-select">
+                                <option value="last-week">letzte Woche</option>
+                                <option value="entire-time">gesamter Zeitraum</option>
+                                <option value="today">Heute</option>
+                                <option value="yesterday">Gestern</option>
+                                <option value="last-four-weeks">letzten vier Wochen</option>
+                            </select>
                         </label>
                     </div>
                     <div class="large-2 medium-6 columns">
                         <label>Umkreis
-                        <select id="radius-select">
-                            <option value="6666">beliebig</option>
-                            <option value="100">100 km</option>
-                            <option value="50">50 km</option>
-                            <option value="30">30 km</option>
-                        </select>
+                            <select id="radius-select">
+                                <option value="6666">beliebig</option>
+                                <option value="100">100 km</option>
+                                <option value="50">50 km</option>
+                                <option value="30">30 km</option>
+                            </select>
                         </label>
                     </div>
                     <div class="large-3 medium-6 columns">
@@ -130,6 +130,12 @@
 </div>
 
 
+<div class="row" id="query-row">
+    <ul id="search-queries">
+
+    </ul>
+</div>
+
 <article id="menu-rechts" class="menu-off-canvas">
     <div class="close-menu-right"><i id="close-timeline" class="fi-x"></i></div>
     <ul class="accordion menu-item" id="chrono-wrapper" data-accordion>
@@ -138,8 +144,11 @@
 </article>
 
 <article id="favorites-menu" class="menu-off-canvas">
-    <div class="close-menu-right"><i class="fi-x right-x" id="close-favorites"></i><div class="button tiny" id="showFavOnMap">Nur Favoriten
-        anzeigen</div></div>
+    <div class="close-menu-right"><i class="fi-x right-x" id="close-favorites"></i>
+        <div class="button tiny" id="showFavOnMap">Nur Favoriten
+            anzeigen
+        </div>
+    </div>
     <h3 id="favorites-heading">Favoriten:</h3>
     <ul id="favorites-list">
     </ul>

@@ -15,6 +15,7 @@ NewsMap.DrawMap = (function () {
         favoritesVisible = false,
         lastData = [],
         tempData = [],
+        searchQueries = [],
         myLat,
         myLng,
 
@@ -99,7 +100,7 @@ NewsMap.DrawMap = (function () {
             if (!favoritesVisible) {
                 lastData = data;
             }
-            console.log("in addMarker mit lastData: "+lastData);
+            //console.log("in addMarker mit lastData: "+lastData);
             if (!markersSet) {
 
                 markers.clearLayers();
@@ -219,6 +220,14 @@ NewsMap.DrawMap = (function () {
         },
 
         tagSearchClicked = function () {
+            searchQueries.push($('#tag-search-input').val());
+
+            var $queryLi = $("<li class='query-item'>");
+            $queryLi.html($('#tag-search-input').val());
+            var $queryClose = $("<i class='fi-x remove-query'>");
+            $($queryLi).append($queryClose);
+            $("#search-queries").append($queryLi);
+
             getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
             $('#autocomplete').hide();
         },
@@ -296,6 +305,18 @@ NewsMap.DrawMap = (function () {
                                 $("#autocomplete").append($li);
                             });
                             $("#autocomplete li").on("click", function () {
+                                var query = $(this).html();
+                                $("#tag-search-input").val(query);
+                                searchQueries.push(query);
+
+                                var $queryLi = $("<li class='query-item'>");
+                                $queryLi.html(query);
+                                var $queryClose = $("<i class='fi-x remove-query'>");
+                                $($queryLi).append($queryClose);
+                                $("#search-queries").append($queryLi);
+
+
+
                                 $("#tag-search-input").val($(this).html());
                                 if (selectedFunction == "tagAuto") {
                                     getArticle($('#tag-search-input').val(), "tag");

@@ -109,7 +109,7 @@ a:hover {
         background: #2c60b5;
         color: #f5f5f5;
         padding: 1rem;
-        overflow-y: hidden;
+        overflow-y: scroll;
     }
 }
 
@@ -548,3 +548,35 @@ li.accordion-navigation {
 label{
     color: white !important;
 }
+
+#search-queries {
+    float: left;
+    list-style-type: none;
+}
+
+.query-item {
+    display: inline;
+    float: left;
+    background: #3a9bd8;
+    padding: 0.5rem;
+    color: white;
+    margin-left: 0.5rem;
+}
+
+.query-container {
+    background: #3a9bd8;
+    padding: 0.5rem;
+    color: white;
+    margin-left: 0.5rem;
+}
+
+#query-row {
+    position: absolute;
+    margin-top: 7rem;
+}
+
+.remove-query {
+    padding-left: 0.7rem;
+    cursor: pointer;
+}
+
