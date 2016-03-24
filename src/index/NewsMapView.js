@@ -188,14 +188,14 @@ NewsMap.NewsMapView = (function () {
             }
 
             function error(msg) {
-                alert(typeof msg == 'string' ? msg : "error");
+                alert(typeof msg == 'string' ? msg : "Bitte aktivieren Sie das GPS auf Ihrem Gerät und laden Sie die Seite neu.");
             }
 
             if (navigator && navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(success, error,
                     {enableHighAccuracy: true, timeout: 60000, maximumAge: 600000});
             } else {
-                alert("GeoLocation API ist NICHT verfügbar!");
+                alert("GeoLocation API ist nicht verfügbar!");
             }
 
             var zoom = 10;
