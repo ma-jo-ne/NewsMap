@@ -495,7 +495,7 @@ li.accordion-navigation {
     margin: 0;
     background-color: white;
     overflow: scroll;
-    height: 15rem;
+    height: 14rem;
     display: none;
     position: fixed;
     z-index: 10000;
@@ -507,6 +507,7 @@ li.accordion-navigation {
     text-align: left;
     border-bottom: 1px solid black;
     cursor: pointer;
+    font-size: .9rem;
     padding: 8px;
 }
 
@@ -514,7 +515,10 @@ li.accordion-navigation {
     background-color: #2d61b5;
     color: white;
 }
-
+.leaflet-popup-content-wrapper, .leaflet-popup-tip {
+    background: lightcyan !important;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.4) !important;
+}
 .marker-popup {
     position: absolute;
     cursor: pointer;
@@ -530,8 +534,9 @@ li.accordion-navigation {
 
 #search-button {
     height: 2.3rem;
-    margin-top: 1.3rem;
+    margin-top: 1.2rem;
     padding: inherit;
+    background-color: #2d61b5;
 }
 
 #search-wrapper {
