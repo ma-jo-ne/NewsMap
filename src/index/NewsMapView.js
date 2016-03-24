@@ -24,6 +24,7 @@ NewsMap.NewsMapView = (function () {
             searchButtonClick();
             toggleMenu();
             showFavArticle();
+            removeQuery();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -36,10 +37,17 @@ NewsMap.NewsMapView = (function () {
             $("#add-to-favorites").on("click", addToFavorites);
             $("#close-timeline").on("click", closeChrono);
             $("#close-favorites").on("click", closeFavorites);
-            $("#favorites-button").on("click", showFavoritesMenu)
+            $("#favorites-button").on("click", showFavoritesMenu);
+            $('.remove-query').on("click", removeQuery);
 
 
             return this;
+        },
+
+        removeQuery = function () {
+            $('body').on('click', '.remove-query', function () {
+                $(this).closest('li').remove();
+            });
         },
         closeChrono = function () {
             $timelineMenu.hide();
