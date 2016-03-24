@@ -121,6 +121,7 @@ NewsMap.NewsMapView = (function () {
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
+                $(this).dotdotdot();
                 $(".menu-item").hide();
                 $("#menu-items").hide();
                 $("#menu-rechts").hide();
