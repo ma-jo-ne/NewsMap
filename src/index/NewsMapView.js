@@ -123,6 +123,7 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
+                $("#menu-rechts").hide();
                 if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
                     currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
 

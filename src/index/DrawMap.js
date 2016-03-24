@@ -211,7 +211,7 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                   $(".accordItem").css("background-color", "rgba(0, 140, 186,0.8");
+                   $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
                    $(".accordItem").css("color", "#F5F5F5");
                     $(".accordItem").css("border-style","outset");
 
