@@ -270,11 +270,13 @@ a:hover {
     padding-bottom: .2rem;
 }
 
+
 .leaflet-popup-content-wrapper {
     background: white;
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4);
     min-height: 100px;
     min-width: 220px;
+    height: 120px;
     text-align: center;
 }
 
@@ -541,7 +543,7 @@ li.accordion-navigation {
 #autocomplete li {
     list-style-type: none;
     text-align: left;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ddd;
     cursor: pointer;
     font-size: .9rem;
     padding: 8px;
@@ -618,7 +620,7 @@ li.accordion-navigation {
 label {
     color: #f4f4f4 !important;
     font-size: 0.65rem !important;
-    line-height: 1.6 !important;
+    line-height: 1.8 !important;
 }
 
 #search-queries {
