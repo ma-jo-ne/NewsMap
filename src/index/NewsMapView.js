@@ -120,13 +120,15 @@ NewsMap.NewsMapView = (function () {
 
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
-                $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
-                $(".menu-item").hide();
-                $("#menu-items").hide();
-                if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
-                    currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
+                if(!$(this).hasChildNodes("my-location")){
+                    $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
+                    $(".menu-item").hide();
+                    $("#menu-items").hide();
+                    if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
+                        currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
 
-                $("#mailButton").attr("href", NewsMap.DrawMap.setUpEmailLink);
+                    $("#mailButton").attr("href", NewsMap.DrawMap.setUpEmailLink);
+                }
             });
         },
 

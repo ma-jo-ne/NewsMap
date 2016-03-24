@@ -548,6 +548,12 @@ li.accordion-navigation {
     padding-top: 20%;
     display: none;
 }
+@media(max-width: 40em){
+    #loading{
+        padding-top: 30%;
+        font-size: 2rem;
+    }
+}
 
 #showFavOnMap:hover {
     background: #3a9bd8;
