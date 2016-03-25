@@ -245,18 +245,23 @@ NewsMap.DrawMap = (function () {
         },
 
         tagSearchClicked = function () {
-            searchQueries.push($('#tag-search-input').val());
+            var query = ($('#tag-search-input').val());
+
+            var queryItem = [query, searchSelect]
+            searchQueries.push(queryItem);
 
             var $queryLi = $("<li class='query-item'>");
-            //$queryLi.html($('#tag-search-input').val());
+        
             var $queryClose = $("<i class='fi-x remove-query'>");
-            var $querySpan = $("<span>")
-            $querySpan.html($('#tag-search-input').val());
-            $($queryLi).append($querySpan);
+            $queryLi.html(query);
             $($queryLi).append($queryClose);
-            $("#search-queries").append($queryLi);
+            $($queryLi).attr('data-show', query);
 
-            getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
+            if(query != "") {
+                $("#search-queries").append($queryLi);
+            }
+
+            getArticle(query, searchSelect);
             $('#autocomplete').empty().hide();
         },
 
