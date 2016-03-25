@@ -284,6 +284,7 @@ NewsMap.NewsMapView = (function () {
     that.getCurrentArticle = getCurrentArticle;
     that._closeMenu = _closeMenu;
     that._setArticleContent = _setArticleContent;
+    that.identifyLocation = identifyLocation;
     that.setAutocompletePosition = setAutocompletePoisition;
     that.setRadiusBoxPosition = setRadiusBoxPosition;
     that.init = init;
