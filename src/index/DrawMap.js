@@ -162,17 +162,17 @@ NewsMap.DrawMap = (function () {
         },
 
         getLatLonFromCity = function () {
-/*
-            $.ajax({
-                    url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
-                    type: 'GET',
-                    success: function (data) {
-                        var parsedData = $.parseXML(data);
-                        $data=$(parsedData);
-                        $lati = $data.find()
-                        console.log(parsedData);
-                    }});
-                    */
+            /*
+             $.ajax({
+             url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
+             type: 'GET',
+             success: function (data) {
+             var parsedData = $.parseXML(data);
+             $data=$(parsedData);
+             $lati = $data.find()
+             console.log(parsedData);
+             }});
+             */
         },
 
 
@@ -550,7 +550,3 @@ NewsMap.DrawMap = (function () {
 
     return that;
 }());
-
-
-
-
