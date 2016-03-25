@@ -209,7 +209,8 @@ NewsMap.DrawMap = (function () {
                 accord,
                 artikelOrt,
                 artikelRegion,
-                pubDate;
+                pubDate,
+                region;
             for (i = 0; i < data.length; i++) {
 
                 if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
@@ -218,9 +219,10 @@ NewsMap.DrawMap = (function () {
                     artikelLink = data[i].link;
                     artikelOrt = data[i].city;
                     pubDate = data[i].pub_date;
+                    region=data[i].region;
                     accord = $('<li class="accordion-navigation">' +
                         '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ','+region+'<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                         '</div> </li>');
