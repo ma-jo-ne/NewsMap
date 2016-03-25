@@ -729,7 +729,7 @@ li.accordion-navigation {
     margin-top: 1.2rem;
     padding: inherit;
     /*background-color: #2d61b5; */
-    background: rgba(0, 140, 186, 0.95);
+    background: rgba(0, 140, 186, 1);
 }
 
 #search-wrapper {
