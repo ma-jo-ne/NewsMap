@@ -121,6 +121,7 @@ NewsMap.NewsMapView = (function () {
         },
 
         searchSelectChanged = function () {
+            $("#label-search").html($("#search-select option:selected").html());
             $(that).trigger("searchSelectChanged");
         },
 
