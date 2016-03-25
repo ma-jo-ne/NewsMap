@@ -50,10 +50,12 @@ for ($i = 0; $i < $rows; $i++) {
         $county = $currentLocation->county;
         $region = $currentLocation->region;
 
-        if (abs($lat - $nextLat) > 0.05 and abs($lon - $nextLon) > 0.05) {
-            $insert = "INSERT INTO locations (article_id, lat, lon, city, region, county) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$county')";
-            $conn->query($insert);
-        }
+        /*    if (abs($lat - $nextLat) > 0.03 and abs($lon - $nextLon) > 0.03) {
+                $insert = "INSERT INTO locations (article_id, lat, lon, city, region, county) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$county')";
+                $conn->query($insert);
+            }*/
+        $insert = "INSERT INTO locations (article_id, lat, lon, city, region, county) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$county')";
+        $conn->query($insert);
         // print_r($currentLocation);
         /*     print_r($lat);
                 print_r($lon);
