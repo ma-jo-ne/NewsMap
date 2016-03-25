@@ -253,13 +253,14 @@ NewsMap.NewsMapView = (function () {
             var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
             $("#autocomplete").empty().hide();
+            $(".menu-off-canvas").hide();
             $radiusBox.hide();
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
             }
             else {
-                $(".menu-off-canvas").hide();
+
                 $(".menu-item").hide();
                 $toShow.show();
                 $("#menu-items").show(50);
