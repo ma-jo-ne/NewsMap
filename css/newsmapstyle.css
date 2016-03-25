@@ -1,7 +1,7 @@
 #animDiv{
-    opacity: 0.6;
-    width: 300px;
-    height: 300px;
+    
+    width: 200px;
+    height: 130px;
     background-color: red;
     position: relative;
     -webkit-animation-name: example; /* Chrome, Safari, Opera */
