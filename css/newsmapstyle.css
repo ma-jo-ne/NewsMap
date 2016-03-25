@@ -673,6 +673,7 @@ li.accordion-navigation {
 
 #close-radius-box {
     cursor: pointer;
+    font-size: 1.5rem;
 }
 #radius-box {
     display: inline-block;
@@ -691,12 +692,17 @@ li.accordion-navigation {
     #radius-box {
         width: 100%;
         left: 0 !important;
-        text-align: center;
+
     }
 
     #radius-box select {
-        width: 150px;
+        width: 200px;
+    }
 
+    #close-radius-box {
+        cursor: pointer;
+        font-size: 1.5rem;
+        padding-right: 1rem;
     }
 }
 
