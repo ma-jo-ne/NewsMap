@@ -20,8 +20,13 @@ NewsMap.MainController = (function () {
             $(drawMap).on("showMenuLeftForFavorite", showMenuLeftforFavorite);
             $(newsMapView).on("showFavArticle", showFavArticle);
             $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
+            $(newsMapView).on("queryRemoved", removeQuery);
 
             return this;
+        },
+
+        removeQuery = function(e, query) {
+            drawMap.removeQuery(query);
         },
 
         showFavArticle = function(e, index) {

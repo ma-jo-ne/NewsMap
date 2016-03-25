@@ -223,8 +223,11 @@ NewsMap.DrawMap = (function () {
             searchQueries.push($('#tag-search-input').val());
 
             var $queryLi = $("<li class='query-item'>");
-            $queryLi.html($('#tag-search-input').val());
+            //$queryLi.html($('#tag-search-input').val());
             var $queryClose = $("<i class='fi-x remove-query'>");
+            var $querySpan = $("<span>")
+            $querySpan.html($('#tag-search-input').val());
+            $($queryLi).append($querySpan);
             $($queryLi).append($queryClose);
             $("#search-queries").append($queryLi);
 
@@ -307,18 +310,21 @@ NewsMap.DrawMap = (function () {
                             $("#autocomplete li").on("click", function () {
                                 var query = $(this).html();
                                 $("#tag-search-input").val(query);
-                                searchQueries.push(query);
+                                var queryItem = [query, selectedFunction]
+                                searchQueries.push(queryItem);
 
                                 var $queryLi = $("<li class='query-item'>");
-                                $queryLi.html(query);
+                                //$queryLi.html($('#tag-search-input').val());
                                 var $queryClose = $("<i class='fi-x remove-query'>");
+                                $queryLi.html(query);
                                 $($queryLi).append($queryClose);
+                                $($queryLi).attr('data-show', query);
                                 $("#search-queries").append($queryLi);
 
 
 
                                 $("#tag-search-input").val($(this).html());
-                                if (selectedFunction == "tagAuto") {
+                              /*  if (selectedFunction == "tagAuto") {
                                     getArticle($('#tag-search-input').val(), "tag");
                                 }
                                 else if (selectedFunction == "locAuto") {
@@ -326,7 +332,10 @@ NewsMap.DrawMap = (function () {
                                 }
                                 else if (selectedFunction == "titleAuto") {
                                     getArticle($('#tag-search-input').val(), "title");
-                                }
+                                }*/
+
+                                getArticle($('#tag-search-input').val(), selectedFunction);
+
                                 $("#autocomplete").empty();
                                 $("#autocomplete").hide();
                             });
@@ -337,6 +346,17 @@ NewsMap.DrawMap = (function () {
         },
 
         getArticle = function (selectedQuery, selectedFunction) {
+
+            if(selectedFunction = "tagAuto") {
+                selectedFunction = "tag";
+            }
+            else if(selectedFunction = "locAuto") {
+                selectedFunction = "tag";
+            }
+
+            else if(selectedFunction = "titleAuto") {
+                selectedFunction = "title";
+            }
 
             if(selectedQuery==""){
                 getAllArticles();
@@ -497,6 +517,19 @@ NewsMap.DrawMap = (function () {
         showFavArticle = function (index) {
             map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
             $(that).trigger("showMenuLeftForFavorite", favorites[index]);
+        },
+
+        removeQuery = function(query) {
+            console.log(searchQueries[0]);
+            $.each(searchQueries, function (index) {
+                if(searchQueries[index][0] == query) {
+                    searchQueries.splice(index, 1);
+                }
+            });
+            if(searchQueries = []) {
+                getAllArticles()
+            }
+
         };
 
 
@@ -514,6 +547,7 @@ NewsMap.DrawMap = (function () {
     that.addToFavorites = addToFavorites;
     that.showFavorites = showFavorites;
     that.showFavArticle = showFavArticle;
+    that.removeQuery = removeQuery;
     that.init = init;
 
     return that;
