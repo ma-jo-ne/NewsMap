@@ -21,9 +21,14 @@ NewsMap.MainController = (function () {
             $(drawMap).on("setAutocompletePosition", setAutocompletePosition);
             $(newsMapView).on("showFavArticle", showFavArticle);
             $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
+            $(newsMapView).on("queryRemoved", removeQuery);
             $(drawMap).on("identifyLocation", identifyLocation);
 
             return this;
+        },
+
+        removeQuery = function(e, query) {
+            drawMap.removeQuery(query);
         },
 
         showFavArticle = function(e, index) {

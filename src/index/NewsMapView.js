@@ -58,7 +58,9 @@ NewsMap.NewsMapView = (function () {
 
         removeQuery = function () {
             $('body').on('click', '.remove-query', function () {
+                var query = $(this).closest('li').attr("data-show");
                 $(this).closest('li').remove();
+                $(that).trigger("queryRemoved", query);
             });
         },
         closeChrono = function () {
