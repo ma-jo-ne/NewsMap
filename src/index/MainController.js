@@ -21,6 +21,7 @@ NewsMap.MainController = (function () {
             $(drawMap).on("setAutocompletePosition", setAutocompletePosition);
             $(newsMapView).on("showFavArticle", showFavArticle);
             $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
+            $(drawMap).on("identifyLocation", identifyLocation);
 
             return this;
         },
@@ -72,6 +73,10 @@ NewsMap.MainController = (function () {
             var clickedArticle = drawMap._getArticle(articleID);
             currentClickedArticle = clickedArticle;
             newsMapView._setArticleContent(clickedArticle);
+        },
+
+        identifyLocation = function () {
+            newsMapView.identifyLocation();
         };
 
     that.init = init;
