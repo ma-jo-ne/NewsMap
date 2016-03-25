@@ -39,13 +39,21 @@ for ($i = 0; $i < $rows; $i++) {
     $locationData = $location->locations;
     /* print_r($articleId);
      print_r("<br>");*/
-    for ($j = 0; $j < sizeof($locationData); $j++) {
+    for ($j = 0; $j < sizeof($locationData) - 1; $j++) {
         $currentLocation = $locationData[$j];
+        $nextLocation = $locationData[$j + 1];
         $lat = $currentLocation->lat;
         $lon = $currentLocation->lon;
+        $nextLat = $nextLocation->lat;
+        $nextLon = $nextLocation->lon;
         $city = $currentLocation->name;
         $county = $currentLocation->county;
         $region = $currentLocation->region;
+
+        if (abs($lat - $nextLat) > 0.05 and abs($lon - $nextLon) > 0.05) {
+            $insert = "INSERT INTO locations (article_id, lat, lon, city, region, county) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$county')";
+            $conn->query($insert);
+        }
         // print_r($currentLocation);
         /*     print_r($lat);
                 print_r($lon);
@@ -54,8 +62,7 @@ for ($i = 0; $i < $rows; $i++) {
                 print_r($state);
                 print_r($county);
                 print_r("<br>");*/
-        $insert = "INSERT INTO locations (article_id, lat, lon, city, region, county) VALUES ('$articleId','$lat', '$lon', '$city', '$region', '$county')";
-        $conn->query($insert);
+
     }
 }
 print_r("DONE");
