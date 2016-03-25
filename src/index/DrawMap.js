@@ -66,8 +66,9 @@ NewsMap.DrawMap = (function () {
                     }
                     else {
                         markersSet = false;
-                        addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
+                        addMarker(foundArticles);
+
                     }
 
                 },
