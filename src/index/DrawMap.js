@@ -392,9 +392,6 @@ NewsMap.DrawMap = (function () {
                     selectedFunction = "title";
                 }
 
-
-                //console.log("selected query is: "+selectedQuery);
-
                 $.ajax({
                     type: "GET",
                     url: "http://" + location.host + "/NewsMap/get_data.php",
