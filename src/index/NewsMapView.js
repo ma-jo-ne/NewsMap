@@ -22,13 +22,11 @@ NewsMap.NewsMapView = (function () {
 
             popupClick();
             previewClose();
-            identifyLocation();
             searchButtonClick();
             toggleMenu();
             showFavArticle();
             removeQuery();
             setRadiusBoxPosition();
-            $radiusBox.hide();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -53,6 +51,8 @@ NewsMap.NewsMapView = (function () {
                 setAutocompletePoisition();
                 setRadiusBoxPosition();
             });
+
+            $radiusBox.hide();
             return this;
         },
 
@@ -204,8 +204,8 @@ NewsMap.NewsMapView = (function () {
                 $(that).trigger("locationFound", [lat, long]);
                 $radiusBox.show();
                 setRadiusBoxPosition();
-                _closeMenu();
 
+                _closeMenu();
             }
 
             function error(msg) {
@@ -220,6 +220,7 @@ NewsMap.NewsMapView = (function () {
             }
 
             var zoom = 10;
+
         },
 
         closeRadiusBox = function () {

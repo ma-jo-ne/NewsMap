@@ -668,6 +668,9 @@ li.accordion-navigation {
     color: white;
 }
 
+#close-radius-box {
+    cursor: pointer;
+}
 #radius-box {
     display: inline-block;
     top: 85px;
