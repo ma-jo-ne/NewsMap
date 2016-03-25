@@ -7,7 +7,7 @@ NewsMap.DrawMap = (function () {
         searchSelect = $("#search-select").val(),
         $dateSelect = $("#date-select"),
         dateSelectionVal = $dateSelect.val(),
-        radiusSelect=$("#radius-select").val(),
+        radiusSelect = $("#radius-select").val(),
         myLocation = null,
         $loading = null,
         initLoading = true,
@@ -18,6 +18,9 @@ NewsMap.DrawMap = (function () {
         searchQueries = [],
         myLat,
         myLng,
+        tempLat,
+        tempLon,
+
 
         map = null,
         newsDataObjects = [],
@@ -43,7 +46,6 @@ NewsMap.DrawMap = (function () {
                 drawmap();
             });
 
-
             return this;
         },
 
@@ -59,13 +61,14 @@ NewsMap.DrawMap = (function () {
                 },
                 success: function (data) {
                     if (JSON.parse(data).length == 0) {
-                        alert("Keine Ergebnisse gefunden");
+                        alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         console.log("Keine Ergebnisse");
                     }
                     else {
                         markersSet = false;
-                        addMarker(JSON.parse(data));
                         foundArticles = JSON.parse(data);
+                        addMarker(foundArticles);
+
                     }
 
                 },
@@ -100,46 +103,45 @@ NewsMap.DrawMap = (function () {
             if (!favoritesVisible) {
                 lastData = data;
             }
-            //console.log("in addMarker mit lastData: "+lastData);
+
             if (!markersSet) {
 
                 markers.clearLayers();
 
 
-
                 for (i = 0; i < data.length; i++) {
 
-                    //testing radius 100 km from GPS Location
+
+                    if (radiusSelect == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect) {
+                        tempData.push(data[i]);
 
 
-                    if(radiusSelect==6666 ||calculateDistance(myLat,myLng,data[i].lat,data[i].lon)<radiusSelect ){
-                    tempData.push(data[i]);
+                        var marker = L.marker([data[i].lat, data[i].lon]);
+                        var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
-
-                    var marker = L.marker([data[i].lat, data[i].lon]);
-                    var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
-
-                    marker.bindPopup(markerPopup);
-                    $(markerPopup).attr("id", data[i].post_id);
-                    markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
+                        marker.bindPopup(markerPopup);
+                        $(markerPopup).attr("id", data[i].post_id);
+                        markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
 
                     }
                 }
                 map.addLayer(markers);
                 if (initLoading) {
+
                     map.setView(new L.LatLng(49.02, 12.08));
                     initLoading = false;
                 }
                 else {
+                    console.log(data[data.length - 1], data[data.length - 1].lon)
                     map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
+                    map.setView(new L.LatLng(51.8, 14.41667));
                 }
 
                 console.log("markers set");
 
                 setChronoView(tempData);
-                tempData.length=0;
+                tempData.length = 0;
                 markersSet = true;
-
 
 
             }
@@ -159,25 +161,39 @@ NewsMap.DrawMap = (function () {
 
         },
 
+        getLatLonFromCity = function () {
+            /*
+             $.ajax({
+             url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
+             type: 'GET',
+             success: function (data) {
+             var parsedData = $.parseXML(data);
+             $data=$(parsedData);
+             $lati = $data.find()
+             console.log(parsedData);
+             }});
+             */
+        },
 
-        calculateDistance = function(lat1,lon1,lat2,lon2){
+
+        calculateDistance = function (lat1, lon1, lat2, lon2) {
 
 
-                var R = 6371; // Radius of the earth in km
-                var dLat = deg2rad(lat2-lat1);  // deg2rad below
-                var dLon = deg2rad(lon2-lon1);
-                var a =
-                        Math.sin(dLat/2) * Math.sin(dLat/2) +
-                        Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
-                        Math.sin(dLon/2) * Math.sin(dLon/2);
+            var R = 6371; // Radius of the earth in km
+            var dLat = deg2rad(lat2 - lat1);  // deg2rad below
+            var dLon = deg2rad(lon2 - lon1);
+            var a =
+                Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+                Math.sin(dLon / 2) * Math.sin(dLon / 2);
 
-                var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-                var d = R * c; // Distance in km
-                return d;
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            var d = R * c; // Distance in km
+            return d;
 
 
             function deg2rad(deg) {
-                return deg * (Math.PI/180)
+                return deg * (Math.PI / 180)
             }
 
         },
@@ -192,17 +208,21 @@ NewsMap.DrawMap = (function () {
                 artikelLink,
                 accord,
                 artikelOrt,
-                artikelRegion;
+                artikelRegion,
+                pubDate,
+                region;
             for (i = 0; i < data.length; i++) {
 
-                if (i != 0 && data[i - 1].title != data[i].title ) {  //|| data.length == 2 mit in schleife ?
+                if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
                     artikelOrt = data[i].city;
+                    pubDate = data[i].pub_date;
+                    region=data[i].region;
                     accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="content disabled">' + artikelOrt + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
+                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ','+region+'<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                         '</div> </li>');
@@ -210,9 +230,14 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                    $(".accordItem").css("background-color", "#008CBA");
+                    $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
                     $(".accordItem").css("color", "#F5F5F5");
+                    $(".accordItem").css("border-style", "outset");
+
+
+
                     //$(".accordItem").css("border","4px solid whitesmoke");
+
 
                 }
             }
@@ -232,21 +257,14 @@ NewsMap.DrawMap = (function () {
             $("#search-queries").append($queryLi);
 
             getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
-            $('#autocomplete').hide();
+            $('#autocomplete').empty().hide();
         },
 
-        setAutocompletePoisition = function () {
-            var offsetTop = $("#tag-search-input").offset().top + $("#tag-search-input").outerHeight(),
-                offsetLeft = $("#tag-search-input").offset().left,
-                width = $("#tag-search-input").outerWidth();
-            $("#autocomplete").offset({top: offsetTop, left: offsetLeft});
-            $("#autocomplete").width(width);
-        },
         autocomplete = function () {
 
             $('#tag-search-input').on('input', function (e) {
-                setAutocompletePoisition();
-                $("#autocomplete").empty();
+                $("#autocomplete").empty().show();
+                $(that).trigger("setAutocompletePosition");
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
                 if (keyword.length == 0) {
@@ -261,6 +279,9 @@ NewsMap.DrawMap = (function () {
                             break;
                         case "location":
                             selectedFunction = "locAuto";
+                            break;
+                        case "region":
+                            selectedFunction = "regAuto";
                             break;
                         case "title":
                             selectedFunction = "titleAuto";
@@ -289,6 +310,13 @@ NewsMap.DrawMap = (function () {
                                 $.each(parsedData, function (index, value) {
                                     if ($.inArray(value.city, removedDuplicates) == -1) {
                                         removedDuplicates.push(value.city);
+                                    }
+                                });
+                            }
+                            else if (selectedFunction == "regAuto") {
+                                $.each(parsedData, function (index, value) {
+                                    if ($.inArray(value.region, removedDuplicates) == -1) {
+                                        removedDuplicates.push(value.region);
                                     }
                                 });
                             }
@@ -322,7 +350,6 @@ NewsMap.DrawMap = (function () {
                                 $("#search-queries").append($queryLi);
 
 
-
                                 $("#tag-search-input").val($(this).html());
                               /*  if (selectedFunction == "tagAuto") {
                                     getArticle($('#tag-search-input').val(), "tag");
@@ -347,18 +374,7 @@ NewsMap.DrawMap = (function () {
 
         getArticle = function (selectedQuery, selectedFunction) {
 
-            if(selectedFunction = "tagAuto") {
-                selectedFunction = "tag";
-            }
-            else if(selectedFunction = "locAuto") {
-                selectedFunction = "tag";
-            }
-
-            else if(selectedFunction = "titleAuto") {
-                selectedFunction = "title";
-            }
-
-            if(selectedQuery==""){
+            if (selectedQuery == "") {
                 getAllArticles();
             }
             else {
@@ -368,6 +384,9 @@ NewsMap.DrawMap = (function () {
                 }
                 else if (selectedFunction == "locAuto") {
                     selectedFunction = "location";
+                }
+                else if (selectedFunction == "regAuto") {
+                    selectedFunction = "region";
                 }
                 else if (selectedFunction == "titleAuto") {
                     selectedFunction = "title";
@@ -386,7 +405,7 @@ NewsMap.DrawMap = (function () {
                     success: function (data) {
                         if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
-                            alert("keine Ergebnisse a");
+                            alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         }
                         else {
                             console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
@@ -431,21 +450,20 @@ NewsMap.DrawMap = (function () {
 
         selectChanged = function () {
             searchSelect = $("#search-select").val();
-
-            console.log(searchSelect);
         },
 
         radiusSelectChanged = function () {
-            radiusSelect= $("#radius-select").val();
-            console.log("in radiusSelectChanged" +radiusSelect);
-            markersSet=false;
+            radiusSelect = $("#radius-select").val();
+            console.log("in radiusSelectChanged" + radiusSelect);
+            markersSet = false;
             addMarker(lastData);
+            $(that).trigger("identifyLocation");
+
         },
 
         dateSelection = function () {
             $dateSelect.on("change", function () {
                 dateSelectionVal = $(this).val();
-                console.log(dateSelectionVal)
             });
         },
 
@@ -470,8 +488,8 @@ NewsMap.DrawMap = (function () {
 
         _setLocation = function (lat, long) {
             // Removing old markers
-            myLat=lat;
-            myLng=long;
+            myLat = lat;
+            myLng = long;
             if (myLocation != null) {
                 map.removeLayer(myLocation);
             }
@@ -487,7 +505,7 @@ NewsMap.DrawMap = (function () {
             var myLocationMarker = L.marker([lat, long], {icon: myLocationIcon});
             myLocation = myLocationMarker;
             map.addLayer(myLocationMarker);
-            myLocationMarker.bindPopup("<div class='marker-popup'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
+            myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
         },
 
         addToFavorites = function (article) {
@@ -552,7 +570,3 @@ NewsMap.DrawMap = (function () {
 
     return that;
 }());
-
-
-
-

@@ -26,17 +26,22 @@
     <script src="js/leaflet.js"></script>
     <script src="leaflet_markercluster_07/dist/leaflet.markercluster.js"></script>
     <script src="libs/jquery.dotdotdot.min.js"></script>
+    <script src="libs/jquery.ba-outside-events.js"></script>
     <!--<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>-->
 
 </head>
 <body>
+
 <div class="text-center" id="loading">
+    <img src="img/lokalRep.png" id="animDiv">
     <span>Lade Nachrichten...</span>
+
 </div>
 
-<div id="myModal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog">
+<div id="myModal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle" aria-hidden="true"
+     role="dialog">
 
-    <h2 id="modalTitle">Teilen sie diesen Artikel</h2>
+    <h2 id="modalTitle">Artikel teilen auf</h2>
     <br/><br/>
 
     <div class="row">
@@ -62,60 +67,61 @@
 
     <a class="close-reveal-modal" aria-label="Close">&#215;</a>
 </div>
-
 <ul id="autocomplete">
 </ul>
+<div id="radius-box"><span class="row"><i class="fi-x left" id="close-radius-box"></i></span>
+    <label>
+        <span class="row"> Umkreis Standort
+        </span>
 
+        <select id="radius-select">
+            <option value="6666">beliebig</option>
+            <option value="100">100 km</option>
+            <option value="50">50 km</option>
+            <option value="30">30 km</option>
+        </select>
+    </label>
+</div>
 
 <div id="header">
     <div class="row collapse no-padding-margin">
-        <div class="large-3  medium-6 columns">
+        <div class="large-4 small-12 columns none-selectable">
             <ul id="menu-list">
                 <li data-show="search"><i class="fi-magnifying-glass"></i></li>
                 <li data-show="location" id="identify-location"><i class="fi-marker"></i></li>
                 <li data-show="favorites" id="favorites-button"><i class="fi-star" id="favorites-menu-star"></i></li>
-                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i>
-                </li>
-
+                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i></li>
             </ul>
+
         </div>
-        <div class="large-9 columns">
+        <div class="large-8 columns">
             <div id="search-wrapper" class="menu-item">
                 <div class="row">
-                    <div class="large-3 medium-6 columns">
-                        <label>Suchbegriff<input type="text" id="tag-search-input"></label>
-                    </div>
-
                     <div class="large-2 medium-6 columns">
-                        <label>Ort / Begriff / Titel
+                        <label>Stadt / Region / Begriff / Titel
                             <select id="search-select">
-                                <option value="location">Suche nach Ort</option>
+                                <option value="location">Suche nach Stadt</option>
+                                <option value="region">Suche nach Region</option>
                                 <option value="tag">Suche nach Begriff</option>
                                 <option value="title">Suche nach Titel</option>
                             </select>
                         </label>
                     </div>
+                    <div class="large-4 medium-6 columns">
+                        <label>Suchbegriff<input type="text" id="tag-search-input"></label>
+                    </div>
                     <div class="large-2 medium-6 columns">
                         <label>Zeitraum
                             <select id="date-select">
                                 <option value="last-week">letzte Woche</option>
+                                <option value="last-four-weeks">letzten vier Wochen</option>
                                 <option value="entire-time">gesamter Zeitraum</option>
                                 <option value="today">Heute</option>
                                 <option value="yesterday">Gestern</option>
-                                <option value="last-four-weeks">letzten vier Wochen</option>
                             </select>
                         </label>
                     </div>
-                    <div class="large-2 medium-6 columns">
-                        <label>Umkreis
-                            <select id="radius-select">
-                                <option value="6666">beliebig</option>
-                                <option value="100">100 km</option>
-                                <option value="50">50 km</option>
-                                <option value="30">30 km</option>
-                            </select>
-                        </label>
-                    </div>
+
                     <div class="large-3 medium-6 columns">
                         <button id="search-button">Suchen</button>
                     </div>
@@ -171,7 +177,7 @@
         Volkshochschule Bamberg-Land. (…)
     </div>
 
-    <button id="read-more-button"><a class="more-link"
+    <button id="read-more-button"><a class="more-link" target="_blank"
                                      href="http://lokalreporter.idvl.de/wegen-einer-personalversammlung-ist-das-landratsamt-bamberg-am-mittwoch-16-dezember-2015-ab-1300-uhr-geschlossen-41413/"
                                      rel="bookmark">Weiterlesen</a></button>
     <!-- <div class="button" id="share-button"><i class="fi-share"></i></div> -->

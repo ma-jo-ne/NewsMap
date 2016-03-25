@@ -18,9 +18,11 @@ NewsMap.MainController = (function () {
             $(newsMapView).on("showFavorites", showFavorites);
             $(drawMap).on("locationClicked", closeMenu);
             $(drawMap).on("showMenuLeftForFavorite", showMenuLeftforFavorite);
+            $(drawMap).on("setAutocompletePosition", setAutocompletePosition);
             $(newsMapView).on("showFavArticle", showFavArticle);
             $(newsMapView).on("radiusSelectChanged", changeRadiusSelect);
             $(newsMapView).on("queryRemoved", removeQuery);
+            $(drawMap).on("identifyLocation", identifyLocation);
 
             return this;
         },
@@ -59,7 +61,10 @@ NewsMap.MainController = (function () {
         setLocation = function (e, lat, long) {
             drawMap._setLocation(lat, long);
         },
-
+        setAutocompletePosition = function(){
+            newsMapView.setAutocompletePosition();
+            newsMapView.setRadiusBoxPosition();
+        },
 
         closeMenu = function () {
             newsMapView._closeMenu();
@@ -73,6 +78,10 @@ NewsMap.MainController = (function () {
             var clickedArticle = drawMap._getArticle(articleID);
             currentClickedArticle = clickedArticle;
             newsMapView._setArticleContent(clickedArticle);
+        },
+
+        identifyLocation = function () {
+            newsMapView.identifyLocation();
         };
 
     that.init = init;
