@@ -57,6 +57,7 @@ NewsMap.MainController = (function () {
         },
         setAutocompletePosition = function(){
             newsMapView.setAutocompletePosition();
+            newsMapView.setRadiusBoxPosition();
         },
 
         closeMenu = function () {

@@ -8,6 +8,7 @@ NewsMap.NewsMapView = (function () {
         $favoritesMenu = null,
         $timelineMenu = null,
         $header = null,
+        $radiusBox = null,
         favoritesVisible = false,
 
         init = function () {
@@ -17,6 +18,7 @@ NewsMap.NewsMapView = (function () {
             $favoritesMenu = $("#favorites-menu");
             $timelineMenu = $("#menu-rechts");
             $header = $("#header");
+            $radiusBox = $("#radius-box");
 
             popupClick();
             previewClose();
@@ -25,6 +27,8 @@ NewsMap.NewsMapView = (function () {
             toggleMenu();
             showFavArticle();
             removeQuery();
+            setRadiusBoxPosition();
+            $radiusBox.hide();
 
 
             $buttonIdentifyLocation.on("click", identifyLocation);
@@ -39,11 +43,16 @@ NewsMap.NewsMapView = (function () {
             $("#close-favorites").on("click", closeFavorites);
             $("#favorites-button").on("click", showFavoritesMenu);
             $('.remove-query').on("click", removeQuery);
+            $("#close-radius-box").on("click", closeRadiusBox);
 
-            $("#autocomplete").bind("clickoutside", function(event){
+            $("#autocomplete").bind("clickoutside", function (event) {
                 $(this).hide();
             });
 
+            $(window).resize(function () {
+                setAutocompletePoisition();
+                setRadiusBoxPosition();
+            });
             return this;
         },
 
@@ -105,7 +114,8 @@ NewsMap.NewsMapView = (function () {
             $("#favorites-menu").hide();
         },
 
-        showFavoritesMenu = function () {$("#favorites-menu").hide();
+        showFavoritesMenu = function () {
+            $("#favorites-menu").hide();
             $("#favorites-menu").toggle();
             $("#menu-rechts").hide();
         },
@@ -127,7 +137,7 @@ NewsMap.NewsMapView = (function () {
                 $favoritesMenu.hide();
                 if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
                     currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
-                if(!$(this).hasChildNodes("my-location")){
+                if (!$(this).hasChildNodes("my-location")) {
                     $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                     $(".menu-item").hide();
                     $("#menu-items").hide();
@@ -192,6 +202,8 @@ NewsMap.NewsMapView = (function () {
 
 
                 $(that).trigger("locationFound", [lat, long]);
+                $radiusBox.show();
+                setRadiusBoxPosition();
                 _closeMenu();
 
             }
@@ -210,13 +222,20 @@ NewsMap.NewsMapView = (function () {
             var zoom = 10;
         },
 
+        closeRadiusBox = function () {
+            $radiusBox.slideUp(100);
+        },
+
         menuVisibleScroll = function () {
             $("#header").scroll(function () {
                 setAutocompletePoisition();
             });
-            $(window).resize(function () {
-                setAutocompletePoisition();
-            });
+        },
+
+        setRadiusBoxPosition = function () {
+            var offsetTop = $header.height(),
+                offsetLeft = $buttonIdentifyLocation.offset().left;
+            $radiusBox.offset({top: offsetTop, left: offsetLeft});
         },
 
         setAutocompletePoisition = function () {
@@ -228,10 +247,12 @@ NewsMap.NewsMapView = (function () {
             $autocomplete.offset({top: offsetTop, left: offsetLeft});
             $autocomplete.width(width);
         },
+
         menuItemClick = function () {
             var $toShow = $("#" + $(this).attr("data-show") + "-wrapper");
             $header.removeClass("menu-visible");
             $("#autocomplete").empty().hide();
+            $radiusBox.hide();
             if ($toShow.is(":visible")) {
                 $(".menu-item").hide();
                 $("#menu-items").hide();
@@ -262,6 +283,7 @@ NewsMap.NewsMapView = (function () {
     that._closeMenu = _closeMenu;
     that._setArticleContent = _setArticleContent;
     that.setAutocompletePosition = setAutocompletePoisition;
+    that.setRadiusBoxPosition = setRadiusBoxPosition;
     that.init = init;
 
     return that;

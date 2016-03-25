@@ -1,4 +1,4 @@
-#animDiv{
+#animDiv {
 
     width: 200px;
     height: 130px;
@@ -14,21 +14,62 @@
     animation-direction: reverse;
     z-index: 1000;
 }
+
 @-webkit-keyframes example {
-    0%   {background-color:red; left:0px; top:0px;}
-    25%  {background-color:yellow; left:200px; top:0px;}
-    50%  {background-color:blue; left:200px; top:200px;}
-    75%  {background-color:green; left:0px; top:200px;}
-    100% {background-color:red; left:0px; top:0px;}
+    0% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
+    25% {
+        background-color: yellow;
+        left: 200px;
+        top: 0px;
+    }
+    50% {
+        background-color: blue;
+        left: 200px;
+        top: 200px;
+    }
+    75% {
+        background-color: green;
+        left: 0px;
+        top: 200px;
+    }
+    100% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
 }
 
 /* Standard syntax */
 @keyframes example {
-    0%   {background-color:red; left:0px; top:0px;}
-    25%  {background-color:yellow; left:200px; top:0px;}
-    50%  {background-color:blue; left:200px; top:200px;}
-    75%  {background-color:green; left:0px; top:200px;}
-    100% {background-color:red; left:0px; top:0px;}
+    0% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
+    25% {
+        background-color: yellow;
+        left: 200px;
+        top: 0px;
+    }
+    50% {
+        background-color: blue;
+        left: 200px;
+        top: 200px;
+    }
+    75% {
+        background-color: green;
+        left: 0px;
+        top: 200px;
+    }
+    100% {
+        background-color: red;
+        left: 0px;
+        top: 0px;
+    }
 }
 
 html, body {
@@ -141,30 +182,26 @@ a:hover {
     font-style: italic;
 }
 
-#menu-left::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+#menu-left::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
     border-radius: 10px;
 }
 
-#menu-left::-webkit-scrollbar
-{
+#menu-left::-webkit-scrollbar {
     width: 10px;
     background-color: #F5F5F5;
 }
 
-#menu-left::-webkit-scrollbar-thumb
-{
+#menu-left::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-image: -webkit-gradient(linear,
     left bottom,
     left top,
-    color-stop(0.44, rgb(122,153,217)),
-    color-stop(0.72, rgb(73,125,189)),
-    color-stop(0.86, rgb(28,58,148)));
+    color-stop(0.44, rgb(122, 153, 217)),
+    color-stop(0.72, rgb(73, 125, 189)),
+    color-stop(0.86, rgb(28, 58, 148)));
 }
-
 
 @media (min-width: 64em) {
     #menu-left {
@@ -259,7 +296,8 @@ a:hover {
 #menu-list h5 {
     color: white;
     font-style: italic;
-            }
+}
+
 #menu-list h6 {
     color: white;
     font-style: italic;
@@ -304,7 +342,6 @@ a:hover {
     padding-right: .5rem;
     padding-bottom: .2rem;
 }
-
 
 .leaflet-popup-content-wrapper {
     background: white;
@@ -407,54 +444,48 @@ a:hover {
     background: rgba(0, 140, 186, 0.95);
 
 }
-#chrono-wrapper::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+
+#chrono-wrapper::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
     border-radius: 10px;
 }
 
-#chrono-wrapper::-webkit-scrollbar
-{
+#chrono-wrapper::-webkit-scrollbar {
     width: 10px;
     background-color: #F5F5F5;
 }
 
-#chrono-wrapper::-webkit-scrollbar-thumb
-{
+#chrono-wrapper::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-image: -webkit-gradient(linear,
     left bottom,
     left top,
-    color-stop(0.44, rgb(122,153,217)),
-    color-stop(0.72, rgb(73,125,189)),
-    color-stop(0.86, rgb(28,58,148)));
+    color-stop(0.44, rgb(122, 153, 217)),
+    color-stop(0.72, rgb(73, 125, 189)),
+    color-stop(0.86, rgb(28, 58, 148)));
 }
 
-#favorites-list::-webkit-scrollbar-track
-{
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+#favorites-list::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
     border-radius: 10px;
 }
 
-#favorites-list::-webkit-scrollbar
-{
+#favorites-list::-webkit-scrollbar {
     width: 10px;
     background-color: #F5F5F5;
 }
 
-#favorites-list::-webkit-scrollbar-thumb
-{
+#favorites-list::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-image: -webkit-gradient(linear,
     left bottom,
     left top,
-    color-stop(0.44, rgb(122,153,217)),
-    color-stop(0.72, rgb(73,125,189)),
-    color-stop(0.86, rgb(28,58,148)));
+    color-stop(0.44, rgb(122, 153, 217)),
+    color-stop(0.72, rgb(73, 125, 189)),
+    color-stop(0.86, rgb(28, 58, 148)));
 }
-
 
 @media (min-width: 40em) and (max-width: 64em) {
     #menu-rechts, #favorites-menu {
@@ -473,13 +504,13 @@ a:hover {
     cursor: pointer;
     width: 100%;
     padding: .5rem;
-   /* height: 3.55rem; */
+    /* height: 3.55rem; */
     height: 5.4rem;
     border-bottom: 2px solid #fff;
-    background: rgba(0, 140, 186,0.4);
+    background: rgba(0, 140, 186, 0.4);
 }
 
-.accordDiv{
+.accordDiv {
     color: #007ba4;
 }
 
@@ -551,7 +582,7 @@ li.accordion-navigation {
 
 }
 
-#myModal{
+#myModal {
     border-radius: 40px;
 }
 
@@ -582,9 +613,6 @@ li.accordion-navigation {
     font-size: 70%;
 }
 
-#identify-location {
-    margin: 0;
-}
 
 #location-start-wrapper {
     /*padding: 0 10px 0 10px;*/
@@ -615,7 +643,7 @@ li.accordion-navigation {
     height: 45px;
 }
 
-#autocomplete {
+#autocomplete, #radius-box {
     margin: 0;
     background-color: white;
     overflow: scroll;
@@ -639,10 +667,38 @@ li.accordion-navigation {
     background-color: #2d61b5;
     color: white;
 }
+
+#radius-box {
+    display: inline-block;
+    top: 85px;
+    left: 254px;
+    height: auto;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: 150px;
+}
+
+@media (max-width: 40em) {
+    #radius-box {
+        width: 100%;
+        left: 0 !important;
+        text-align: center;
+    }
+
+    #radius-box select {
+        width: 150px;
+
+    }
+}
+
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     background: lightcyan !important;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.4) !important;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4) !important;
 }
+
 .marker-popup {
     position: absolute;
     cursor: pointer;
@@ -684,8 +740,9 @@ li.accordion-navigation {
     padding-top: 20%;
     display: none;
 }
-@media(max-width: 40em){
-    #loading{
+
+@media (max-width: 40em) {
+    #loading {
         padding-top: 30%;
         font-size: 2rem;
     }
