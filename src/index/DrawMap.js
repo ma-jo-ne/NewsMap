@@ -232,6 +232,7 @@ NewsMap.DrawMap = (function () {
                     $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
                     $(".accordItem").css("color", "#F5F5F5");
                     $(".accordItem").css("border-style", "outset");
+                    
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
