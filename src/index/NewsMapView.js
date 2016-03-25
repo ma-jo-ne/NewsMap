@@ -280,7 +280,7 @@ NewsMap.NewsMapView = (function () {
             $("#menu-items").hide();
             $header.removeClass("menu-visible");
         };
-
+   
     that.getCurrentArticle = getCurrentArticle;
     that._closeMenu = _closeMenu;
     that._setArticleContent = _setArticleContent;

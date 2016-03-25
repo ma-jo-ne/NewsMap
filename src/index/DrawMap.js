@@ -100,9 +100,6 @@ NewsMap.DrawMap = (function () {
         },
 
         addMarker = function (data) {
-            //getLatLonFromCity();
-
-
             if (!favoritesVisible) {
                 lastData = data;
             }
@@ -135,7 +132,9 @@ NewsMap.DrawMap = (function () {
                     initLoading = false;
                 }
                 else {
+                    console.log(data[data.length - 1], data[data.length - 1].lon)
                     map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
+                    map.setView(new L.LatLng(51.8, 14.41667));
                 }
 
                 console.log("markers set");
@@ -163,17 +162,17 @@ NewsMap.DrawMap = (function () {
         },
 
         getLatLonFromCity = function () {
-/*
-            $.ajax({
-                    url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
-                    type: 'GET',
-                    success: function (data) {
-                        var parsedData = $.parseXML(data);
-                        $data=$(parsedData);
-                        $lati = $data.find()
-                        console.log(parsedData);
-                    }});
-                    */
+            /*
+             $.ajax({
+             url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
+             type: 'GET',
+             success: function (data) {
+             var parsedData = $.parseXML(data);
+             $data=$(parsedData);
+             $lati = $data.find()
+             console.log(parsedData);
+             }});
+             */
         },
 
 
@@ -445,8 +444,6 @@ NewsMap.DrawMap = (function () {
 
         selectChanged = function () {
             searchSelect = $("#search-select").val();
-
-            console.log(searchSelect);
         },
 
         radiusSelectChanged = function () {
@@ -454,12 +451,13 @@ NewsMap.DrawMap = (function () {
             console.log("in radiusSelectChanged" + radiusSelect);
             markersSet = false;
             addMarker(lastData);
+            $(that).trigger("identifyLocation");
+
         },
 
         dateSelection = function () {
             $dateSelect.on("change", function () {
                 dateSelectionVal = $(this).val();
-                console.log(dateSelectionVal)
             });
         },
 
@@ -552,7 +550,3 @@ NewsMap.DrawMap = (function () {
 
     return that;
 }());
-
-
-
-
