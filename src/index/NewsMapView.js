@@ -236,6 +236,7 @@ NewsMap.NewsMapView = (function () {
 
         closeSearchWrapper = function () {
             $searchWrapper.hide();
+            $header.removeClass("menu-visible");
         },
 
         menuVisibleScroll = function () {
