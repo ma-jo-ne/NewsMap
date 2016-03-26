@@ -549,6 +549,10 @@ a:hover {
     padding: 1rem;
 }
 
+#no-favorites {
+    padding: 1rem;
+}
+
 #favorites-list li:hover {
     background: white;
     color: #2c60b5;
@@ -799,6 +803,7 @@ label {
     color: white;
     margin-left: 0.5rem;
 }
+
 
 #query-row {
     position: absolute;

@@ -86,6 +86,8 @@ NewsMap.NewsMapView = (function () {
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
+            $("#no-favorites").hide();
+
             var menuStar = $("#favorites-menu-star");
             var bg = menuStar.css('color');
             menuStar.css('color', 'yellow');

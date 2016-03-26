@@ -251,7 +251,7 @@ NewsMap.DrawMap = (function () {
             searchQueries.push(queryItem);
 
             var $queryLi = $("<li class='query-item'>");
-        
+
             var $queryClose = $("<i class='fi-x remove-query'>");
             $queryLi.html(query);
             $($queryLi).append($queryClose);
