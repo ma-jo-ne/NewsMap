@@ -260,7 +260,21 @@ NewsMap.DrawMap = (function () {
         tagSearchClicked = function () {
             var query = ($('#tag-search-input').val());
 
-            var queryItem = [query, searchSelect]
+
+            console.log(searchSelect);
+            var selectedFunction;
+
+            if(searchSelect == "location") {
+                selectedFunction = "locAuto";
+            }
+            else if(searchSelect == "title") {
+                selectedFunction = "titleAuto";
+            }
+            else if(searchSelect == "tag") {
+                selectedFunction = "tagAuto";
+            }
+
+            var queryItem = [query, selectedFunction]
             searchQueries.push(queryItem);
 
             var $queryLi = $("<li class='query-item'>");
@@ -274,7 +288,8 @@ NewsMap.DrawMap = (function () {
                 $("#search-queries").append($queryLi);
             }
 
-            getArticle(query, searchSelect);
+            //getArticle(query, searchSelect);
+            getArticleByQuery();
             $('#autocomplete').empty().hide();
         },
 
@@ -369,17 +384,9 @@ NewsMap.DrawMap = (function () {
 
 
                                 $("#tag-search-input").val($(this).html());
-                                /*  if (selectedFunction == "tagAuto") {
-                                 getArticle($('#tag-search-input').val(), "tag");
-                                 }
-                                 else if (selectedFunction == "locAuto") {
-                                 getArticle($('#tag-search-input').val(), "location");
-                                 }
-                                 else if (selectedFunction == "titleAuto") {
-                                 getArticle($('#tag-search-input').val(), "title");
-                                 }*/
 
-                                getArticle($('#tag-search-input').val(), selectedFunction);
+                                //getArticle($('#tag-search-input').val(), selectedFunction);
+                                getArticleByQuery();
 
                                 $autoComplete.empty().hide();
                             });
@@ -436,6 +443,38 @@ NewsMap.DrawMap = (function () {
                     }
                 });
             }
+        },
+
+        getArticleByQuery = function () {
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://" + location.host + "/NewsMap/get_data.php",
+                    data: {func: "getQueries", queries: searchQueries, date: dateSelectionVal},
+                    beforeSend: function () {
+                        $loading.show();
+                    },
+                    success: function (data) {
+                        if (JSON.parse(data).length == 0) {
+                            console.log("Keine Ergebnisse");
+                            alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
+                        }
+                        else {
+                            console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
+                            markersSet = false;
+                            addMarker(JSON.parse(data));
+
+                        }
+
+                        //console.log(data);
+                    },
+                    error: function () {
+                        alert("error");
+                    },
+                    complete: function () {
+                        $loading.hide();
+                    }
+                });
         },
 
     /*
@@ -564,16 +603,17 @@ NewsMap.DrawMap = (function () {
         },
 
         removeQuery = function (query) {
-            console.log(searchQueries[0]);
             $.each(searchQueries, function (index) {
                 if (searchQueries[index][0] == query) {
                     searchQueries.splice(index, 1);
                 }
             });
-            if (searchQueries = []) {
+            if (searchQueries.length == 0) {
                 getAllArticles()
             }
-
+            else {
+                getArticleByQuery();
+            }
         };
 
 

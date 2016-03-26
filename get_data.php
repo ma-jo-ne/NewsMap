@@ -21,6 +21,8 @@ $dateSelection = $_GET["date"];
 /*
  * Daten mit locations sind erst ab 20.01. verfügbar
  */
+
+//$queries = $_GET["queries"];
 $dateUpperBorder = "2016-01-20";
 $dateLowerBorder = "0";
 if ($dateSelection == "today") {
@@ -64,9 +66,71 @@ if ($_GET["func"] == "tag") {
     regionAutocomplete($conn, $dateLowerBorder, $dateUpperBorder);
 } else if ($_GET["func"] == "titleAuto") {
     titleAutocomplete($conn, $dateLowerBorder, $dateUpperBorder);
+} else if ($_GET["func"] == "getQueries") {
+    getArticleByQueries($conn, $dateLowerBorder, $dateUpperBorder);
 }
 
+
 //
+
+function getArticleByQueries($conn, $dateLowerBorder, $dateUpperBorder)
+{
+    $queries = $_GET["queries"];
+    $locations = [];
+    $tags = [];
+    $titles = [];
+
+    foreach ($queries as $query) {
+        if ($query[1] == "tagAuto") {
+            array_push($tags, $query[0]);
+        } else if ($query[1] == "locAuto") {
+            array_push($locations, $query[0]);
+        } else if ($query[1] == "titleAuto") {
+            array_push($titles, $query[0]);
+        }
+    }
+    $loc = implode('","', $locations);
+    $title = implode('","', $titles);
+    $tag = implode('","', $tags);
+
+    $loc = '"'.$loc.'"';
+    $title = '"'.$title.'"';
+    $tag = '"'.$tag.'"';
+
+
+
+    if(count($locations) != 0 && count($tags) == 0 && count($titles) == 0) {
+        $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon FROM articles, locations WHERE articles.post_id=locations.article_id AND locations.city IN ('.$loc.') AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '")  AND locations.county = "DE" ORDER BY articles.pub_date DESC';
+    }
+
+    else if(count($locations) != 0 && count($tags) != 0 && count($titles) == 0) {
+        $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon, articles_tags.name FROM articles, locations, articles_tags WHERE articles.post_id=locations.article_id AND articles.post_id=articles_tags.article_id AND articles_tags.name IN ('.$tag.') AND locations.city IN ('.$loc.') AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '")  AND locations.county = "DE" ORDER BY articles.pub_date DESC';
+    }
+
+    else if(count($locations) != 0 && count($tags) == 0 && count($titles) != 0) {
+        $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon FROM articles, locations WHERE articles.post_id=locations.article_id AND locations.city IN ('.$loc.') AND articles.title IN ('.$title.') AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '")  AND locations.county = "DE" ORDER BY articles.pub_date DESC';
+    }
+
+    else if(count($locations) != 0 && count($tags) != 0 && count($titles) != 0) {
+        $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon, articles_tags.name FROM articles, locations, articles_tags WHERE articles.post_id=locations.article_id AND articles.post_id=articles_tags.article_id AND articles_tags.name IN ('.$tag.') AND locations.city IN ('.$loc.') AND articles.title IN ('.$title.') AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '")  AND locations.county = "DE" ORDER BY articles.pub_date DESC';
+    }
+
+    else if(count($locations) == 0 && count($tags) != 0 && count($titles) == 0) {
+        $sql = 'SELECT content, link, pub_date, title, post_id, lat, lon, articles_tags.name FROM articles, locations, articles_tags WHERE articles.post_id=locations.article_id AND articles.post_id=articles_tags.article_id AND articles_tags.name IN ('.$tag.') AND articles.pub_date BETWEEN ("' . $dateLowerBorder . '") AND ("' . $dateUpperBorder . '")  AND locations.county = "DE" ORDER BY articles.pub_date DESC';
+    }
+
+
+    if ($result = $conn->query($sql)) {
+        $rows = array();
+        while ($r = mysqli_fetch_assoc($result)) {
+            $rows[] = $r;
+        }
+        echo json_encode($rows);
+
+        $result->close();
+    }
+}
+
 function tagAutocomplete($conn, $dateLowerBorder, $dateUpperBorder)
 {
     $keyword = '%' . $_GET['keyword'] . '%';
