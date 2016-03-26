@@ -45,6 +45,7 @@ NewsMap.DrawMap = (function () {
                 autocomplete();
                 enterListen();
                 drawmap();
+                checkFavorites();
             });
 
             return this;
@@ -522,6 +523,14 @@ NewsMap.DrawMap = (function () {
             myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
         },
 
+        checkFavorites = function () {
+
+            if ($("#favorites-list li").size() == 0) {
+                $("#favorites-list").html("<li id='no-favorites-info'>Noch keine Favoriten in Ihrer Liste.</li>")
+            }
+            else $("#no-favorites-info").remove();
+        },
+
         addToFavorites = function (article) {
             favorites.push(article);
 
@@ -530,8 +539,10 @@ NewsMap.DrawMap = (function () {
             var $li = $("<li>");
             $li.attr("index", favorites.length - 1).html(display_name);
             $li.attr("class", "favorites-li");
+
             $("#favorites-list").append($li);
 
+            checkFavorites();
         },
 
         showFavorites = function () {
