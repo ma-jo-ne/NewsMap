@@ -1,4 +1,8 @@
+html, body > * {
+    font-family: 'Open Sans', sans-serif !important;
+}
 #animDiv {
+
 
     width: 200px;
     height: 130px;
@@ -510,10 +514,11 @@ a:hover {
     background: rgba(0, 140, 186, 0.4);
 }
 
-.accordDiv a{
+.accordDiv a {
     color: #007ba4;
 }
-.accordDiv{
+
+.accordDiv {
     color: #5c5c3d;
 }
 
@@ -616,7 +621,6 @@ li.accordion-navigation {
     font-size: 70%;
 }
 
-
 #location-start-wrapper {
     /*padding: 0 10px 0 10px;*/
     padding: 10px;
@@ -675,6 +679,7 @@ li.accordion-navigation {
     cursor: pointer;
     font-size: 1.5rem;
 }
+
 #radius-box {
     display: inline-block;
     top: 85px;
@@ -711,10 +716,17 @@ li.accordion-navigation {
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4) !important;
 }
 
+.leaflet-container a.leaflet-popup-close-button {
+    font-size: 1.6rem !important;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
 .marker-popup {
     position: absolute;
     cursor: pointer;
-    width: 84%;
+    width: 80%;
     height: 67%;
     display: block;
 }

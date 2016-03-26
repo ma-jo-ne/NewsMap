@@ -117,12 +117,16 @@ NewsMap.DrawMap = (function () {
 
 
                         var marker = L.marker([data[i].lat, data[i].lon]);
+                        $(marker).attr("data-id", data[i].post_id);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
                         marker.bindPopup(markerPopup);
+
                         $(markerPopup).attr("id", data[i].post_id);
                         markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
-
+                        marker.on("click", function () {
+                            $(this).dotdotdot();
+                        })
                     }
                 }
                 map.addLayer(markers);
@@ -145,6 +149,9 @@ NewsMap.DrawMap = (function () {
 
 
             }
+            map.on('popupopen', function (e) {
+                $(".marker-popup").dotdotdot()
+            });
         },
 
         enterListen = function () {

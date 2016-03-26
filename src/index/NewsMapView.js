@@ -79,8 +79,8 @@ NewsMap.NewsMapView = (function () {
         },
 
         closeMenuRight = function () {
-            $("#menu-rechts").hide();
-            $("#favorites-menu").hide();
+            $timelineMenu.hide();
+            $favoritesMenu.hide();
         },
 
         addToFavorites = function () {
@@ -112,14 +112,13 @@ NewsMap.NewsMapView = (function () {
         },
 
         showRightMenu = function () {
-            $("#menu-rechts").toggle();
-            $("#favorites-menu").hide();
+            $timelineMenu.show(100);
+            $favoritesMenu.hide();
         },
 
         showFavoritesMenu = function () {
-            $("#favorites-menu").hide();
-            $("#favorites-menu").toggle();
-            $("#menu-rechts").hide();
+            $favoritesMenu.show(100);
+            $timelineMenu.hide();
         },
 
         searchSelectChanged = function () {
@@ -134,10 +133,14 @@ NewsMap.NewsMapView = (function () {
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
                 $radiusBox.hide();
+                $(this).bind("clickoutside", function (event) {
+                    $(this).hide();
+                });
+
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-                $("#menu-rechts").hide();
+                $timelineMenu.hide();
                 $favoritesMenu.hide();
                 if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
                     currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
