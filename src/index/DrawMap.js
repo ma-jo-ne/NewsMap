@@ -10,6 +10,7 @@ NewsMap.DrawMap = (function () {
         radiusSelect = $("#radius-select").val(),
         myLocation = null,
         $loading = null,
+        $autoComplete = null,
         initLoading = true,
         favorites = [],
         favoritesVisible = false,
@@ -37,7 +38,7 @@ NewsMap.DrawMap = (function () {
             }
 
             $loading = $("#loading");
-
+            $autoComplete = $("#autocomplete");
 
             $(document).ready(function () {
                 dateSelection();
@@ -124,9 +125,12 @@ NewsMap.DrawMap = (function () {
 
                         $(markerPopup).attr("id", data[i].post_id);
                         markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
-                        marker.on("click", function () {
-                            $(this).dotdotdot();
-                        })
+                        marker.on('mouseover', function (e) {
+                            this.openPopup();
+                        });
+                        marker.on('mouseout', function (e) {
+                            this.closePopup();
+                        });
                     }
                 }
                 map.addLayer(markers);
@@ -159,8 +163,7 @@ NewsMap.DrawMap = (function () {
             $('#tag-search-input').keypress(function (e) {
                 if (e.which == 13) {
                     getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
-                    $("#autocomplete").empty();
-                    $("#autocomplete").hide();
+                    $autoComplete.empty().hide();
                     return false;    //<---- Add this line
                 }
             });
@@ -275,12 +278,12 @@ NewsMap.DrawMap = (function () {
         autocomplete = function () {
 
             $('#tag-search-input').on('input', function (e) {
-                $("#autocomplete").empty().show();
+                $autoComplete.empty().show();
                 $(that).trigger("setAutocompletePosition");
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
                 if (keyword.length == 0) {
-                    $("#autocomplete").hide();
+                    $autoComplete.hide();
                 }
                 if (keyword.length >= min_length) {
                     var selectedFunction;
@@ -305,9 +308,9 @@ NewsMap.DrawMap = (function () {
                         type: 'GET',
                         data: {func: selectedFunction, keyword: keyword, date: dateSelectionVal},
                         success: function (data) {
-                            $("#autocomplete").empty();
+                            $autoComplete.empty();
                             var parsedData = JSON.parse(data);
-                            $("#autocomplete").show();
+                            $autoComplete.show();
 
                             var removedDuplicates = [];
 
@@ -345,7 +348,7 @@ NewsMap.DrawMap = (function () {
 
                                 var $li = $("<li>");
                                 $li.attr("index", key).html(display_name);
-                                $("#autocomplete").append($li);
+                                $autoComplete.append($li);
                             });
                             $("#autocomplete li").on("click", function () {
                                 var query = $(this).html();
@@ -375,8 +378,7 @@ NewsMap.DrawMap = (function () {
 
                                 getArticle($('#tag-search-input').val(), selectedFunction);
 
-                                $("#autocomplete").empty();
-                                $("#autocomplete").hide();
+                                $autoComplete.empty().hide();
                             });
                         }
                     });
