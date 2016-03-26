@@ -1,4 +1,8 @@
+html, body > * {
+    font-family: 'Open Sans', sans-serif !important;
+}
 #animDiv {
+
 
     width: 200px;
     height: 130px;
@@ -510,10 +514,11 @@ a:hover {
     background: rgba(0, 140, 186, 0.4);
 }
 
-.accordDiv a{
+.accordDiv a {
     color: #007ba4;
 }
-.accordDiv{
+
+.accordDiv {
     color: #5c5c3d;
 }
 
@@ -549,6 +554,10 @@ a:hover {
     padding: 1rem;
 }
 
+#no-favorites {
+    padding: 1rem;
+}
+
 #favorites-list li:hover {
     background: white;
     color: #2c60b5;
@@ -577,12 +586,22 @@ li.accordion-navigation {
 .accordion .accordion-navigation.active > a, .accordion dd.active > a {
     backgound-color: #2c60b5;
     color: #F5F5F5;
+    text-decoration: none;
 }
 
 .accordItem {
 
     background: rgba(0, 140, 186, 0.95);
 
+}
+
+.accordion-navigation:hover, .accordion-navigation:active {
+    text-decoration: none;
+    background: darkblue;
+}
+
+.accordion-navigation a:hover {
+    text-decoration: none;
 }
 
 #myModal {
@@ -615,7 +634,6 @@ li.accordion-navigation {
     font-style: italic;
     font-size: 70%;
 }
-
 
 #location-start-wrapper {
     /*padding: 0 10px 0 10px;*/
@@ -671,10 +689,15 @@ li.accordion-navigation {
     color: white;
 }
 
-#close-radius-box {
+#close-radius-box, #close-search-wrapper {
     cursor: pointer;
     font-size: 1.5rem;
 }
+
+@media (min-width: 40em) {
+
+}
+
 #radius-box {
     display: inline-block;
     top: 85px;
@@ -711,10 +734,17 @@ li.accordion-navigation {
     box-shadow: 0 3px 14px rgba(0, 0, 0, 0.4) !important;
 }
 
+.leaflet-container a.leaflet-popup-close-button {
+    font-size: 1.6rem !important;
+    padding-right: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
 .marker-popup {
     position: absolute;
     cursor: pointer;
-    width: 84%;
+    width: 80%;
     height: 67%;
     display: block;
 }
@@ -800,9 +830,10 @@ label {
     margin-left: 0.5rem;
 }
 
+
 #query-row {
     position: absolute;
-    margin-top: 7rem;
+    margin-top: 6rem;
 }
 
 .remove-query {

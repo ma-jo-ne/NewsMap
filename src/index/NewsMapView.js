@@ -8,6 +8,7 @@ NewsMap.NewsMapView = (function () {
         $favoritesMenu = null,
         $timelineMenu = null,
         $header = null,
+        $$searchWrapper = null,
         $radiusBox = null,
         favoritesVisible = false,
 
@@ -19,6 +20,7 @@ NewsMap.NewsMapView = (function () {
             $timelineMenu = $("#menu-rechts");
             $header = $("#header");
             $radiusBox = $("#radius-box");
+            $searchWrapper = $("#search-wrapper");
 
             popupClick();
             previewClose();
@@ -42,6 +44,7 @@ NewsMap.NewsMapView = (function () {
             $("#favorites-button").on("click", showFavoritesMenu);
             $('.remove-query').on("click", removeQuery);
             $("#close-radius-box").on("click", closeRadiusBox);
+            $("#close-search-wrapper").on("click", closeSearchWrapper);
 
             $("#autocomplete").bind("clickoutside", function (event) {
                 $(this).hide();
@@ -79,8 +82,8 @@ NewsMap.NewsMapView = (function () {
         },
 
         closeMenuRight = function () {
-            $("#menu-rechts").hide();
-            $("#favorites-menu").hide();
+            $timelineMenu.hide();
+            $favoritesMenu.hide();
         },
 
         addToFavorites = function () {
@@ -112,14 +115,13 @@ NewsMap.NewsMapView = (function () {
         },
 
         showRightMenu = function () {
-            $("#menu-rechts").toggle();
-            $("#favorites-menu").hide();
+            $timelineMenu.show(100);
+            $favoritesMenu.hide();
         },
 
         showFavoritesMenu = function () {
-            $("#favorites-menu").hide();
-            $("#favorites-menu").toggle();
-            $("#menu-rechts").hide();
+            $favoritesMenu.show(100);
+            $timelineMenu.hide();
         },
 
         searchSelectChanged = function () {
@@ -134,10 +136,14 @@ NewsMap.NewsMapView = (function () {
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
                 $radiusBox.hide();
+                $(this).bind("clickoutside", function (event) {
+                    $(this).closest(".leaflet-popup").hide();
+                });
+
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
                 $(".menu-item").hide();
                 $("#menu-items").hide();
-                $("#menu-rechts").hide();
+                $timelineMenu.hide();
                 $favoritesMenu.hide();
                 if (NewsMap.DrawMap._getArticle($(this).attr("data-id")).link != null)
                     currentArticle = NewsMap.DrawMap._getArticle($(this).attr("data-id")).link;
@@ -182,9 +188,6 @@ NewsMap.NewsMapView = (function () {
             $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
             $(".entry-summary").html(clickedArticle.content).dotdotdot();
-            $(".entry-summary").dotdotdot();
-            console.log(clickedArticle);
-
         },
 
         toggleMenu = function () {
@@ -229,6 +232,11 @@ NewsMap.NewsMapView = (function () {
 
         closeRadiusBox = function () {
             $radiusBox.slideUp(100);
+        },
+
+        closeSearchWrapper = function () {
+            $searchWrapper.hide();
+            $header.removeClass("menu-visible");
         },
 
         menuVisibleScroll = function () {
