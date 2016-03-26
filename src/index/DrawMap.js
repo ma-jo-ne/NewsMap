@@ -128,6 +128,12 @@ NewsMap.DrawMap = (function () {
                         marker.on('mouseover', function (e) {
                             this.openPopup();
                         });
+                        marker.on('mouseout', function (e) {
+                            var $this = this;
+                            setTimeout(function () {
+                                $this.closePopup();
+                            }, 10000);
+                        });
                     }
                 }
                 map.addLayer(markers);
