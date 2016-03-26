@@ -134,7 +134,7 @@ NewsMap.NewsMapView = (function () {
             $('body').on('click', '.marker-popup', function () {
                 $radiusBox.hide();
                 $(this).bind("clickoutside", function (event) {
-                    $(this).hide();
+                    $(this).closest(".leaflet-popup").hide();
                 });
 
                 $(that).trigger("markerPopupClick", [$(this).attr("data-id")]);
@@ -185,9 +185,6 @@ NewsMap.NewsMapView = (function () {
             $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
             $(".entry-summary").html(clickedArticle.content).dotdotdot();
-            $(".entry-summary").dotdotdot();
-            console.log(clickedArticle);
-
         },
 
         toggleMenu = function () {
