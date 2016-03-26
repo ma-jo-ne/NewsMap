@@ -233,10 +233,10 @@ NewsMap.DrawMap = (function () {
                     artikelLink = data[i].link;
                     artikelOrt = data[i].city;
                     pubDate = data[i].pub_date;
-                    region=data[i].region;
+                    region = data[i].region;
                     accord = $('<li class="accordion-navigation">' +
                         '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ','+region+'<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                         '</div> </li>');
@@ -247,7 +247,6 @@ NewsMap.DrawMap = (function () {
                     $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
                     $(".accordItem").css("color", "#F5F5F5");
                     $(".accordItem").css("border-style", "outset");
-
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
@@ -265,13 +264,13 @@ NewsMap.DrawMap = (function () {
             searchQueries.push(queryItem);
 
             var $queryLi = $("<li class='query-item'>");
-        
+
             var $queryClose = $("<i class='fi-x remove-query'>");
             $queryLi.html(query);
             $($queryLi).append($queryClose);
             $($queryLi).attr('data-show', query);
 
-            if(query != "") {
+            if (query != "") {
                 $("#search-queries").append($queryLi);
             }
 
@@ -370,15 +369,15 @@ NewsMap.DrawMap = (function () {
 
 
                                 $("#tag-search-input").val($(this).html());
-                              /*  if (selectedFunction == "tagAuto") {
-                                    getArticle($('#tag-search-input').val(), "tag");
-                                }
-                                else if (selectedFunction == "locAuto") {
-                                    getArticle($('#tag-search-input').val(), "location");
-                                }
-                                else if (selectedFunction == "titleAuto") {
-                                    getArticle($('#tag-search-input').val(), "title");
-                                }*/
+                                /*  if (selectedFunction == "tagAuto") {
+                                 getArticle($('#tag-search-input').val(), "tag");
+                                 }
+                                 else if (selectedFunction == "locAuto") {
+                                 getArticle($('#tag-search-input').val(), "location");
+                                 }
+                                 else if (selectedFunction == "titleAuto") {
+                                 getArticle($('#tag-search-input').val(), "title");
+                                 }*/
 
                                 getArticle($('#tag-search-input').val(), selectedFunction);
 
@@ -532,17 +531,19 @@ NewsMap.DrawMap = (function () {
         },
 
         addToFavorites = function (article) {
-            favorites.push(article);
+            if ($.inArray(article, favorites) == -1) {
+                favorites.push(article);
 
-            var display_name = favorites[favorites.length - 1].title;
+                var display_name = favorites[favorites.length - 1].title;
 
-            var $li = $("<li>");
-            $li.attr("index", favorites.length - 1).html(display_name);
-            $li.attr("class", "favorites-li");
+                var $li = $("<li>");
+                $li.attr("index", favorites.length - 1).html(display_name);
+                $li.attr("class", "favorites-li");
 
-            $("#favorites-list").append($li);
+                $("#favorites-list").append($li);
 
-            checkFavorites();
+                checkFavorites();
+            }
         },
 
         showFavorites = function () {
@@ -562,14 +563,14 @@ NewsMap.DrawMap = (function () {
             $(that).trigger("showMenuLeftForFavorite", favorites[index]);
         },
 
-        removeQuery = function(query) {
+        removeQuery = function (query) {
             console.log(searchQueries[0]);
             $.each(searchQueries, function (index) {
-                if(searchQueries[index][0] == query) {
+                if (searchQueries[index][0] == query) {
                     searchQueries.splice(index, 1);
                 }
             });
-            if(searchQueries = []) {
+            if (searchQueries = []) {
                 getAllArticles()
             }
 
