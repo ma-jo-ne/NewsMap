@@ -10,6 +10,7 @@ NewsMap.DrawMap = (function () {
         radiusSelect = $("#radius-select").val(),
         myLocation = null,
         $loading = null,
+        $autoComplete = null,
         initLoading = true,
         favorites = [],
         favoritesVisible = false,
@@ -37,13 +38,14 @@ NewsMap.DrawMap = (function () {
             }
 
             $loading = $("#loading");
-
+            $autoComplete = $("#autocomplete");
 
             $(document).ready(function () {
                 dateSelection();
                 autocomplete();
                 enterListen();
                 drawmap();
+                checkFavorites();
             });
 
             return this;
@@ -117,12 +119,22 @@ NewsMap.DrawMap = (function () {
 
 
                         var marker = L.marker([data[i].lat, data[i].lon]);
+                        $(marker).attr("data-id", data[i].post_id);
                         var markerPopup = "<div class='marker-popup' data-id='" + data[i].post_id + "' ><h3 class='marker-title'>" + data[i].title + "</h3></div>";
 
                         marker.bindPopup(markerPopup);
+
                         $(markerPopup).attr("id", data[i].post_id);
                         markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
-
+                        marker.on('mouseover', function (e) {
+                            this.openPopup();
+                        });
+                        marker.on('mouseout', function (e) {
+                            var $this = this;
+                            setTimeout(function () {
+                                $this.closePopup();
+                            }, 10000);
+                        });
                     }
                 }
                 map.addLayer(markers);
@@ -145,6 +157,9 @@ NewsMap.DrawMap = (function () {
 
 
             }
+            map.on('popupopen', function (e) {
+                $(".marker-popup").dotdotdot()
+            });
         },
 
         enterListen = function () {
@@ -152,8 +167,7 @@ NewsMap.DrawMap = (function () {
             $('#tag-search-input').keypress(function (e) {
                 if (e.which == 13) {
                     getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
-                    $("#autocomplete").empty();
-                    $("#autocomplete").hide();
+                    $autoComplete.empty().hide();
                     return false;    //<---- Add this line
                 }
             });
@@ -219,10 +233,10 @@ NewsMap.DrawMap = (function () {
                     artikelLink = data[i].link;
                     artikelOrt = data[i].city;
                     pubDate = data[i].pub_date;
-                    region=data[i].region;
+                    region = data[i].region;
                     accord = $('<li class="accordion-navigation">' +
                         '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ','+region+'<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
                         '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
                         '</div> </li>');
@@ -233,7 +247,6 @@ NewsMap.DrawMap = (function () {
                     $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
                     $(".accordItem").css("color", "#F5F5F5");
                     $(".accordItem").css("border-style", "outset");
-
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
@@ -257,7 +270,7 @@ NewsMap.DrawMap = (function () {
             $($queryLi).append($queryClose);
             $($queryLi).attr('data-show', query);
 
-            if(query != "") {
+            if (query != "") {
                 $("#search-queries").append($queryLi);
             }
 
@@ -268,12 +281,12 @@ NewsMap.DrawMap = (function () {
         autocomplete = function () {
 
             $('#tag-search-input').on('input', function (e) {
-                $("#autocomplete").empty().show();
+                $autoComplete.empty().show();
                 $(that).trigger("setAutocompletePosition");
                 var min_length = 1; // min caracters to display the autocomplete
                 var keyword = $('#tag-search-input').val();
                 if (keyword.length == 0) {
-                    $("#autocomplete").hide();
+                    $autoComplete.hide();
                 }
                 if (keyword.length >= min_length) {
                     var selectedFunction;
@@ -298,9 +311,9 @@ NewsMap.DrawMap = (function () {
                         type: 'GET',
                         data: {func: selectedFunction, keyword: keyword, date: dateSelectionVal},
                         success: function (data) {
-                            $("#autocomplete").empty();
+                            $autoComplete.empty();
                             var parsedData = JSON.parse(data);
-                            $("#autocomplete").show();
+                            $autoComplete.show();
 
                             var removedDuplicates = [];
 
@@ -338,7 +351,7 @@ NewsMap.DrawMap = (function () {
 
                                 var $li = $("<li>");
                                 $li.attr("index", key).html(display_name);
-                                $("#autocomplete").append($li);
+                                $autoComplete.append($li);
                             });
                             $("#autocomplete li").on("click", function () {
                                 var query = $(this).html();
@@ -356,20 +369,19 @@ NewsMap.DrawMap = (function () {
 
 
                                 $("#tag-search-input").val($(this).html());
-                              /*  if (selectedFunction == "tagAuto") {
-                                    getArticle($('#tag-search-input').val(), "tag");
-                                }
-                                else if (selectedFunction == "locAuto") {
-                                    getArticle($('#tag-search-input').val(), "location");
-                                }
-                                else if (selectedFunction == "titleAuto") {
-                                    getArticle($('#tag-search-input').val(), "title");
-                                }*/
+                                /*  if (selectedFunction == "tagAuto") {
+                                 getArticle($('#tag-search-input').val(), "tag");
+                                 }
+                                 else if (selectedFunction == "locAuto") {
+                                 getArticle($('#tag-search-input').val(), "location");
+                                 }
+                                 else if (selectedFunction == "titleAuto") {
+                                 getArticle($('#tag-search-input').val(), "title");
+                                 }*/
 
                                 getArticle($('#tag-search-input').val(), selectedFunction);
 
-                                $("#autocomplete").empty();
-                                $("#autocomplete").hide();
+                                $autoComplete.empty().hide();
                             });
                         }
                     });
@@ -510,16 +522,28 @@ NewsMap.DrawMap = (function () {
             myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
         },
 
+        checkFavorites = function () {
+
+            if ($("#favorites-list li").size() == 0) {
+                $("#favorites-list").html("<li id='no-favorites-info'>Noch keine Favoriten in Ihrer Liste.</li>")
+            }
+            else $("#no-favorites-info").remove();
+        },
+
         addToFavorites = function (article) {
-            favorites.push(article);
+            if ($.inArray(article, favorites) == -1) {
+                favorites.push(article);
 
-            var display_name = favorites[favorites.length - 1].title;
+                var display_name = favorites[favorites.length - 1].title;
 
-            var $li = $("<li>");
-            $li.attr("index", favorites.length - 1).html(display_name);
-            $li.attr("class", "favorites-li");
-            $("#favorites-list").append($li);
+                var $li = $("<li>");
+                $li.attr("index", favorites.length - 1).html(display_name);
+                $li.attr("class", "favorites-li");
 
+                $("#favorites-list").append($li);
+
+                checkFavorites();
+            }
         },
 
         showFavorites = function () {
@@ -539,14 +563,14 @@ NewsMap.DrawMap = (function () {
             $(that).trigger("showMenuLeftForFavorite", favorites[index]);
         },
 
-        removeQuery = function(query) {
+        removeQuery = function (query) {
             console.log(searchQueries[0]);
             $.each(searchQueries, function (index) {
-                if(searchQueries[index][0] == query) {
+                if (searchQueries[index][0] == query) {
                     searchQueries.splice(index, 1);
                 }
             });
-            if(searchQueries = []) {
+            if (searchQueries = []) {
                 getAllArticles()
             }
 
