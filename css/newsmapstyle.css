@@ -582,12 +582,22 @@ li.accordion-navigation {
 .accordion .accordion-navigation.active > a, .accordion dd.active > a {
     backgound-color: #2c60b5;
     color: #F5F5F5;
+    text-decoration: none;
 }
 
 .accordItem {
 
     background: rgba(0, 140, 186, 0.95);
 
+}
+
+.accordion-navigation:hover, .accordion-navigation:active {
+    text-decoration: none;
+    background: darkblue;
+}
+
+.accordion-navigation a:hover {
+    text-decoration: none;
 }
 
 #myModal {
