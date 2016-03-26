@@ -685,9 +685,13 @@ li.accordion-navigation {
     color: white;
 }
 
-#close-radius-box {
+#close-radius-box, #close-search-wrapper {
     cursor: pointer;
     font-size: 1.5rem;
+}
+
+@media (min-width: 40em) {
+
 }
 
 #radius-box {

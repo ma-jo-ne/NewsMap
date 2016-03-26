@@ -8,6 +8,7 @@ NewsMap.NewsMapView = (function () {
         $favoritesMenu = null,
         $timelineMenu = null,
         $header = null,
+        $$searchWrapper = null,
         $radiusBox = null,
         favoritesVisible = false,
 
@@ -19,6 +20,7 @@ NewsMap.NewsMapView = (function () {
             $timelineMenu = $("#menu-rechts");
             $header = $("#header");
             $radiusBox = $("#radius-box");
+            $searchWrapper = $("#search-wrapper");
 
             popupClick();
             previewClose();
@@ -42,6 +44,7 @@ NewsMap.NewsMapView = (function () {
             $("#favorites-button").on("click", showFavoritesMenu);
             $('.remove-query').on("click", removeQuery);
             $("#close-radius-box").on("click", closeRadiusBox);
+            $("#close-search-wrapper").on("click", closeSearchWrapper);
 
             $("#autocomplete").bind("clickoutside", function (event) {
                 $(this).hide();
@@ -229,6 +232,10 @@ NewsMap.NewsMapView = (function () {
 
         closeRadiusBox = function () {
             $radiusBox.slideUp(100);
+        },
+
+        closeSearchWrapper = function () {
+            $searchWrapper.hide();
         },
 
         menuVisibleScroll = function () {
