@@ -244,9 +244,7 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").append(accord);
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
-                    $(".accordItem").css("background-color", "rgba(0, 140, 186,0.9");
-                    $(".accordItem").css("color", "#F5F5F5");
-                    $(".accordItem").css("border-style", "outset");
+
 
 
                     //$(".accordItem").css("border","4px solid whitesmoke");
@@ -563,6 +561,19 @@ NewsMap.DrawMap = (function () {
             myLocation = myLocationMarker;
             map.addLayer(myLocationMarker);
             myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
+
+            $.ajax({
+                url: "http://api.geonames.org/findNearbyPlaceNameJSON?lat=" + myLat + "&lng=" + myLng + "&username=demo",
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var myCity = data["geonames"][0]["name"],
+                        selectedQuery = "location";
+                    console.log(myCity);
+                    myCity = "Regensburg";
+                    getArticle(myCity, selectedQuery);
+                }
+            });
         },
 
         checkFavorites = function () {
