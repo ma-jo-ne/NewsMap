@@ -246,7 +246,6 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").css("width", "100%");
 
 
-
                     //$(".accordItem").css("border","4px solid whitesmoke");
 
 
@@ -262,17 +261,17 @@ NewsMap.DrawMap = (function () {
             console.log(searchSelect);
             var selectedFunction;
 
-            if(searchSelect == "location") {
+            if (searchSelect == "location") {
                 selectedFunction = "locAuto";
             }
-            else if(searchSelect == "title") {
+            else if (searchSelect == "title") {
                 selectedFunction = "titleAuto";
             }
 
             else if (searchSelect == "region") {
                 selectedFunction = "regAuto";
             }
-            else if(searchSelect == "tag") {
+            else if (searchSelect == "tag") {
                 selectedFunction = "tagAuto";
             }
 
@@ -449,34 +448,34 @@ NewsMap.DrawMap = (function () {
 
         getArticleByQuery = function () {
 
-                $.ajax({
-                    type: "GET",
-                    url: "http://" + location.host + "/NewsMap/get_data.php",
-                    data: {func: "getQueries", queries: searchQueries, date: dateSelectionVal},
-                    beforeSend: function () {
-                        $loading.show();
-                    },
-                    success: function (data) {
-                        if (JSON.parse(data).length == 0) {
-                            console.log("Keine Ergebnisse");
-                            alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
-                        }
-                        else {
-                            console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
-                            markersSet = false;
-                            addMarker(JSON.parse(data));
-
-                        }
-
-                        //console.log(data);
-                    },
-                    error: function () {
-                        alert("error");
-                    },
-                    complete: function () {
-                        $loading.hide();
+            $.ajax({
+                type: "GET",
+                url: "http://" + location.host + "/NewsMap/get_data.php",
+                data: {func: "getQueries", queries: searchQueries, date: dateSelectionVal},
+                beforeSend: function () {
+                    $loading.show();
+                },
+                success: function (data) {
+                    if (JSON.parse(data).length == 0) {
+                        console.log("Keine Ergebnisse");
+                        alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                     }
-                });
+                    else {
+                        console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
+                        markersSet = false;
+                        addMarker(JSON.parse(data));
+
+                    }
+
+                    //console.log(data);
+                },
+                error: function () {
+                    alert("error");
+                },
+                complete: function () {
+                    $loading.hide();
+                }
+            });
         },
 
     /*
@@ -519,6 +518,12 @@ NewsMap.DrawMap = (function () {
         dateSelection = function () {
             $dateSelect.on("change", function () {
                 dateSelectionVal = $(this).val();
+                if (searchQueries.length == 0) {
+                    getAllArticles();
+                }
+                else {
+                    getArticleByQuery();
+                }
             });
         },
 
@@ -563,16 +568,44 @@ NewsMap.DrawMap = (function () {
             myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
 
             $.ajax({
-                url: "http://api.geonames.org/findNearbyPlaceNameJSON?lat=" + myLat + "&lng=" + myLng + "&username=demo",
+                url: "http://api.geonames.org/findNearbyPlaceNameJSON?lat=" + myLat + "&lng=" + myLng + "&username=mopat",
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-                    var myCity = data["geonames"][0]["name"],
+                    var query = data["geonames"][0]["name"],
                         selectedQuery = "location";
-                    console.log(myCity);
-                    myCity = "Regensburg";
-                    getArticle(myCity, selectedQuery);
+                    console.log(query);
+                    query = "Regensburg";
+
+                    var queryItem = [query, "location"];
+
+                    var queryExists = false;
+                    for (var i = 0; i < searchQueries.length; i++) {
+                        var obj = searchQueries[i];
+                        if (obj.is(queryItem)) {
+
+                            queryExists = true;
+                            return false;
+                        }
+                    }
+                 
+                    if (!queryExists) {
+                        searchQueries.push(queryItem);
+
+                        var $queryLi = $("<li class='query-item'>");
+
+                        var $queryClose = $("<i class='fi-x remove-query'>");
+                        $queryLi.html(query);
+                        $($queryLi).append($queryClose);
+                        $($queryLi).attr('data-show', query);
+
+                        if (query != "") {
+                            $("#search-queries").append($queryLi);
+                        }
+                    }
                 }
+                // getArticle(myCity, selectedQuery);
+
             });
         },
 
@@ -625,17 +658,13 @@ NewsMap.DrawMap = (function () {
                 }
             });
             if (searchQueries.length == 0) {
-                getAllArticles()
+                getAllArticles();
             }
             else {
                 getArticleByQuery();
             }
         };
 
-
-    /*
-     return article by goiven articleID
-     */
     that.setUpEmailLink = setUpEmailLink;
     that.twitterCurrentArticle = twitterCurrentArticle;
     that.fbshareCurrentPage = fbshareCurrentPage;
