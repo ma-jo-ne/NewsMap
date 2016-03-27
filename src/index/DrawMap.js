@@ -621,6 +621,7 @@ NewsMap.DrawMap = (function () {
             $.each(searchQueries, function (index) {
                 if (searchQueries[index][0] == query) {
                     searchQueries.splice(index, 1);
+                    return false;
                 }
             });
             if (searchQueries.length == 0) {
