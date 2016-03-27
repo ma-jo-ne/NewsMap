@@ -89,11 +89,14 @@ NewsMap.NewsMapView = (function () {
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
+
             var menuStar = $("#favorites-menu-star");
             var bg = menuStar.css('color');
             menuStar.css('color', 'yellow');
+            $("#added-to-favorites").show();
             setTimeout(function () {
                 menuStar.css('color', bg);
+                $("#added-to-favorites").hide();
             }, 1000)
 
 
