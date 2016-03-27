@@ -563,7 +563,7 @@ NewsMap.DrawMap = (function () {
             myLocationMarker.bindPopup("<div class='marker-popup my-location'><h3 class='marker-title'>Ihr Standort!</h3></div>").openPopup();
 
             $.ajax({
-                url: "http://api.geonames.org/findNearbyPlaceNameJSON?lat=" + myLat + "&lng=" + myLng + "&username=demo",
+                url: "http://api.geonames.org/findNearbyPlaceNameJSON?lat=" + myLat + "&lng=" + myLng + "&username=mopat",
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
