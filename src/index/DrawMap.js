@@ -597,6 +597,7 @@ NewsMap.DrawMap = (function () {
                     var query = data["geonames"][0]["name"],
                         selectedQuery = "locAuto";
                     console.log(query);
+                   // query = "Regensburg";
 
 
                     var queryItem = [query, selectedQuery];
