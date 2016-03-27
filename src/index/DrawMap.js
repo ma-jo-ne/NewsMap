@@ -7,7 +7,7 @@ NewsMap.DrawMap = (function () {
         searchSelect = $("#search-select").val(),
         $dateSelect = $("#date-select"),
         dateSelectionVal = $dateSelect.val(),
-        radiusSelect = $("#radius-select").val(),
+        radiusSelect = $("#radius-select"),
         myLocation = null,
         $loading = null,
         $autoComplete = null,
@@ -62,6 +62,7 @@ NewsMap.DrawMap = (function () {
                     $loading.show();
                 },
                 success: function (data) {
+                    console.log(JSON.parse(data))
                     if (JSON.parse(data).length == 0) {
                         alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         console.log("Keine Ergebnisse");
@@ -114,7 +115,7 @@ NewsMap.DrawMap = (function () {
                 for (i = 0; i < data.length; i++) {
 
 
-                    if (radiusSelect == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect) {
+                    if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {
                         tempData.push(data[i]);
 
 
@@ -528,8 +529,8 @@ NewsMap.DrawMap = (function () {
         },
 
         radiusSelectChanged = function () {
-            radiusSelect = $("#radius-select").val();
-            console.log("in radiusSelectChanged" + radiusSelect);
+            var radiusSelectVal = radiusSelect.val();
+            console.log("in radiusSelectChanged" + radiusSelectVal);
             markersSet = false;
             addMarker(lastData);
             $(that).trigger("identifyLocation");
@@ -623,7 +624,7 @@ NewsMap.DrawMap = (function () {
                         if (query != "") {
                             $("#search-queries").append($queryLi);
                         }
-                        if (radiusSelect.val() == 666) {
+                        if (radiusSelect.val() == 6666) {
                             getAllArticles();
                         }
                         else
@@ -687,6 +688,7 @@ NewsMap.DrawMap = (function () {
                 }
             });
             if (searchQueries.length == 0) {
+                $("#radius-select").val("6666");
                 getAllArticles();
             }
             else {
