@@ -534,7 +534,6 @@ NewsMap.DrawMap = (function () {
             markersSet = false;
             addMarker(lastData);
             $(that).trigger("identifyLocation");
-
         },
 
         dateSelection = function () {
