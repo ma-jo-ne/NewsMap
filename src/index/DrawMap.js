@@ -215,7 +215,7 @@ NewsMap.DrawMap = (function () {
         setChronoView = function (data) {
 
             $(".accordion-navigation").remove();
-            $(document).foundation()
+            //$(document).foundation()
 
             var EIDI,
                 artikelTitel,
@@ -227,7 +227,7 @@ NewsMap.DrawMap = (function () {
                 region;
             for (i = 0; i < data.length; i++) {
 
-                if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
+              //  if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
@@ -245,13 +245,8 @@ NewsMap.DrawMap = (function () {
                     $("#chrono-wrapper").css("position", "absolute");
                     $("#chrono-wrapper").css("width", "100%");
 
-
-                    //$(".accordItem").css("border","4px solid whitesmoke");
-
-
-                }
             }
-            //$(document).foundation();
+            $(document).foundation();
         },
 
         tagSearchClicked = function () {
