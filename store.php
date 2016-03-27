@@ -1,14 +1,9 @@
 <?php
-
-
-//$categories = $_POST["categories"];
-//print_r($articleTagsRelated);
-
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "newsmap";
-//print_r($array);
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -16,12 +11,10 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 storeArticles($conn);
-//storeRelations($conn);
-//storeTags($conn);
+storeRelations($conn);
 
 function storeArticles($conn) {
     $newsdata = $_POST["newsData"];
-    $result = false;
     for ($i = 0; $i < sizeof($newsdata); $i++) {
         $cur = $newsdata[$i];
         $title = $cur["title"];
@@ -50,20 +43,6 @@ function storeRelations($conn) {
         $result = $conn->query($sql2);
         echo $result;
     }
-}
-
-function storeTags($conn) {
-    /*    $tags = $_POST["tags"];
-        for ($k = 0; $k < sizeof($tags); $k++) {
-            $curTagName = str_replace($tags[$k], '"', '');
-            $curTagName = str_replace($curTagName, "'", "");
-
-            $sql3 = "INSERT INTO tags (name) VALUES ('$curTagName')";
-
-            $result = $conn->query($sql3);
-            echo $result;
-        }*/
-
 }
 
 

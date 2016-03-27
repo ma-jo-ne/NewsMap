@@ -59,17 +59,10 @@ if ($_GET["store"] == true):
                     newsData.push(nd);
                 });
 
-                //Remove Duplicates
 
-
-                /*   $(newsDataObjects).each(function (i) {
-                 console.log(this);
-                 });*/
                 /*
-                 check if geodata for article exists, if true -> build objects
+                 check if tag already exists
                  */
-                //console.log(newsData)
-                //store_in_db();
                 $.each($allTags, function (i, el) {
                     if ($.inArray(el, uniqueTags) === -1) uniqueTags.push(el);
                 });
@@ -91,15 +84,11 @@ if ($_GET["store"] == true):
 
         var articleTagsRealted = [];
         function relateTagIdArticleId() {
-
             for (var i = 0; i < newsData.length; i++) {
                 var article_id = i;
-                //console.log(newsData[i]["tags"]);
                 for (var k = 0; k < uniqueTags.length; k++) {
-                    //console.log(uniqueTags[k]);
                     var tag_id = k;
                     for (var j = 0; j < newsData[i]["tags"].length; j++) {
-                        //console.log(newsData[i]["tags"][j], uniqueTags[k]);
                         if (newsData[i]["tags"][j] == uniqueTags[k]) {
                             var tagname = newsData[i]["tags"][j];
                             var obj = {
@@ -108,8 +97,6 @@ if ($_GET["store"] == true):
                                 name: tagname
                             };
                             articleTagsRealted.push(obj);
-                            //console.log(obj);
-                            //console.log(newsData[i]["tags"][j], uniqueTags[k]);
                         }
                     }
                 }
@@ -121,7 +108,7 @@ if ($_GET["store"] == true):
                 type: "POST",
                 url: "http://" + location.host + "/NewsMap/store.php?store=true",
                 success: function (success) {
-                    console.log(success)
+                    console.log(success);
                     alert("DONE");
                 },
                 error: function () {
