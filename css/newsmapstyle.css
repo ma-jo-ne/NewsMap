@@ -847,3 +847,10 @@ label {
     -ms-user-select: none; /* IE 10+ */
     user-select: none; /* Likely future */
 }
+
+#added-to-favorites {
+    margin-left: 2rem;
+    line-height: 2.2;
+    float: inherit;
+    display: none;
+}
