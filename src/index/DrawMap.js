@@ -598,6 +598,7 @@ NewsMap.DrawMap = (function () {
                     console.log(query);
                    // query = "Regensburg";
 
+
                     var queryItem = [query, selectedQuery];
 
                     var queryExists = false;
@@ -623,6 +624,10 @@ NewsMap.DrawMap = (function () {
                         if (query != "") {
                             $("#search-queries").append($queryLi);
                         }
+                        if (radiusSelect.val() == 666) {
+                            getAllArticles();
+                        }
+                        else
                         getArticleByQuery();
                     } else {
                         alert("Suchanfrage existiert bereits");
