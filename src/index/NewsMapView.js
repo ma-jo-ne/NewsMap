@@ -115,12 +115,12 @@ NewsMap.NewsMapView = (function () {
         },
 
         showRightMenu = function () {
-            $timelineMenu.show(100);
+            $timelineMenu.show();
             $favoritesMenu.hide();
         },
 
         showFavoritesMenu = function () {
-            $favoritesMenu.show(100);
+            $favoritesMenu.toggle();
             $timelineMenu.hide();
         },
 

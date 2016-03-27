@@ -270,6 +270,10 @@ NewsMap.DrawMap = (function () {
             else if(searchSelect == "title") {
                 selectedFunction = "titleAuto";
             }
+
+            else if (searchSelect == "region") {
+                selectedFunction = "regAuto";
+            }
             else if(searchSelect == "tag") {
                 selectedFunction = "tagAuto";
             }
@@ -526,7 +530,7 @@ NewsMap.DrawMap = (function () {
         },
 
         setUpEmailLink = function () {
-            var link = "mailto: blala@bla.de?body=" + encodeURI(NewsMap.NewsMapView.getCurrentArticle());
+            var link = "mailto: ?body=" + encodeURI(NewsMap.NewsMapView.getCurrentArticle());
             return link;
 
         },
