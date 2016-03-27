@@ -698,6 +698,14 @@ li.accordion-navigation {
 
 }
 
+.reveal-modal .close-reveal-modal:hover {
+    text-decoration: none;
+}
+
+.reveal-modal:focus {
+    outline: none;
+}
+
 #radius-box {
     display: inline-block;
     top: 85px;

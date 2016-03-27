@@ -146,7 +146,6 @@ NewsMap.DrawMap = (function () {
                 else {
                     console.log(data[data.length - 1], data[data.length - 1].lon)
                     map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
-                    //map.setView(new L.LatLng(51.8, 14.41667));
                 }
 
                 console.log("markers set");
@@ -257,8 +256,6 @@ NewsMap.DrawMap = (function () {
         tagSearchClicked = function () {
             var query = ($('#tag-search-input').val());
 
-
-            console.log(searchSelect);
             var selectedFunction;
 
             if (searchSelect == "location") {
@@ -275,24 +272,37 @@ NewsMap.DrawMap = (function () {
                 selectedFunction = "tagAuto";
             }
 
-            var queryItem = [query, selectedFunction]
-            searchQueries.push(queryItem);
+            var queryItem = [query, selectedFunction];
 
-            var $queryLi = $("<li class='query-item'>");
-
-            var $queryClose = $("<i class='fi-x remove-query'>");
-            $queryLi.html(query);
-            $($queryLi).append($queryClose);
-            $($queryLi).attr('data-show', query);
-
-            if (query != "") {
-                $("#search-queries").append($queryLi);
+            var queryExists = false;
+            for (var i = 0; i < searchQueries.length; i++) {
+                var obj = searchQueries[i];
+                if (obj[0].toLowerCase() == queryItem[0].toLowerCase() && obj[1] == queryItem[1]) {
+                    alert("Suchanfrage existsirt bereits");
+                    queryExists = true;
+                    return false;
+                }
             }
+            if (!queryExists) {
+                searchQueries.push(queryItem);
 
-            //getArticle(query, searchSelect);
-            getArticleByQuery();
+                var $queryLi = $("<li class='query-item'>");
+
+                var $queryClose = $("<i class='fi-x remove-query'>");
+                $queryLi.html(query);
+                $($queryLi).append($queryClose);
+                $($queryLi).attr('data-show', query);
+
+                if (query != "") {
+                    $("#search-queries").append($queryLi);
+                }
+
+                getArticleByQuery();
+            }
+            console.log(searchQueries)
             $('#autocomplete').empty().hide();
         },
+
 
         autocomplete = function () {
 
@@ -372,24 +382,35 @@ NewsMap.DrawMap = (function () {
                             $("#autocomplete li").on("click", function () {
                                 var query = $(this).html();
                                 $("#tag-search-input").val(query);
-                                var queryItem = [query, selectedFunction]
-                                searchQueries.push(queryItem);
-
-                                var $queryLi = $("<li class='query-item'>");
-                                //$queryLi.html($('#tag-search-input').val());
-                                var $queryClose = $("<i class='fi-x remove-query'>");
-                                $queryLi.html(query);
-                                $($queryLi).append($queryClose);
-                                $($queryLi).attr('data-show', query);
-                                $("#search-queries").append($queryLi);
-
-
-                                $("#tag-search-input").val($(this).html());
-
-                                //getArticle($('#tag-search-input').val(), selectedFunction);
-                                getArticleByQuery();
+                                var queryItem = [query, selectedFunction];
 
                                 $autoComplete.empty().hide();
+                                var queryExists = false;
+                                for (var i = 0; i < searchQueries.length; i++) {
+                                    var obj = searchQueries[i];
+                                    if (obj[0].toLowerCase() == queryItem[0].toLowerCase() && obj[1] == queryItem[1]) {
+                                        alert("Suchanfrage existiert bereits");
+                                        queryExists = true;
+                                        return false;
+                                    }
+                                }
+                                if (!queryExists) {
+                                    searchQueries.push(queryItem);
+
+                                    var $queryLi = $("<li class='query-item'>");
+                                    //$queryLi.html($('#tag-search-input').val());
+                                    var $queryClose = $("<i class='fi-x remove-query'>");
+                                    $queryLi.html(query);
+                                    $($queryLi).append($queryClose);
+                                    $($queryLi).attr('data-show', query);
+                                    $("#search-queries").append($queryLi);
+
+
+                                    $("#tag-search-input").val($(this).html());
+
+                                    //getArticle($('#tag-search-input').val(), selectedFunction);
+                                    getArticleByQuery();
+                                }
                             });
                         }
                     });
@@ -582,7 +603,7 @@ NewsMap.DrawMap = (function () {
                     var queryExists = false;
                     for (var i = 0; i < searchQueries.length; i++) {
                         var obj = searchQueries[i];
-                        if (obj[0] == queryItem[0] && obj[1] == queryItem[1]) {
+                        if (obj[0].toLowerCase() == queryItem[0].toLowerCase() && obj[1] == queryItem[1]) {
 
                             queryExists = true;
                             return false;
@@ -603,10 +624,13 @@ NewsMap.DrawMap = (function () {
                             $("#search-queries").append($queryLi);
                         }
                         getArticleByQuery();
+                    } else {
+                        alert("Suchanfrage existiert bereits");
                     }
+                },
+                error: function () {
+                    alert("Fehler beim Laden der Standortinformationen");
                 }
-                // getArticle(myCity, selectedQuery);
-
             });
         },
 
