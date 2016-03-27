@@ -573,22 +573,22 @@ NewsMap.DrawMap = (function () {
                 dataType: "json",
                 success: function (data) {
                     var query = data["geonames"][0]["name"],
-                        selectedQuery = "location";
+                        selectedQuery = "locAuto";
                     console.log(query);
                     query = "Regensburg";
 
-                    var queryItem = [query, "location"];
+                    var queryItem = [query, selectedQuery];
 
                     var queryExists = false;
                     for (var i = 0; i < searchQueries.length; i++) {
                         var obj = searchQueries[i];
-                        if (obj.is(queryItem)) {
+                        if (obj[0] == queryItem[0] && obj[1] == queryItem[1]) {
 
                             queryExists = true;
                             return false;
                         }
                     }
-                 
+
                     if (!queryExists) {
                         searchQueries.push(queryItem);
 
@@ -602,6 +602,7 @@ NewsMap.DrawMap = (function () {
                         if (query != "") {
                             $("#search-queries").append($queryLi);
                         }
+                        getArticleByQuery();
                     }
                 }
                 // getArticle(myCity, selectedQuery);
