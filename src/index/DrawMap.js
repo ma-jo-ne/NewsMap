@@ -145,7 +145,7 @@ NewsMap.DrawMap = (function () {
                     initLoading = false;
                 }
                 else {
-                    console.log(data[data.length - 1], data[data.length - 1].lon)
+                    console.log(data[data.length - 1], data[data.length - 1].lon);
                     map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
                 }
 
