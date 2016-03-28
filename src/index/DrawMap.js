@@ -87,7 +87,6 @@ NewsMap.DrawMap = (function () {
 
         drawmap = function () {
             window.onload = load_map;
-            getAllArticles();
         },
 
         load_map = function () {
@@ -99,6 +98,8 @@ NewsMap.DrawMap = (function () {
                 osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
             map.setView(new L.LatLng(49.0134074, 12.101631), 10).addLayer(osm);
+
+            getAllArticles();
         },
 
         addMarker = function (data) {
@@ -126,7 +127,7 @@ NewsMap.DrawMap = (function () {
 
                         $(markerPopup).attr("id", data[i].post_id);
                         markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
-                        marker.on('mouseover', function (e) {
+                        /*marker.on('mouseover', function (e) {
                             this.openPopup();
                         });
                         marker.on('mouseout', function (e) {
@@ -134,10 +135,10 @@ NewsMap.DrawMap = (function () {
                             setTimeout(function () {
                                 $this.closePopup();
                             }, 10000);
-                        });
+                        });*/
                     }
                 }
-                if(markers != null) {
+                if(markers != null && map != null) {
                     map.addLayer(markers);
                 }
                 if (initLoading) {
@@ -470,6 +471,7 @@ NewsMap.DrawMap = (function () {
                     $loading.show();
                 },
                 success: function (data) {
+                    console.log(JSON.parse(data));
                     if (JSON.parse(data).length == 0) {
                         console.log("Keine Ergebnisse");
                         alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
@@ -481,7 +483,7 @@ NewsMap.DrawMap = (function () {
 
                     }
 
-                    //console.log(data);
+
                 },
                 error: function () {
                     alert("error");
