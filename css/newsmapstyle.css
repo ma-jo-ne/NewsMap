@@ -844,6 +844,12 @@ label {
     margin-top: 6rem;
 }
 
+@media (max-width: 40em) {
+    #query-row {
+        margin-top: 4rem;
+    }
+}
+
 .remove-query {
     padding-left: 0.7rem;
     cursor: pointer;

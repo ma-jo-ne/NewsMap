@@ -62,7 +62,6 @@ NewsMap.DrawMap = (function () {
                     $loading.show();
                 },
                 success: function (data) {
-                    console.log(JSON.parse(data))
                     if (JSON.parse(data).length == 0) {
                         alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         console.log("Keine Ergebnisse");
@@ -138,18 +137,17 @@ NewsMap.DrawMap = (function () {
                         });
                     }
                 }
-                map.addLayer(markers);
+                if(markers != null) {
+                    map.addLayer(markers);
+                }
                 if (initLoading) {
 
                     map.setView(new L.LatLng(49.02, 12.08));
                     initLoading = false;
                 }
                 else {
-                    console.log(data[data.length - 1], data[data.length - 1].lon);
                     map.setView(new L.LatLng(data[data.length - 1].lat, data[data.length - 1].lon));
                 }
-
-                console.log("markers set");
 
                 setChronoView(tempData);
                 tempData.length = 0;
@@ -295,7 +293,6 @@ NewsMap.DrawMap = (function () {
 
                 getArticleByQuery();
             }
-            console.log(searchQueries)
             $('#autocomplete').empty().hide();
         },
 
@@ -447,7 +444,7 @@ NewsMap.DrawMap = (function () {
                             alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                         }
                         else {
-                            console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
+                            //console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
                             markersSet = false;
                             addMarker(JSON.parse(data));
 
@@ -590,9 +587,6 @@ NewsMap.DrawMap = (function () {
                 success: function (data) {
                     var query = data["geonames"][0]["name"],
                         selectedQuery = "locAuto";
-                    console.log(query);
-                   // query = "Regensburg";
-
 
                     var queryItem = [query, selectedQuery];
 
