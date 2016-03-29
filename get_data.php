@@ -146,7 +146,8 @@ function getArticleByQueries($conn, $dateLowerBorder, $dateUpperBorder) {
 
 function tagAutocomplete($conn, $dateLowerBorder, $dateUpperBorder) {
     $keyword = mysqli_real_escape_string($conn, $_GET["keyword"]);
-    $sql = 'SELECT articles_tags.name FROM articles_tags WHERE articles_tags.name LIKE "%' . $keyword . '%"';
+
+    $sql = '  SELECT articles_tags.name FROM articles INNER JOIN locations ON articles.post_id=article_id INNER JOIN articles_tags ON articles.post_id=articles_tags.article_id WHERE articles_tags.name LIKE "%' . $keyword . '%"';
     error_log($sql);
     if ($result = $conn->query($sql)) {
         $rows = array();
@@ -189,7 +190,7 @@ function regionAutocomplete($conn, $dateLowerBorder, $dateUpperBorder) {
 
 function titleAutocomplete($conn, $dateLowerBorder, $dateUpperBorder) {
     $keyword = mysqli_real_escape_string($conn, $_GET["keyword"]);
-    $sql = 'SELECT title FROM articles WHERE title LIKE "%' . $keyword . '%"';
+    $sql = 'SELECT title FROM articles INNER JOIN locations ON articles.post_id=article_id WHERE title LIKE "%' . $keyword . '%"';
     error_log($sql);
     if ($result = $conn->query($sql)) {
         $rows = array();
