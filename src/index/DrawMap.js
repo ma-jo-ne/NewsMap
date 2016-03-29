@@ -126,16 +126,7 @@ NewsMap.DrawMap = (function () {
                         marker.bindPopup(markerPopup);
 
                         $(markerPopup).attr("id", data[i].post_id);
-                        markers.addLayer(marker); // push funktioniert nicht mehr seit Cluster Plugin verwendet, da markers = new L.MarkerClusterGroup()
-                        /*marker.on('mouseover', function (e) {
-                            this.openPopup();
-                        });
-                        marker.on('mouseout', function (e) {
-                            var $this = this;
-                            setTimeout(function () {
-                                $this.closePopup();
-                            }, 10000);
-                        });*/
+                        markers.addLayer(marker); 
                     }
                 }
                 if(markers != null && map != null) {

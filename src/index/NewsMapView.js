@@ -293,9 +293,14 @@ NewsMap.NewsMapView = (function () {
 
         menuItemHover = function () {
             var func = $(this).parent().attr("data-function"),
-                top = $(this).parent().offset().top + $(this).parent().height() + 20,
-                left = $(this).parent().offset().left + 16,
+                top = $(this).parent().offset().top + $(this).parent().height(),
+                left = $(this).parent().offset().left,
                 $tooltip = $("#tooltip");
+            if (Foundation.utils.is_medium_up()) {
+                top += 20;
+                left += 16
+            }
+
             $tooltip.show().html(func);
             $tooltip.offset({top: top, left: left});
         },

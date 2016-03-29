@@ -877,3 +877,10 @@ label {
     padding: 10px;
     display: none;
 }
+
+@media (max-width: 40em) {
+    #tooltip {
+        font-size: .8rem;
+        min-width: 60px;
+    }
+}
