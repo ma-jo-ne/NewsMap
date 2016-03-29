@@ -1,12 +1,10 @@
 NewsMap.MainController = (function () {
     var that = {},
-        newsMapModal = null,
         newsMapView = null,
         drawMap = null,
         currentClickedArticle = null,
 
         init = function () {
-            newsMapModal = NewsMap.NewsMapModal.init();
             newsMapView = NewsMap.NewsMapView.init();
             drawMap = NewsMap.DrawMap.init();
 
