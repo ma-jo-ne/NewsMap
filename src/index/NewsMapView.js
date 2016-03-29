@@ -140,10 +140,6 @@ NewsMap.NewsMapView = (function () {
         popupClick = function () {
             $('body').on('click', '.marker-popup', function () {
                 $radiusBox.hide();
-                $(this).bind("clickoutside", function (event) {
-                    $(this).closest(".leaflet-popup").hide();
-                });
-
 
                 $(".menu-item").hide();
                 $timelineMenu.hide();

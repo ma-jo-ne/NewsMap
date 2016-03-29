@@ -126,7 +126,8 @@ NewsMap.DrawMap = (function () {
                         marker.bindPopup(markerPopup);
 
                         $(markerPopup).attr("id", data[i].post_id);
-                        markers.addLayer(marker); 
+
+                        markers.addLayer(marker);
                     }
                 }
                 if(markers != null && map != null) {
@@ -148,7 +149,8 @@ NewsMap.DrawMap = (function () {
 
             }
             map.on('popupopen', function (e) {
-                $(".marker-popup").dotdotdot()
+                $(".marker-popup").dotdotdot();
+
             });
         },
 
