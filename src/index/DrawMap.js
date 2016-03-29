@@ -97,7 +97,7 @@ NewsMap.DrawMap = (function () {
                 osmAttribution = 'Map data &copy; 2016 <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
                 osm = new L.TileLayer(osmUrl, {maxZoom: 18, attribution: osmAttribution});
 
-            map.setView(new L.LatLng(49.0134074, 12.101631), 10).addLayer(osm);
+            map.setView(new L.LatLng(48.9533, 11.3973), 8).addLayer(osm);
 
             getAllArticles();
         },
@@ -135,7 +135,8 @@ NewsMap.DrawMap = (function () {
                 }
                 if (initLoading) {
 
-                    map.setView(new L.LatLng(49.02, 12.08));
+                    map.setView(new L.LatLng(48.9533, 11.3973));
+                    map.setZoom(8);
                     initLoading = false;
                 }
                 else {
