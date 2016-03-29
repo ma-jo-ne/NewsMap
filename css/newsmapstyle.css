@@ -563,7 +563,7 @@ a:hover {
     color: #2c60b5;
 }
 
-#favorites-heading {
+#favorites-heading, #timeline-heading {
     color: white;
     padding-left: 1rem;
     padding-top: 1rem;
