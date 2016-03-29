@@ -129,7 +129,7 @@ function getArticleByQueries($conn, $dateLowerBorder, $dateUpperBorder) {
     if ($result = $conn->query($sql)) {
         $rows = array();
         while ($r = mysqli_fetch_assoc($result)) {
-            $rows[] = $r;
+            $rows[] = strip_tags($r, '<p><br>');
         }
         echo json_encode($rows);
         error_log(json_encode($rows));
