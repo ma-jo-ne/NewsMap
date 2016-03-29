@@ -75,7 +75,7 @@ NewsMap.DrawMap = (function () {
 
                 },
                 error: function () {
-                    alert("error");
+                    alert(null, "error");
 
                 },
                 complete: function () {
@@ -267,7 +267,7 @@ NewsMap.DrawMap = (function () {
             for (var i = 0; i < searchQueries.length; i++) {
                 var obj = searchQueries[i];
                 if (obj[0].toLowerCase() == queryItem[0].toLowerCase() && obj[1] == queryItem[1]) {
-                    alert("Suchanfrage existsirt bereits");
+                    swal("Suchanfrage existiert bereits");
                     queryExists = true;
                     return false;
                 }
@@ -377,7 +377,7 @@ NewsMap.DrawMap = (function () {
                                 for (var i = 0; i < searchQueries.length; i++) {
                                     var obj = searchQueries[i];
                                     if (obj[0].toLowerCase() == queryItem[0].toLowerCase() && obj[1] == queryItem[1]) {
-                                        alert("Suchanfrage existiert bereits");
+                                        swal("Suchanfrage existiert bereits");
                                         queryExists = true;
                                         return false;
                                     }
@@ -436,7 +436,7 @@ NewsMap.DrawMap = (function () {
                     success: function (data) {
                         if (JSON.parse(data).length == 0) {
                             console.log("Keine Ergebnisse");
-                            alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
+                            swal("Keine Ergebnisse zu Ihrer Anfrage gefunden", null, "error");
                         }
                         else {
                             //console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
@@ -445,8 +445,8 @@ NewsMap.DrawMap = (function () {
 
                         }
                     },
-                    error: function () {
-                        alert("error");
+                    error: function (HTTPREQUEST) {
+                        swal("Fehler bei der Datenbankanbindung", null, "error");
                     },
                     complete: function () {
                         $loading.hide();
@@ -468,7 +468,7 @@ NewsMap.DrawMap = (function () {
                     console.log(JSON.parse(data));
                     if (JSON.parse(data).length == 0) {
                         console.log("Keine Ergebnisse");
-                        alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
+                        swal("Keine Ergebnisse zu Ihrer Anfrage gefunden", null, "error");
                     }
                     else {
                         console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
@@ -480,7 +480,7 @@ NewsMap.DrawMap = (function () {
 
                 },
                 error: function () {
-                    alert("error");
+                    swal("Fehler bei der Datenbankanbindung", null, "error");
                 },
                 complete: function () {
                     $loading.hide();
@@ -616,11 +616,11 @@ NewsMap.DrawMap = (function () {
                         else
                         getArticleByQuery();
                     } else {
-                        alert("Suchanfrage existiert bereits");
+                        swal("Suchanfrage existiert bereits");
                     }
                 },
                 error: function () {
-                    alert("Fehler beim Laden der Standortinformationen");
+                    swal("Fehler beim Laden der Standortinformationen", null, "error");
                 }
             });
         },
