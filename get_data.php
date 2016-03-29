@@ -5,14 +5,8 @@
  * Date: 07.03.2016
  * Time: 18:28
  */
-$servername = "localhost";
-$username = "root";
-$password = "";
-/*$servername = "newsmap.mysql5.loomes.net";
-$username = "newsmap";
-$password = "AMeiSE";
-*/
-$dbname = "newsmap";
+require_once("config.php");
+
 //print_r($array);
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
