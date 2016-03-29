@@ -34,6 +34,7 @@ NewsMap.NewsMapView = (function () {
             $buttonIdentifyLocation.on("click", identifyLocation);
             $("#close-menu").on("click", _closeMenu);
             $("#menu-list li").on("click", menuItemClick);
+            $("#menu-list li i").on("mouseover", menuItemHover).on("mouseout", menuItemMouseOut);
             $("#search-select").on("change", searchSelectChanged);
             $("#radius-select").on("change", radiusSelectChanged);
             $("#right-menu-button").on("click", showRightMenu);
@@ -288,6 +289,20 @@ NewsMap.NewsMapView = (function () {
                 }
 
             }
+        },
+
+        menuItemHover = function () {
+            var func = $(this).parent().attr("data-function"),
+                top = $(this).parent().offset().top + $(this).parent().height() + 20,
+                left = $(this).parent().offset().left + 16,
+                $tooltip = $("#tooltip");
+            $tooltip.show().html(func);
+            $tooltip.offset({top: top, left: left});
+        },
+
+        menuItemMouseOut = function () {
+            var $tooltip = $("#tooltip");
+            $tooltip.hide();
         },
 
         _closeMenu = function () {

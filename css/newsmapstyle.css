@@ -868,3 +868,12 @@ label {
     float: inherit;
     display: none;
 }
+
+#tooltip {
+    position: fixed;
+    z-index: 1000000;
+    background: #3a9bd8;
+    color: #fff;
+    padding: 10px;
+    display: none;
+}

@@ -38,7 +38,7 @@
     <span>Lade Nachrichten...</span>
 
 </div>
-
+<span id="tooltip"></span>
 <div id="myModal" class="reveal-modal text-center" data-reveal aria-labelledby="modalTitle" aria-hidden="true"
      role="dialog">
 
@@ -88,10 +88,14 @@
     <div class="row collapse no-padding-margin">
         <div class="large-3 small-12 columns none-selectable">
             <ul id="menu-list">
-                <li data-show="search"><i class="fi-magnifying-glass"></i></li>
-                <li data-show="location" id="identify-location"><i class="fi-marker"></i></li>
-                <li data-show="favorites" id="favorites-button"><i class="fi-star" id="favorites-menu-star"></i></li>
-                <li data-show="chrono" id="right-menu-button"><i class="fi-list-thumbnails"></i></li>
+                <li data-function="Suche" data-show="search"><i class="fi-magnifying-glass"></i></li>
+                <li data-function="Eigener Standort" data-show="location" id="identify-location"><i
+                        class="fi-marker"></i></li>
+                <li data-function="Favoriten" data-show="favorites" id="favorites-button"><i class="fi-star"
+                                                                                             id="favorites-menu-star"></i>
+                </li>
+                <li data-function="Chronologische Ansicht" data-show="chrono" id="right-menu-button"><i
+                        class="fi-list-thumbnails"></i></li>
             </ul>
 
         </div>
