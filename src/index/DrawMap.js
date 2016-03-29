@@ -520,6 +520,7 @@ NewsMap.DrawMap = (function () {
 
         selectChanged = function () {
             searchSelect = $("#search-select").val();
+            $("#tag-search-input").val("");
         },
 
         radiusSelectChanged = function () {
