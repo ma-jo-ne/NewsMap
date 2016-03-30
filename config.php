@@ -4,7 +4,7 @@ $username = "root";
 $password = "";
 /*$servername = "newsmap.mysql5.loomes.net";
 $username = "newsmap";
-$password = "AMeiSE";
-*/
+$password = "AMeiSE";*/
+
 
 $dbname = "newsmap";

@@ -33,8 +33,6 @@ NewsMap.MainController = (function () {
             drawMap.showFavArticle(index);
         },
 
-
-
         showFavorites = function() {
             drawMap.showFavorites();
         },

@@ -1,7 +1,6 @@
 NewsMap.DrawMap = (function () {
     var marker = [],
         that = {},
-        articles = [],
         markers = new L.MarkerClusterGroup(),
         markersSet = false,
         searchSelect = $("#search-select").val(),
@@ -19,18 +18,8 @@ NewsMap.DrawMap = (function () {
         searchQueries = [],
         myLat,
         myLng,
-        tempLat,
-        tempLon,
-
-
         map = null,
-        newsDataObjects = [],
         foundArticles = [],
-        foundArticlesBySearch = [],
-
-        wordInString = function (s, word) {
-            return new RegExp('\\b' + word.toLowerCase() + '\\b', 'i').test(s.toLowerCase());
-        },
 
         init = function () {
             function isInArray(value, array) {
@@ -63,8 +52,7 @@ NewsMap.DrawMap = (function () {
                 },
                 success: function (data) {
                     if (JSON.parse(data).length == 0) {
-                        alert("Keine Ergebnisse zu Ihrer Anfrage gefunden");
-                        console.log("Keine Ergebnisse");
+                        swal("Keine Ergebnisse zu Ihrer Anfrage gefunden");
                     }
                     else {
                         markersSet = false;
@@ -75,15 +63,13 @@ NewsMap.DrawMap = (function () {
 
                 },
                 error: function () {
-                    alert(null, "error");
-
+                    alert("error");
                 },
                 complete: function () {
                     $loading.hide();
                 }
             });
         },
-
 
         drawmap = function () {
             window.onload = load_map;
@@ -106,14 +92,11 @@ NewsMap.DrawMap = (function () {
             if (!favoritesVisible) {
                 lastData = data;
             }
-
             if (!markersSet) {
 
                 markers.clearLayers();
 
-
                 for (i = 0; i < data.length; i++) {
-
 
                     if (radiusSelect.val() == 6666 || calculateDistance(myLat, myLng, data[i].lat, data[i].lon) < radiusSelect.val()) {
                         tempData.push(data[i]);
@@ -161,31 +144,13 @@ NewsMap.DrawMap = (function () {
                 if (e.which == 13) {
                     getArticle($('#tag-search-input').val().toLowerCase(), searchSelect);
                     $autoComplete.empty().hide();
-                    return false;    //<---- Add this line
+                    return false;
                 }
             });
-
-
-        },
-
-        getLatLonFromCity = function () {
-            /*
-             $.ajax({
-             url: "http://nominatim.openstreetmap.org/search?format=xml&q=gerolsbach",
-             type: 'GET',
-             success: function (data) {
-             var parsedData = $.parseXML(data);
-             $data=$(parsedData);
-             $lati = $data.find()
-             console.log(parsedData);
-             }});
-             */
         },
 
 
         calculateDistance = function (lat1, lon1, lat2, lon2) {
-
-
             var R = 6371; // Radius of the earth in km
             var dLat = deg2rad(lat2 - lat1);  // deg2rad below
             var dLon = deg2rad(lon2 - lon1);
@@ -202,7 +167,6 @@ NewsMap.DrawMap = (function () {
             function deg2rad(deg) {
                 return deg * (Math.PI / 180)
             }
-
         },
 
         setChronoView = function (data) {
@@ -219,8 +183,6 @@ NewsMap.DrawMap = (function () {
                 pubDate,
                 region;
             for (i = 0; i < data.length; i++) {
-
-              //  if (i != 0 && data[i - 1].title != data[i].title) {  //|| data.length == 2 mit in schleife ?
                     EIDI = "a" + i;
                     artikelTitel = data[i].title;
                     artikelLink = data[i].link;
@@ -386,17 +348,12 @@ NewsMap.DrawMap = (function () {
                                     searchQueries.push(queryItem);
 
                                     var $queryLi = $("<li class='query-item'>");
-                                    //$queryLi.html($('#tag-search-input').val());
                                     var $queryClose = $("<i class='fi-x remove-query'>");
                                     $queryLi.html(query);
                                     $($queryLi).append($queryClose);
                                     $($queryLi).attr('data-show', query);
                                     $("#search-queries").append($queryLi);
-
-
                                     $("#tag-search-input").val($(this).html());
-
-                                    //getArticle($('#tag-search-input').val(), selectedFunction);
                                     getArticleByQuery();
                                 }
                             });
@@ -435,14 +392,11 @@ NewsMap.DrawMap = (function () {
                     },
                     success: function (data) {
                         if (JSON.parse(data).length == 0) {
-                            console.log("Keine Ergebnisse");
                             swal("Keine Ergebnisse zu Ihrer Anfrage gefunden", null, "error");
                         }
                         else {
-                            //console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
                             markersSet = false;
                             addMarker(JSON.parse(data));
-
                         }
                     },
                     error: function (HTTPREQUEST) {
@@ -465,18 +419,13 @@ NewsMap.DrawMap = (function () {
                     $loading.show();
                 },
                 success: function (data) {
-                    console.log(JSON.parse(data));
                     if (JSON.parse(data).length == 0) {
-                        console.log("Keine Ergebnisse");
                         swal("Keine Ergebnisse zu Ihrer Anfrage gefunden", null, "error");
                     }
                     else {
-                        console.log("SUCHE: SQL-AJAX-Ergebnisse", JSON.parse(data));
                         markersSet = false;
                         addMarker(JSON.parse(data));
-
                     }
-
 
                 },
                 error: function () {
@@ -486,21 +435,6 @@ NewsMap.DrawMap = (function () {
                     $loading.hide();
                 }
             });
-        },
-
-    /*
-     compare string similarity
-     UNUSED
-     */
-        stringSimilarity = function (a, b) {
-            for (var result = 0, i = a.length; i--;) {
-                if (typeof b[i] == 'undefined' || a[i] == b[i]);
-                else if (a[i].toLowerCase() == b[i].toLowerCase())
-                    result++;
-                else
-                    result += 4;
-            }
-            return 1 - (result + 4 * Math.abs(a.length - b.length)) / (2 * (a.length + b.length));
         },
 
         _getArticle = function (articleID) {
@@ -519,7 +453,6 @@ NewsMap.DrawMap = (function () {
 
         radiusSelectChanged = function () {
             var radiusSelectVal = radiusSelect.val();
-            console.log("in radiusSelectChanged" + radiusSelectVal);
             markersSet = false;
             addMarker(lastData);
             $(that).trigger("identifyLocation");
@@ -626,7 +559,6 @@ NewsMap.DrawMap = (function () {
         },
 
         checkFavorites = function () {
-
             if ($("#favorites-list li").size() == 0) {
                 $("#favorites-list").html("<li id='no-favorites-info'>Noch keine Favoriten in Ihrer Liste.</li>")
             }

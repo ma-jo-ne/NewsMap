@@ -8,12 +8,10 @@ NewsMap.NewsMapView = (function () {
         $favoritesMenu = null,
         $timelineMenu = null,
         $header = null,
-        $$searchWrapper = null,
         $radiusBox = null,
         favoritesVisible = false,
 
         init = function () {
-
             $buttonFindLocation = $('.button-find-location');
             $buttonIdentifyLocation = $('#identify-location');
             $favoritesMenu = $("#favorites-menu");
@@ -82,11 +80,6 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-        closeMenuRight = function () {
-            $timelineMenu.hide();
-            $favoritesMenu.hide();
-        },
-
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
@@ -102,7 +95,6 @@ NewsMap.NewsMapView = (function () {
 
 
         },
-
 
         showFavoritesOnMap = function () {
 
@@ -201,7 +193,6 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-
         identifyLocation = function () {
             function success(position) {
                 var lat = position.coords.latitude,
@@ -225,9 +216,6 @@ NewsMap.NewsMapView = (function () {
             } else {
                 alert("GeoLocation API ist nicht verfügbar!");
             }
-
-            var zoom = 10;
-
         },
 
         closeRadiusBox = function () {
