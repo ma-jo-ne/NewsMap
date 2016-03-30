@@ -83,7 +83,6 @@ NewsMap.NewsMapView = (function () {
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
-
             var menuStar = $("#favorites-menu-star");
             var bg = menuStar.css('color');
             menuStar.css('color', 'yellow');
@@ -92,12 +91,9 @@ NewsMap.NewsMapView = (function () {
                 menuStar.css('color', bg);
                 $("#added-to-favorites").hide();
             }, 1000)
-
-
         },
 
         showFavoritesOnMap = function () {
-
             if (favoritesVisible) {
                 $(this).html("Nur Favoriten anzeigen");
                 favoritesVisible = false;

@@ -39,6 +39,7 @@ NewsMap.DrawMap = (function () {
                 autocomplete();
                 enterListen();
                 drawmap();
+                loadFavorites();
                 checkFavorites();
             });
 
@@ -118,7 +119,7 @@ NewsMap.DrawMap = (function () {
                         markers.addLayer(marker);
                     }
                 }
-                if(markers != null && map != null) {
+                if (markers != null && map != null) {
                     map.addLayer(markers);
                 }
                 if (initLoading) {
@@ -187,22 +188,22 @@ NewsMap.DrawMap = (function () {
                 pubDate,
                 region;
             for (i = 0; i < data.length; i++) {
-                    EIDI = "a" + i;
-                    artikelTitel = data[i].title;
-                    artikelLink = data[i].link;
-                    artikelOrt = data[i].city;
-                    pubDate = data[i].pub_date;
-                    region = data[i].region;
-                    accord = $('<li class="accordion-navigation">' +
-                        '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
-                        '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
+                EIDI = "a" + i;
+                artikelTitel = data[i].title;
+                artikelLink = data[i].link;
+                artikelOrt = data[i].city;
+                pubDate = data[i].pub_date;
+                region = data[i].region;
+                accord = $('<li class="accordion-navigation">' +
+                    '<a class="accordItem" href="#' + EIDI + '">' + '<div class="chronoPubDate" >' + pubDate + '</div>' + artikelTitel + '</a>' +
+                    '<div' + ' id="' + EIDI + '" class="accordDiv content disabled">' + artikelOrt + ',' + region + '<br/><a href="' + artikelLink + '" id="' + EIDI + '" class="content" target="_blank">' +
 
-                        '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
-                        '</div> </li>');
+                    '<i class="fi-arrow-right"> </i>zum Artikel</a>' +
+                    '</div> </li>');
 
-                    $("#chrono-wrapper").append(accord);
-                    $("#chrono-wrapper").css("position", "absolute");
-                    $("#chrono-wrapper").css("width", "100%");
+                $("#chrono-wrapper").append(accord);
+                $("#chrono-wrapper").css("position", "absolute");
+                $("#chrono-wrapper").css("width", "100%");
 
             }
             $(document).foundation();
@@ -551,7 +552,7 @@ NewsMap.DrawMap = (function () {
                             getAllArticles();
                         }
                         else
-                        getArticleByQuery();
+                            getArticleByQuery();
                     } else {
                         swal("Suchanfrage existiert bereits");
                     }
@@ -560,6 +561,23 @@ NewsMap.DrawMap = (function () {
                     swal("Fehler beim Laden der Standortinformationen", null, "error");
                 }
             });
+        },
+
+        loadFavorites = function () {
+            if (localStorage.favorites) {
+                favorites = JSON.parse(localStorage.favorites);
+
+                for (var i = 0; i < favorites.length; i++) {
+                    addToFavorites(favorites[i]);
+                    var display_name = favorites[i].title;
+
+                    var $li = $("<li>");
+                    $li.attr("index", favorites[i]).html(display_name);
+                    $li.attr("class", "favorites-li");
+
+                    $("#favorites-list").append($li);
+                }
+            }
         },
 
         checkFavorites = function () {
@@ -572,6 +590,7 @@ NewsMap.DrawMap = (function () {
         addToFavorites = function (article) {
             if ($.inArray(article, favorites) == -1) {
                 favorites.push(article);
+                localStorage.setItem("favorites", JSON.stringify(favorites));
 
                 var display_name = favorites[favorites.length - 1].title;
 
