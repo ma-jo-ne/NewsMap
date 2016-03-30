@@ -1,0 +1,2 @@
+Die Tabelle locations enthält zwei Spalten mit locations im JSON-Format.
+Verwendet wurde nur die Spalte locationData_HGC, da uns die befüllte Spalte locationData_Dewac erst einen Tag vor Abgabe zugekommen ist.
