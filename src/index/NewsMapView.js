@@ -83,10 +83,19 @@ NewsMap.NewsMapView = (function () {
         addToFavorites = function () {
             $(that).trigger("addedToFavorites");
 
+            if ($(this).hasClass("is-favorite")) {
+                $("#added-to-favorites").html("Von Favoriten entfernt").show();
+                $(this).removeClass("is-favorite");
+            }
+            else {
+                $("#added-to-favorites").html("Zu Favoriten hinzugefügt").show();
+                $(this).addClass("is-favorite");
+            }
+
             var menuStar = $("#favorites-menu-star");
             var bg = menuStar.css('color');
             menuStar.css('color', 'yellow');
-            $("#added-to-favorites").show();
+
             setTimeout(function () {
                 menuStar.css('color', bg);
                 $("#added-to-favorites").hide();
@@ -169,13 +178,19 @@ NewsMap.NewsMapView = (function () {
             });
         },
 
-        _setArticleContent = function (clickedArticle) {
+        _setArticleContent = function (clickedArticle, isFavorite) {
+            var $addToFavorites = $("#add-to-favorites");
+            $addToFavorites.removeClass("is-favorite");
             currentClickedArticle = clickedArticle;
             $(".title").html(clickedArticle.title);
             $(".more-link ").attr("href", clickedArticle.link);
             $(".pub-date").html(clickedArticle.pub_date);
             $("#menu-left").show();
             $(".entry-summary").html(clickedArticle.content).dotdotdot();
+
+            if (isFavorite) {
+                $addToFavorites.addClass("is-favorite");
+            }
         },
 
         toggleMenu = function () {

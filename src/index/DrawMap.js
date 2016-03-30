@@ -574,6 +574,7 @@ NewsMap.DrawMap = (function () {
                     var $li = $("<li>");
                     $li.attr("index", favorites[i]).html(display_name);
                     $li.attr("class", "favorites-li");
+                    $li.attr("data-index", favorites[i].article_id);
 
                     $("#favorites-list").append($li);
                 }
@@ -588,7 +589,23 @@ NewsMap.DrawMap = (function () {
         },
 
         addToFavorites = function (article) {
-            if ($.inArray(article, favorites) == -1) {
+            var $addToFavorites = $("#add-to-favorites");
+            if ($addToFavorites.hasClass("is-favorite")) {
+                for (var i = 0; i < favorites.length; i++) {
+                    if (favorites[i]["article_id"] == article["article_id"]) {
+                        favorites.splice(i, 1);
+                    }
+                }
+                $("#favorites-list li").each(function (index) {
+                    if ($(this).attr("data-index") == article["article_id"]) {
+                        $(this).remove();
+                    }
+                });
+                localStorage.setItem("favorites", JSON.stringify(favorites));
+
+                checkFavorites();
+            }
+            else if ($.inArray(article, favorites) == -1) {
                 favorites.push(article);
                 localStorage.setItem("favorites", JSON.stringify(favorites));
 
@@ -597,6 +614,7 @@ NewsMap.DrawMap = (function () {
                 var $li = $("<li>");
                 $li.attr("index", favorites.length - 1).html(display_name);
                 $li.attr("class", "favorites-li");
+                $li.attr("data-index", favorites[favorites.length - 1].article_id);
 
                 $("#favorites-list").append($li);
 
@@ -617,9 +635,12 @@ NewsMap.DrawMap = (function () {
         },
 
         showFavArticle = function (index) {
-            map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
-            $(that).trigger("showMenuLeftForFavorite", favorites[index]);
+            if (favorites[index]) {
+                map.setView(new L.LatLng(favorites[index].lat, favorites[index].lon));
+                $(that).trigger("showMenuLeftForFavorite", favorites[index]);
+            }
         },
+
 
         removeQuery = function (query) {
             $.each(searchQueries, function (index) {

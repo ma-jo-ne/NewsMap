@@ -43,7 +43,7 @@ NewsMap.MainController = (function () {
 
         showMenuLeftforFavorite = function(e, article) {
             currentClickedArticle = article;
-            newsMapView._setArticleContent(article);
+            newsMapView._setArticleContent(article, true);
         },
 
         changeSearchSelect = function() {

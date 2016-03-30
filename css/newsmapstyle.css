@@ -868,6 +868,10 @@ label {
     display: none;
 }
 
+.is-favorite {
+    color: yellow;
+}
+
 #tooltip {
     position: fixed;
     z-index: 1000000;
