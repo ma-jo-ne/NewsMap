@@ -863,9 +863,10 @@ label {
 
 #added-to-favorites {
     margin-left: 2rem;
-    line-height: 2.2;
+    line-height: 2.5rem;
     float: inherit;
     display: none;
+    position: absolute;
 }
 
 .is-favorite {
