@@ -3,10 +3,10 @@ NewsMap.DrawMap = (function () {
         that = {},
         markers = new L.MarkerClusterGroup(),
         markersSet = false,
-        searchSelect = $("#search-select").val(),
-        $dateSelect = $("#date-select"),
-        dateSelectionVal = $dateSelect.val(),
-        radiusSelect = $("#radius-select"),
+        searchSelect = null,
+        $dateSelect = null,
+        dateSelectionVal = null,
+        radiusSelect = null,
         myLocation = null,
         $loading = null,
         $autoComplete = null,
@@ -22,6 +22,11 @@ NewsMap.DrawMap = (function () {
         foundArticles = [],
 
         init = function () {
+
+            searchSelect = $("#search-select").val();
+            $dateSelect = $("#date-select");
+            radiusSelect = $("#radius-select");
+            dateSelectionVal = $dateSelect.val();
             function isInArray(value, array) {
                 return array.indexOf(value) > -1;
             }
@@ -117,7 +122,6 @@ NewsMap.DrawMap = (function () {
                     map.addLayer(markers);
                 }
                 if (initLoading) {
-
                     map.setView(new L.LatLng(48.9533, 11.3973));
                     map.setZoom(8);
                     initLoading = false;
